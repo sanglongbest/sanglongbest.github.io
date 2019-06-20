@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="简介 particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍 Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（opt">
+<meta name="keywords" content="particle flow,particle filter,PFPF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Particle Filtering with Invertible Particle Flow">
+<meta property="og:url" content="http://sanglongbest.github.io/2018/05/21/PFPF/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="简介 particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍 Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（opt">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png">
+<meta property="og:image" content="https://i.imgur.com/ziNftnS.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.47.05.png">
+<meta property="og:updated_time" content="2018-05-24T17:59:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Particle Filtering with Invertible Particle Flow">
+<meta name="twitter:description" content="简介 particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍 Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（opt">
+<meta name="twitter:image" content="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2018/05/21/PFPF/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Particle Filtering with Invertible Particle Flow | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2018/05/21/PFPF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Particle Filtering with Invertible Particle Flow
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-21 19:16:17" itemprop="dateCreated datePublished" datetime="2018-05-21T19:16:17+01:00">2018-05-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-24 18:59:23" itemprop="dateModified" datetime="2018-05-24T18:59:23+01:00">2018-05-24</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/21/PFPF/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/21/PFPF/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li>particle flow 通过解偏微分方程解决 weight degeneracy。</li>
+<li>particle flow 采用的近似，所以后验不正确。</li>
+<li>通过可逆映射（invertible mapping）高效计算权重。</li>
+</ul>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><ul>
+<li>Bootstrap particle filter (BPF) 会遇到 weight degenercy</li>
+<li>更多的 particle filter 通过最优的提议分步（optimal proposal distribution）来构建有效的提议分步（efficient proposal distribution）</li>
+<li>auxiliary particle filter (APF) 通过辅助变量来进行 sampling，这个过程会包含新的 measurement 信息。</li>
+<li><strong>Rao-Blackwellised particle filter</strong> 通过数值分析使一些 particle 边缘化，从而移除了蒙特卡罗的分析。</li>
+<li>unscented particle filter 采用无迹传递来估算最优的提议分步。</li>
+<li>以上方法高维问题都性能塌陷</li>
+<li>equivalent weights particle filter 在高维上能得到较好的结果，通过牺牲统计统一性，来解决 particle degeneracy </li>
+<li>另一种方法是通过因式分解或者划分来分割物体的状态空间。但是这种方法受限于条件后验分步的因式分解。</li>
+<li>另一种更一般的方法是在粒子滤波器中引入马尔可夫链蒙特卡罗方法。但是这种方法计算量大，实时有点困难。</li>
+<li>还有一种方法叫做“progressive Bayesian update”, “homotopy” 或者 “particle flow”。</li>
+<li>Duam 和 Huang 通过 log 来构建一个 Particle flow (文章总结在：<a href="https://sanglongbest.github.io/2018/05/21/Duam_Particle%20flow/">papers</a>)</li>
+<li>但是这种方法，没有解析解。</li>
+<li>exact particle flow 通过假设测量模型是线性的，先验和后验分步是高斯的。</li>
+<li>所有particle flow都是通过偏微分方程来进行更新的。 但是截断误差依然会导致不能收敛域真正的 posterior density</li>
+<li>本文提出了 PFPF:</li>
+</ul>
+<ol>
+<li>通过invertible mappings提高 particle flow 的运算效率</li>
+<li>并且证明这个新的 particle flow 是 invertible mappings.</li>
+<li>并在高维非线性中测试</li>
+</ol>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><ul>
+<li>传统的the extended Kalman filter (EKF), the unscented Kalman filter (UKF) [45] 或 the ensemble Kalman filter (EnKF) [46]不适合在非高斯的情况下工组。</li>
+<li>multiple particle filter通过分割状态空间来在低维子空间中运行，并在空间中交换信息</li>
+<li>block particle filte采用相同的思路，将滤波过程通过 block 分解，</li>
+<li>space-time particle filter 也是分解，不过假设滤波结果和粒子数量无关。</li>
+<li>这些分解的方法很大程度取决于分解的有效性。</li>
+<li>resample-move是通过在 move 后添加一个 MCMC 移动来多样化粒子。</li>
+<li>但是问题是在高维问题下，复制的例子很少。</li>
+<li>Sequential Markov chain Monte Carlo (SMCMC) particle filter 通过MCMC 直接从提议分步中采样，所以避免了 resample。但是如何获得有效的 MCMC 就成了新的问题。比如Langevin diffusion or Hamiltonian dynamics MCMC kernel 或者Manifold Hamiltonian Monte Carlo kernel。但是这些都要求很多的不同假设</li>
+<li>particle flow 对假设要求就温和的多。</li>
+<li>另一种思路，思路就是建立桥函数，比如退火算法。</li>
+<li>Gaussian particle flow importance sampling 的权重更新是近似的，但是成本也高。d sequential Monte Carlo method 和Gibbs flow 也有相同的问题。</li>
+</ul>
+<h1 id="partical-flow"><a href="#partical-flow" class="headerlink" title="partical flow"></a>partical flow</h1><ul>
+<li>localized exact Daum and Huang filter: localized, 对于每个particle单独求参数，exact 线性高斯。</li>
+<li>对于EDH 我们可以得到如下性质：</li>
+</ul>
+<ol>
+<li><p>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m_\lambda$ 是有界的。设，$\rho (.)$是谱半径函数，$\rho(\bm{A}(\lambda))$ 是 $\bm{A}(\lambda)$ 的上边界。</p>
+</li>
+<li><p>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m_\lambda$ 是有界的。如果$\triangle \lambda$足够小，$\triangle \lambda&lt;\frac{2\underline {r}(\lambda) }{\overline{p}\overline{h}^2}$, $f_\lambda$是可逆的</p>
+</li>
+<li><p>EDH particle filter 是一个可逆映射，</p>
+</li>
+<li><p>如果 $\triangle \lambda &lt; \frac{2\underline{r}(\lambda)}{\overline{p}\overline{h}^2}$, 那么$0&lt;\left| \dot { T }^i (m^i_o) \right| &lt;\infty $</p>
+</li>
+</ol>
+<h1 id="LEDH-PFPF-和EDH-PFPF的区别"><a href="#LEDH-PFPF-和EDH-PFPF的区别" class="headerlink" title="LEDH PFPF 和EDH PFPF的区别"></a>LEDH PFPF 和EDH PFPF的区别</h1><p>在 EDH中，$A$ 和 $\left| \dot { T }^i (m^i_o) \right|$不与particle state 和 index 相关，所以计算weight 时可以不考虑$\left| \dot { T }^i (m^i_o) \right|$，因为归一化时会消掉。在 LEDH中，$A$ 和 $\left| \dot { T }^i (m^i_o) \right|$与particle state 和 index 相关。</p>
+<p>这就导致了：</p>
+<ol>
+<li>LEDH的参数需要每个 particle 单独计算而EDH 不用</li>
+<li>weight 的计算方法不同</li>
+</ol>
+<h1 id="潜在疑问"><a href="#潜在疑问" class="headerlink" title="潜在疑问"></a>潜在疑问</h1><ol>
+<li><p>下面这个公式怎么得到的？为什么用q<br>这个是随机变量（transformation of random variables）的问题，<br><img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png" alt="Screen Shot 2018-05-24 at 10.44.45"><br>可以参看我的另一篇博客，</p>
+</li>
+<li><p><img src="https://i.imgur.com/ziNftnS.png" alt="Capture">为什么不能抵消</p>
+</li>
+<li><p>为什么一点要可逆？<br>如果不是这个映射会更加复杂。</p>
+</li>
+<li><p>“As noted in [3], the state update during the particle flow process is not in general an invertible mapping, so (18) does not hold.” 为什么在 state 空间不成立</p>
+</li>
+<li><p>为什么是小于？<br><img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.47.05.png" alt="Screen Shot 2018-05-24 at 10.47.05"></p>
+</li>
+<li><p>“One possible concern with the proposed implementation is<br>that flow parameters are calculated using the auxiliary flow” 这里的‘auxiliary flow’指的是？</p>
+</li>
+<li><p>如果保证步长是足够小的，满足可逆，因为参数都是未知的？</p>
+</li>
+</ol>
+<p>感谢云鹏（作者）对论文不懂地方的解答。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/particle-flow/" rel="tag"># particle flow</a>
+          
+            <a href="/tags/particle-filter/" rel="tag"># particle filter</a>
+          
+            <a href="/tags/PFPF/" rel="tag"># PFPF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/Duam_Particle flow/" rel="next" title="Particle flow papers - Duam part">
+                <i class="fa fa-chevron-left"></i> Particle flow papers - Duam part
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/Transformation-of-Random-Variables/" rel="prev" title="概率密度空间下的随机变量的转换映射">
+                概率密度空间下的随机变量的转换映射 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关工作"><span class="nav-number">3.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#partical-flow"><span class="nav-number">4.</span> <span class="nav-text">partical flow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LEDH-PFPF-和EDH-PFPF的区别"><span class="nav-number">5.</span> <span class="nav-text">LEDH PFPF 和EDH PFPF的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#潜在疑问"><span class="nav-number">6.</span> <span class="nav-text">潜在疑问</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2018/05/21/PFPF/';
+        this.page.identifier = '2018/05/21/PFPF/';
+        this.page.title = 'Particle Filtering with Invertible Particle Flow';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

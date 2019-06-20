@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="R-CNNR-CNN (Girshick et al., 2014) 是 “Region-based Convolutional Neural Networks”的简称，主要分两步：1，通过选择性搜索，选择出一堆bounding-box，这就是疑似目标（ROI or “region of interest”）。2，采用CNN的特征对每个区域独立分类。 R-CNN的构架R-CNN的构架 (Girsh">
+<meta name="keywords" content="R-CNN,Fast R-CNN,Faster R-CNN,YOLO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R-CNN 家族和 YOLO的比较">
+<meta property="og:url" content="http://sanglongbest.github.io/2018/05/14/differentRNNandYOLO/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="R-CNNR-CNN (Girshick et al., 2014) 是 “Region-based Convolutional Neural Networks”的简称，主要分两步：1，通过选择性搜索，选择出一堆bounding-box，这就是疑似目标（ROI or “region of interest”）。2，采用CNN的特征对每个区域独立分类。 R-CNN的构架R-CNN的构架 (Girsh">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com/5720f8d41057a20181066d20a5401b16.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//a45f6d36e3140e47e499b7cb16a54639.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com/7a3e203ca11c2daf2e894ff24fc5ef69.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//ceb8dd917cce76bcc4531a514f68936e.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com/9d79986238d37211ecc9220d146abffc.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//783f6dc9d5886979b01abed498fe0862.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//4bcb6494e244c93b65a0fa4d257fa00e.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//d7fb781c73698ad193f9ad251a5fa2ab.png">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com/fa8c2331d1dcbc6f0cdf4b2ad6137f1b.png">
+<meta property="og:updated_time" content="2018-05-18T13:01:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R-CNN 家族和 YOLO的比较">
+<meta name="twitter:description" content="R-CNNR-CNN (Girshick et al., 2014) 是 “Region-based Convolutional Neural Networks”的简称，主要分两步：1，通过选择性搜索，选择出一堆bounding-box，这就是疑似目标（ROI or “region of interest”）。2，采用CNN的特征对每个区域独立分类。 R-CNN的构架R-CNN的构架 (Girsh">
+<meta name="twitter:image" content="http://p8x77a5rp.bkt.clouddn.com/5720f8d41057a20181066d20a5401b16.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2018/05/14/differentRNNandYOLO/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>R-CNN 家族和 YOLO的比较 | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2018/05/14/differentRNNandYOLO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R-CNN 家族和 YOLO的比较
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-14 19:43:32" itemprop="dateCreated datePublished" datetime="2018-05-14T19:43:32+01:00">2018-05-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-18 14:01:29" itemprop="dateModified" datetime="2018-05-18T14:01:29+01:00">2018-05-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/14/differentRNNandYOLO/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/14/differentRNNandYOLO/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h1><p>R-CNN (Girshick et al., 2014) 是 “Region-based Convolutional Neural Networks”的简称，主要分两步：<br>1，通过选择性搜索，选择出一堆bounding-box，这就是疑似目标（ROI or “region of interest”）。<br>2，采用CNN的特征对每个区域<strong>独立</strong>分类。</p>
+<h2 id="R-CNN的构架"><a href="#R-CNN的构架" class="headerlink" title="R-CNN的构架"></a>R-CNN的构架</h2><p><img src="http://p8x77a5rp.bkt.clouddn.com/5720f8d41057a20181066d20a5401b16.png" alt><br>R-CNN的构架 (Girshick et al., 2014)</p>
+<p>##模型工作流</p>
+<ul>
+<li>先训练一个CNN网络来进行图像分类。通常，我们可以采用VGG或者ResNet的网络进行训练。</li>
+<li>通过选择性搜索来搜索目标区域，通常在2千目标/幅画。</li>
+<li>这些区域需要re-size到一个预设大小。</li>
+<li>持续调整CNN来使目标区域为k+1类（一类为无牧鞭）。因为这些区域大多数为背景，通常学习的速率不能设太高，oversample也不要太大。</li>
+<li>对于每一个图像区域，通过CNN的前向传播生成一个特征向量，然后这个特征向量需要输入二进制SVM。正样本通常IoU（联合交集）&gt;= 0.3。</li>
+<li>回归模型被用于减少定位误差，矫正边界框。</li>
+</ul>
+<h2 id="速度瓶颈"><a href="#速度瓶颈" class="headerlink" title="速度瓶颈"></a>速度瓶颈</h2><p>在现实中，通常来说，一幅图像有2千个区域，每个区域生成一个特征向量，然后还需要CNN（图像分类和特征提取），SVM（物体识别），回归模型（调整边界），而且这三个模型数据不共享。R-CNN运算量非常大。</p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p><a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="noopener">paper</a></p>
+<p><a href="https://github.com/rbgirshick/rcnn" target="_blank" rel="noopener">code</a></p>
+<h1 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a>Fast R-CNN</h1><p>为了使R-CNN更快，Girshick（2015）提出了Fast R-CNN。其中三个独立模型合并为了一个联合训练框架并共享计算结果。具体来说，我们不再为每个特征设置独立的特征向量，而是每个图像采用一个CNN正向通道，共享了特征矩阵。并且采用相同的特征矩阵来构建分类器和边界回归矩阵。</p>
+<h2 id="Fast-R-CNN的构架"><a href="#Fast-R-CNN的构架" class="headerlink" title="Fast R-CNN的构架"></a>Fast R-CNN的构架</h2><p><img src="http://p8x77a5rp.bkt.clouddn.com//a45f6d36e3140e47e499b7cb16a54639.png" alt><br>Fast R-CNN的架构。（Girshick，2015）</p>
+<h2 id="RoI-Pooling"><a href="#RoI-Pooling" class="headerlink" title="RoI Pooling"></a>RoI Pooling</h2><p>这个一种max pooling，它能将任意大小的图像区域转化为一个小的固定窗口。窗口被划分成H×W个网格，每个网格中都应用max-pooling。</p>
+<p><img src="http://p8x77a5rp.bkt.clouddn.com/7a3e203ca11c2daf2e894ff24fc5ef69.png" alt></p>
+<p>图3. RoI Pooling（Stanford CS231n slides。）</p>
+<p>##模型工作流<br>Fast R-CNN 的许多步骤都与R-CNN中的步骤相同：</p>
+<ul>
+<li>一个预训练的 CNN 被应用到了分类任务上。</li>
+<li>通过选择性搜索来搜索目标区域，通常在2千目标/幅画。</li>
+<li>改变这个预训练的 CNN：<ul>
+<li>用 RoI pooling 层替换预训练的 CNN 的最后一个 max-pooling 层。RoI pooling 层会输出一个固定长度的特征向量。因为有许多图像都有很多区域高度重叠，所以共享 CNN 是十分可行的。</li>
+<li>用一个全连接层和涵盖 k+1类的softmax替换最后一个全连接层和最后一个 k 类的 softmax。</li>
+</ul>
+</li>
+<li>最后，模型分为两个输出层：<ul>
+<li>K + 1类的softmax估计器（与R-CNN中的相同，+1是“背景”类），输出每个RoI的离散概率分布。</li>
+<li>用于预测每个K类的相对于原始RoI的偏移量的边界框回归模型。</li>
+</ul>
+</li>
+</ul>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>该模型针对组合两个任务（分类+本地化）的损失进行了优化，通常采用的$l_1$ 范数。</p>
+<h2 id="速度瓶颈-1"><a href="#速度瓶颈-1" class="headerlink" title="速度瓶颈"></a>速度瓶颈</h2><p>快速R-CNN在训练和测试时间上都快得多。然而，这种改善并不显着，因为RoI是由另一个模型单独生成的，而且运算非常昂贵。</p>
+<h2 id="资源-1"><a href="#资源-1" class="headerlink" title="资源"></a>资源</h2><p><a href="https://arxiv.org/abs/1504.08083" target="_blank" rel="noopener">paper</a></p>
+<p><a href="https://github.com/rbgirshick/fast-rcnn" target="_blank" rel="noopener">code</a></p>
+<h1 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a>Faster R-CNN</h1><p>Faster R-CNN (Ren et al., 2016) 通过将区域提议分布整合到CNN模型来提高速度：构建由RPN（区域提议网络）和具有共享卷积特征层的fast R-CNN组成的统一模型。</p>
+<h2 id="Faster-R-CNN的构架"><a href="#Faster-R-CNN的构架" class="headerlink" title="Faster R-CNN的构架"></a>Faster R-CNN的构架</h2><p><img src="http://p8x77a5rp.bkt.clouddn.com//ceb8dd917cce76bcc4531a514f68936e.png" alt><br>Faster R-CNN的架构。（Girshick，2015）</p>
+<p>##模型工作流<br>Fast R-CNN 的许多步骤都与R-CNN中的步骤相同：</p>
+<ul>
+<li>一个预训练的 CNN 被应用到了分类任务上。</li>
+<li>为提议分布，算法通过一个预训练的图像分类，Fine-tune 一个端对端的的RPN（区域提议网络）。正样本IoU (intersection-over-union) &gt; 0.7，负样本IoU &lt; 0.3。<ul>
+<li>将整个图像的conv特征映射到一个小的n×n窗口</li>
+<li>在每个窗口的中心，我们会尝试不同比例和比率的多个区域。</li>
+</ul>
+</li>
+<li>通过现在RPN的产生的提议分布来提出一个快速的R-CNN物体检查模型。</li>
+<li>然后使用Fast R-CNN网络来初始化RPN训练。 在保留共享卷积层的同时，只调整RPN层。 在这个阶段，RPN和检测网络卷积层的共享的。</li>
+<li>对Fast R-CNN的unique layer进行微调</li>
+<li>重复4-5步来训练RPN或者Fast R-CNN。</li>
+</ul>
+<h2 id="资源-2"><a href="#资源-2" class="headerlink" title="资源"></a>资源</h2><p><a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">paper</a></p>
+<p><a href="https://github.com/rbgirshick/py-faster-rcnn" target="_blank" rel="noopener">code</a></p>
+<h1 id="Mask-R-CNN"><a href="#Mask-R-CNN" class="headerlink" title="Mask R-CNN"></a>Mask R-CNN</h1><p>Mask R-CNN（He et al。，2017）是将faster R-CNN应用到像素级图像分割。 <strong>关键点</strong>是分类和生成像素级掩膜。基于更快的R-CNN框架，它添加了第三个分支（分类，定位和掩膜）。 掩膜分支是对于每个RoI生成一个小的全链接网络，并生成一个像素到像素的掩膜。</p>
+<p><img src="http://p8x77a5rp.bkt.clouddn.com/9d79986238d37211ecc9220d146abffc.png" alt><br> Mask R-CNN的架构。（He et al., 2017）</p>
+<p>因为像素的切割需要更精准的边界框，所以它也对RoI pooling进行了修改（称为RoIAlign layer）<br><img src="http://p8x77a5rp.bkt.clouddn.com//783f6dc9d5886979b01abed498fe0862.png" alt><br> Mask R-CNN的例子。（He et al., 2017）</p>
+<h2 id="RoIAlign"><a href="#RoIAlign" class="headerlink" title="RoIAlign"></a>RoIAlign</h2><p>RoIAlign层的目的是为了提高RoI层的精度。因为移除了哈希量化所以能够更好地像素对其。浮点位置则由双线性插值法计算。</p>
+<p><img src="http://p8x77a5rp.bkt.clouddn.com//4bcb6494e244c93b65a0fa4d257fa00e.png" alt><br>映射不在取整。（blog.athelas.com）</p>
+<h2 id="资源-3"><a href="#资源-3" class="headerlink" title="资源"></a>资源</h2><p><a href="https://arxiv.org/abs/1703.06870" target="_blank" rel="noopener">paper</a></p>
+<p><a href="https://github.com/CharlesShang/FastMaskRCNN" target="_blank" rel="noopener">code</a></p>
+<h1 id="R-CNN家族"><a href="#R-CNN家族" class="headerlink" title="R-CNN家族"></a>R-CNN家族</h1><p><img src="http://p8x77a5rp.bkt.clouddn.com//d7fb781c73698ad193f9ad251a5fa2ab.png" alt><br>R-CNN结构对比。（lilianweng.github.io）</p>
+<h1 id="YOLO"><a href="#YOLO" class="headerlink" title="YOLO"></a>YOLO</h1><p>YOLO模型 (“You Only Look Once”; Redmon et al., 2016) 将识别问题看成一个回归问题而不是分类问题。因为将整个图片作为输入，因此在全面了解背景的情况下，它可以更好地识别背景。这样做的<strong>特点</strong>就是快，对小物体和复杂物体识别率低。</p>
+<h2 id="YOLO的构架"><a href="#YOLO的构架" class="headerlink" title="YOLO的构架"></a>YOLO的构架</h2><p><img src="http://p8x77a5rp.bkt.clouddn.com/fa8c2331d1dcbc6f0cdf4b2ad6137f1b.png" alt><br>YOLO的架构。（Redmon et al., 2016)</p>
+<h2 id="模型工作"><a href="#模型工作" class="headerlink" title="模型工作"></a>模型工作</h2><ul>
+<li>在图像分类任务上预训练一个CNN网络。</li>
+<li>将图像拆分为S x S单元格（cell）。每个单元只负责识别其中心位于该单元中的对象。每个单元格给出$B$个边界框和一个置信度（<strong>边界</strong>），以及在边界框中存在<strong>对象</strong>的信度。<ul>
+<li>边界框由（x，y，宽度w，高度h） - （x，y，w，h）的元组定义。 x和y被归一化为cell位置的偏移量; w和h通过图像宽度和高度进行归一化，值在0-1之间。</li>
+<li>置信度分数是：概率（包含对象）x IoU（预测的）。</li>
+<li>如果单元格包含对象，则它预测该对象属于一个某一类的概率[p_1,p_2,…,p_c]。现阶段是每个cell给一个概率，与$B$无关。</li>
+</ul>
+</li>
+<li>一个图像包含S x S x B边界框，每个框对应于4个位置预测，1个置信度分数和用于对象分类的c个条件概率。一个图像的总预测值是S×S×（5B + c）。</li>
+<li>预先训练的CNN的最后一层被修改以输出尺寸为S×S×（5B + K）的tensor。</li>
+</ul>
+<h2 id="资源-4"><a href="#资源-4" class="headerlink" title="资源"></a>资源</h2><p><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Redmon_You_Only_Look_CVPR_2016_paper.pdf" target="_blank" rel="noopener">paper</a></p>
+<p><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">code</a></p>
+<h1 id="对比视频"><a href="#对比视频" class="headerlink" title="对比视频"></a>对比视频</h1><div class="video-container"><iframe src="//www.youtube.com/embed/s8Ui_kV9dhw" frameborder="0" allowfullscreen></iframe></div>
+
+<p>注 mark-RNN还要识别边界，Deeplab 还要输出分割。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R-CNN/" rel="tag"># R-CNN</a>
+          
+            <a href="/tags/Fast-R-CNN/" rel="tag"># Fast R-CNN</a>
+          
+            <a href="/tags/Faster-R-CNN/" rel="tag"># Faster R-CNN</a>
+          
+            <a href="/tags/YOLO/" rel="tag"># YOLO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/13/Bernoulli5/" rel="next" title="伯努利滤波器（五）——拓展目标的测量模型">
+                <i class="fa fa-chevron-left"></i> 伯努利滤波器（五）——拓展目标的测量模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/15/Bernoulli6/" rel="prev" title="伯努利滤波器（六）——不确定测量">
+                伯努利滤波器（六）——不确定测量 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#R-CNN"><span class="nav-number">1.</span> <span class="nav-text">R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#R-CNN的构架"><span class="nav-number">1.1.</span> <span class="nav-text">R-CNN的构架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#速度瓶颈"><span class="nav-number">1.2.</span> <span class="nav-text">速度瓶颈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源"><span class="nav-number">1.3.</span> <span class="nav-text">资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fast-R-CNN"><span class="nav-number">2.</span> <span class="nav-text">Fast R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fast-R-CNN的构架"><span class="nav-number">2.1.</span> <span class="nav-text">Fast R-CNN的构架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RoI-Pooling"><span class="nav-number">2.2.</span> <span class="nav-text">RoI Pooling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#损失函数"><span class="nav-number">2.3.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#速度瓶颈-1"><span class="nav-number">2.4.</span> <span class="nav-text">速度瓶颈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源-1"><span class="nav-number">2.5.</span> <span class="nav-text">资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Faster-R-CNN"><span class="nav-number">3.</span> <span class="nav-text">Faster R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Faster-R-CNN的构架"><span class="nav-number">3.1.</span> <span class="nav-text">Faster R-CNN的构架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源-2"><span class="nav-number">3.2.</span> <span class="nav-text">资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mask-R-CNN"><span class="nav-number">4.</span> <span class="nav-text">Mask R-CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RoIAlign"><span class="nav-number">4.1.</span> <span class="nav-text">RoIAlign</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源-3"><span class="nav-number">4.2.</span> <span class="nav-text">资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#R-CNN家族"><span class="nav-number">5.</span> <span class="nav-text">R-CNN家族</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLO"><span class="nav-number">6.</span> <span class="nav-text">YOLO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#YOLO的构架"><span class="nav-number">6.1.</span> <span class="nav-text">YOLO的构架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型工作"><span class="nav-number">6.2.</span> <span class="nav-text">模型工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源-4"><span class="nav-number">6.3.</span> <span class="nav-text">资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比视频"><span class="nav-number">7.</span> <span class="nav-text">对比视频</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2018/05/14/differentRNNandYOLO/';
+        this.page.identifier = '2018/05/14/differentRNNandYOLO/';
+        this.page.title = 'R-CNN 家族和 YOLO的比较';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="pssetupdoplot是否绘图 algs_executed运行哪些算法 lambda_type$\lambda$的取值方式。 nlambda$\lambda$的个数。 kflagcovariance的估计方式 Resampling是否 resample Redraw是否重绘 maxilikeSAPParticle的参数 maxilikemode我也不知道 nTrack几个 measuremen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SMCPFPHDmind">
+<meta property="og:url" content="http://sanglongbest.github.io/2017/03/21/SMCPFPHDmind/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="pssetupdoplot是否绘图 algs_executed运行哪些算法 lambda_type$\lambda$的取值方式。 nlambda$\lambda$的个数。 kflagcovariance的估计方式 Resampling是否 resample Redraw是否重绘 maxilikeSAPParticle的参数 maxilikemode我也不知道 nTrack几个 measuremen">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-03-22T14:52:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SMCPFPHDmind">
+<meta name="twitter:description" content="pssetupdoplot是否绘图 algs_executed运行哪些算法 lambda_type$\lambda$的取值方式。 nlambda$\lambda$的个数。 kflagcovariance的估计方式 Resampling是否 resample Redraw是否重绘 maxilikeSAPParticle的参数 maxilikemode我也不知道 nTrack几个 measuremen">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2017/03/21/SMCPFPHDmind/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SMCPFPHDmind | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2017/03/21/SMCPFPHDmind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SMCPFPHDmind
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-03-21 21:01:12" itemprop="dateCreated datePublished" datetime="2017-03-21T21:01:12+00:00">2017-03-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2017-03-22 14:52:22" itemprop="dateModified" datetime="2017-03-22T14:52:22+00:00">2017-03-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/21/SMCPFPHDmind/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/21/SMCPFPHDmind/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><h2 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h2><h3 id="doplot"><a href="#doplot" class="headerlink" title="doplot"></a>doplot</h3><p>是否绘图</p>
+<h3 id="algs-executed"><a href="#algs-executed" class="headerlink" title="algs_executed"></a>algs_executed</h3><p>运行哪些算法</p>
+<h3 id="lambda-type"><a href="#lambda-type" class="headerlink" title="lambda_type"></a>lambda_type</h3><p>$\lambda$的取值方式。</p>
+<h3 id="nlambda"><a href="#nlambda" class="headerlink" title="nlambda"></a>nlambda</h3><p>$\lambda$的个数。</p>
+<h3 id="kflag"><a href="#kflag" class="headerlink" title="kflag"></a>kflag</h3><p>covariance的估计方式</p>
+<h3 id="Resampling"><a href="#Resampling" class="headerlink" title="Resampling"></a>Resampling</h3><p>是否 resample</p>
+<h3 id="Redraw"><a href="#Redraw" class="headerlink" title="Redraw"></a>Redraw</h3><p>是否重绘</p>
+<h3 id="maxilikeSAP"><a href="#maxilikeSAP" class="headerlink" title="maxilikeSAP"></a>maxilikeSAP</h3><p>Particle的参数</p>
+<h3 id="maxilikemode"><a href="#maxilikemode" class="headerlink" title="maxilikemode"></a>maxilikemode</h3><p>我也不知道</p>
+<h3 id="nTrack"><a href="#nTrack" class="headerlink" title="nTrack"></a>nTrack</h3><p>几个 measurement</p>
+<h3 id="nAlg-per-track"><a href="#nAlg-per-track" class="headerlink" title="//nAlg_per_track"></a>//nAlg_per_track</h3><p>每个算法跑几遍，<br>只计算了nTrial</p>
+<h3 id="nParticle"><a href="#nParticle" class="headerlink" title="nParticle"></a>nParticle</h3><p>有多少个粒子</p>
+<h3 id="T"><a href="#T" class="headerlink" title="T"></a>T</h3><p>时间长度</p>
+<h3 id="nTarget"><a href="#nTarget" class="headerlink" title="nTarget"></a>nTarget</h3><p>目标数目</p>
+<h3 id="dimState-per-target"><a href="#dimState-per-target" class="headerlink" title="dimState_per_target"></a>dimState_per_target</h3><p>state的维度</p>
+<h3 id="ospa-c"><a href="#ospa-c" class="headerlink" title="ospa_c"></a>ospa_c</h3><h3 id="ospa-p"><a href="#ospa-p" class="headerlink" title="ospa_p"></a>ospa_p</h3><p>ospa的计算参数</p>
+<h3 id="nTrial"><a href="#nTrial" class="headerlink" title="nTrial"></a>nTrial</h3><p>计算次数</p>
+<h3 id="random-seeds"><a href="#random-seeds" class="headerlink" title="random_seeds"></a>random_seeds</h3><p>随机种子</p>
+<h3 id="dimState-all"><a href="#dimState-all" class="headerlink" title="dimState_all"></a>dimState_all</h3><p>Target 数目乘以每个 target 的 state 维数。</p>
+<h2 id="weight-euclidean"><a href="#weight-euclidean" class="headerlink" title="weight_euclidean"></a>weight_euclidean</h2><p>计算clustering的 weight</p>
+<h2 id="nParticleCluster"><a href="#nParticleCluster" class="headerlink" title="nParticleCluster"></a>nParticleCluster</h2><p>在 LEDH 计算斜率的 particle 数目</p>
+<h2 id="Neff-thresh-ratio"><a href="#Neff-thresh-ratio" class="headerlink" title="Neff_thresh_ratio"></a>Neff_thresh_ratio</h2><h2 id="initparams"><a href="#initparams" class="headerlink" title="initparams"></a>initparams</h2><h3 id="x0"><a href="#x0" class="headerlink" title="x0"></a>x0</h3><h3 id="sigma0"><a href="#sigma0" class="headerlink" title="sigma0"></a>sigma0</h3><h3 id="nTarget-1"><a href="#nTarget-1" class="headerlink" title="nTarget"></a>nTarget</h3><p>Target数目</p>
+<h3 id="survRegion"><a href="#survRegion" class="headerlink" title="survRegion"></a>survRegion</h3><p>跟踪区域</p>
+<h2 id="propparams"><a href="#propparams" class="headerlink" title="propparams"></a>propparams</h2><h3 id="Phi"><a href="#Phi" class="headerlink" title="Phi"></a>Phi</h3><p>传递函数</p>
+<h3 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h3><p>传递方差</p>
+<h3 id="Q-correction"><a href="#Q-correction" class="headerlink" title="Q_correction"></a>Q_correction</h3><p>与Q 不同</p>
+<h3 id="Q-regularized"><a href="#Q-regularized" class="headerlink" title="Q_regularized"></a>Q_regularized</h3><p>数值和Q_correction相同</p>
+<h3 id="nTarget-2"><a href="#nTarget-2" class="headerlink" title="nTarget"></a>nTarget</h3><h3 id="dimState-per-target-1"><a href="#dimState-per-target-1" class="headerlink" title="dimState_per_target"></a>dimState_per_target</h3><p>ps.setup.dimState_per_target</p>
+<h2 id="propparams-real"><a href="#propparams-real" class="headerlink" title="propparams_real"></a>propparams_real</h2><h3 id="Phi-1"><a href="#Phi-1" class="headerlink" title="Phi"></a>Phi</h3><p>和propparams的 Phi 相同</p>
+<h3 id="Q-1"><a href="#Q-1" class="headerlink" title="Q"></a>Q</h3><p>Q_real</p>
+<h3 id="nTarget-3"><a href="#nTarget-3" class="headerlink" title="nTarget"></a>nTarget</h3><h2 id="likeparams"><a href="#likeparams" class="headerlink" title="likeparams"></a>likeparams</h2><h3 id="Amp"><a href="#Amp" class="headerlink" title="Amp"></a>Amp</h3><p>振幅</p>
+<h3 id="d0"><a href="#d0" class="headerlink" title="d0"></a>d0</h3><p>0.1</p>
+<h3 id="invPow"><a href="#invPow" class="headerlink" title="invPow"></a>invPow</h3><p>衰减速率</p>
+<h3 id="measvar"><a href="#measvar" class="headerlink" title="measvar"></a>measvar</h3><p>0.01</p>
+<h3 id="measvar-real"><a href="#measvar-real" class="headerlink" title="measvar_real"></a>measvar_real</h3><p>0.01</p>
+<h3 id="noise"><a href="#noise" class="headerlink" title="noise"></a>noise</h3><p>噪音类型</p>
+<h3 id="simAreaSize"><a href="#simAreaSize" class="headerlink" title="simAreaSize"></a>simAreaSize</h3><h3 id="nTarget-4"><a href="#nTarget-4" class="headerlink" title="nTarget"></a>nTarget</h3><h3 id="nSensor"><a href="#nSensor" class="headerlink" title="nSensor"></a>nSensor</h3><p>Sensor数目（25）</p>
+<h3 id="dimMeasurement-per-target"><a href="#dimMeasurement-per-target" class="headerlink" title="dimMeasurement_per_target"></a>dimMeasurement_per_target</h3><p>每个 target 的 sensor 数目（25）</p>
+<h3 id="dimMeasurement-all"><a href="#dimMeasurement-all" class="headerlink" title="dimMeasurement_all"></a>dimMeasurement_all</h3><p>sensor 总数目 （25）</p>
+<h3 id="survRegion-1"><a href="#survRegion-1" class="headerlink" title="survRegion"></a>survRegion</h3><p>跟踪区域 [0 0 40 40]</p>
+<h3 id="trackBounds"><a href="#trackBounds" class="headerlink" title="trackBounds"></a>trackBounds</h3><p>跟踪的范围 [ -10 -10 50 50]</p>
+<h3 id="R-real"><a href="#R-real" class="headerlink" title="R_real"></a>R_real</h3><p>实际R</p>
+<h3 id="R"><a href="#R" class="headerlink" title="R"></a>R</h3><p>R</p>
+<h3 id="R-inv"><a href="#R-inv" class="headerlink" title="R_inv"></a>R_inv</h3><p>R 的 inv</p>
+<h3 id="llh"><a href="#llh" class="headerlink" title="llh"></a>llh</h3><p>Gaussian_llh</p>
+<h3 id="h-func"><a href="#h-func" class="headerlink" title="h_func"></a><em>h_func</em></h3><h3 id="dh-dx-func"><a href="#dh-dx-func" class="headerlink" title="dh_dx_func"></a><em>dh_dx_func</em></h3><h3 id="dH-dx-func"><a href="#dH-dx-func" class="headerlink" title="dH_dx_func"></a><em>dH_dx_func</em></h3><h3 id="initfcn"><a href="#initfcn" class="headerlink" title="initfcn"></a><em>initfcn</em></h3><h2 id="SmHMC-model-params"><a href="#SmHMC-model-params" class="headerlink" title="SmHMC_model_params"></a>SmHMC_model_params</h2><h3 id="nParticle-1"><a href="#nParticle-1" class="headerlink" title="nParticle"></a>nParticle</h3><p>ps.setup.nParticle<br>particle数量</p>
+<h3 id="NoTimeSteps"><a href="#NoTimeSteps" class="headerlink" title="NoTimeSteps"></a>NoTimeSteps</h3><p>时间长度</p>
+<h3 id="Dimension"><a href="#Dimension" class="headerlink" title="Dimension"></a>Dimension</h3><p>ps.setup.dimState_all<br>particle 数目 * state 长度</p>
+<h3 id="initparams-1"><a href="#initparams-1" class="headerlink" title="//initparams"></a>//initparams</h3><p>ps.initparams</p>
+<h3 id="propparams-1"><a href="#propparams-1" class="headerlink" title="//propparams"></a>//propparams</h3><p>ps.propparams</p>
+<h3 id="likeparams-1"><a href="#likeparams-1" class="headerlink" title="//likeparams"></a>//likeparams</h3><p>ps.likeparams</p>
+<h3 id="setup-1"><a href="#setup-1" class="headerlink" title="//setup"></a>//setup</h3><p>ps.setup</p>
+<h3 id="StateCovariance"><a href="#StateCovariance" class="headerlink" title="//StateCovariance"></a>//StateCovariance</h3><p>ps.propparams.Q</p>
+<h3 id="StateCovarianceInv"><a href="#StateCovarianceInv" class="headerlink" title="//StateCovarianceInv"></a>//StateCovarianceInv</h3><p>ps.propparams.Q 的 Inv</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/11/SEQUENTIAL-MCMC-WITH-INVERTIBLE-PARTICLE-FLOW/" rel="next" title="SEQUENTIAL MCMC WITH INVERTIBLE PARTICLE FLOW">
+                <i class="fa fa-chevron-left"></i> SEQUENTIAL MCMC WITH INVERTIBLE PARTICLE FLOW
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/09/Bernoulli/" rel="prev" title="伯努利滤波器（一）——背景和数学基础">
+                伯努利滤波器（一）——背景和数学基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">1.</span> <span class="nav-text">ps</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#setup"><span class="nav-number">1.1.</span> <span class="nav-text">setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#doplot"><span class="nav-number">1.1.1.</span> <span class="nav-text">doplot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#algs-executed"><span class="nav-number">1.1.2.</span> <span class="nav-text">algs_executed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda-type"><span class="nav-number">1.1.3.</span> <span class="nav-text">lambda_type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nlambda"><span class="nav-number">1.1.4.</span> <span class="nav-text">nlambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kflag"><span class="nav-number">1.1.5.</span> <span class="nav-text">kflag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resampling"><span class="nav-number">1.1.6.</span> <span class="nav-text">Resampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redraw"><span class="nav-number">1.1.7.</span> <span class="nav-text">Redraw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxilikeSAP"><span class="nav-number">1.1.8.</span> <span class="nav-text">maxilikeSAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxilikemode"><span class="nav-number">1.1.9.</span> <span class="nav-text">maxilikemode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTrack"><span class="nav-number">1.1.10.</span> <span class="nav-text">nTrack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nAlg-per-track"><span class="nav-number">1.1.11.</span> <span class="nav-text">//nAlg_per_track</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nParticle"><span class="nav-number">1.1.12.</span> <span class="nav-text">nParticle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#T"><span class="nav-number">1.1.13.</span> <span class="nav-text">T</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTarget"><span class="nav-number">1.1.14.</span> <span class="nav-text">nTarget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimState-per-target"><span class="nav-number">1.1.15.</span> <span class="nav-text">dimState_per_target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ospa-c"><span class="nav-number">1.1.16.</span> <span class="nav-text">ospa_c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ospa-p"><span class="nav-number">1.1.17.</span> <span class="nav-text">ospa_p</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTrial"><span class="nav-number">1.1.18.</span> <span class="nav-text">nTrial</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#random-seeds"><span class="nav-number">1.1.19.</span> <span class="nav-text">random_seeds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimState-all"><span class="nav-number">1.1.20.</span> <span class="nav-text">dimState_all</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weight-euclidean"><span class="nav-number">1.2.</span> <span class="nav-text">weight_euclidean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nParticleCluster"><span class="nav-number">1.3.</span> <span class="nav-text">nParticleCluster</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Neff-thresh-ratio"><span class="nav-number">1.4.</span> <span class="nav-text">Neff_thresh_ratio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#initparams"><span class="nav-number">1.5.</span> <span class="nav-text">initparams</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#x0"><span class="nav-number">1.5.1.</span> <span class="nav-text">x0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sigma0"><span class="nav-number">1.5.2.</span> <span class="nav-text">sigma0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTarget-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">nTarget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#survRegion"><span class="nav-number">1.5.4.</span> <span class="nav-text">survRegion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#propparams"><span class="nav-number">1.6.</span> <span class="nav-text">propparams</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phi"><span class="nav-number">1.6.1.</span> <span class="nav-text">Phi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q"><span class="nav-number">1.6.2.</span> <span class="nav-text">Q</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-correction"><span class="nav-number">1.6.3.</span> <span class="nav-text">Q_correction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-regularized"><span class="nav-number">1.6.4.</span> <span class="nav-text">Q_regularized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTarget-2"><span class="nav-number">1.6.5.</span> <span class="nav-text">nTarget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimState-per-target-1"><span class="nav-number">1.6.6.</span> <span class="nav-text">dimState_per_target</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#propparams-real"><span class="nav-number">1.7.</span> <span class="nav-text">propparams_real</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phi-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">Phi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-1"><span class="nav-number">1.7.2.</span> <span class="nav-text">Q</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTarget-3"><span class="nav-number">1.7.3.</span> <span class="nav-text">nTarget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#likeparams"><span class="nav-number">1.8.</span> <span class="nav-text">likeparams</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Amp"><span class="nav-number">1.8.1.</span> <span class="nav-text">Amp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d0"><span class="nav-number">1.8.2.</span> <span class="nav-text">d0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#invPow"><span class="nav-number">1.8.3.</span> <span class="nav-text">invPow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#measvar"><span class="nav-number">1.8.4.</span> <span class="nav-text">measvar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#measvar-real"><span class="nav-number">1.8.5.</span> <span class="nav-text">measvar_real</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#noise"><span class="nav-number">1.8.6.</span> <span class="nav-text">noise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simAreaSize"><span class="nav-number">1.8.7.</span> <span class="nav-text">simAreaSize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nTarget-4"><span class="nav-number">1.8.8.</span> <span class="nav-text">nTarget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nSensor"><span class="nav-number">1.8.9.</span> <span class="nav-text">nSensor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimMeasurement-per-target"><span class="nav-number">1.8.10.</span> <span class="nav-text">dimMeasurement_per_target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimMeasurement-all"><span class="nav-number">1.8.11.</span> <span class="nav-text">dimMeasurement_all</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#survRegion-1"><span class="nav-number">1.8.12.</span> <span class="nav-text">survRegion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trackBounds"><span class="nav-number">1.8.13.</span> <span class="nav-text">trackBounds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-real"><span class="nav-number">1.8.14.</span> <span class="nav-text">R_real</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R"><span class="nav-number">1.8.15.</span> <span class="nav-text">R</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#R-inv"><span class="nav-number">1.8.16.</span> <span class="nav-text">R_inv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#llh"><span class="nav-number">1.8.17.</span> <span class="nav-text">llh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h-func"><span class="nav-number">1.8.18.</span> <span class="nav-text">h_func</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dh-dx-func"><span class="nav-number">1.8.19.</span> <span class="nav-text">dh_dx_func</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dH-dx-func"><span class="nav-number">1.8.20.</span> <span class="nav-text">dH_dx_func</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initfcn"><span class="nav-number">1.8.21.</span> <span class="nav-text">initfcn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SmHMC-model-params"><span class="nav-number">1.9.</span> <span class="nav-text">SmHMC_model_params</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nParticle-1"><span class="nav-number">1.9.1.</span> <span class="nav-text">nParticle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NoTimeSteps"><span class="nav-number">1.9.2.</span> <span class="nav-text">NoTimeSteps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dimension"><span class="nav-number">1.9.3.</span> <span class="nav-text">Dimension</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initparams-1"><span class="nav-number">1.9.4.</span> <span class="nav-text">//initparams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#propparams-1"><span class="nav-number">1.9.5.</span> <span class="nav-text">//propparams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#likeparams-1"><span class="nav-number">1.9.6.</span> <span class="nav-text">//likeparams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setup-1"><span class="nav-number">1.9.7.</span> <span class="nav-text">//setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StateCovariance"><span class="nav-number">1.9.8.</span> <span class="nav-text">//StateCovariance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StateCovarianceInv"><span class="nav-number">1.9.9.</span> <span class="nav-text">//StateCovarianceInv</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2017/03/21/SMCPFPHDmind/';
+        this.page.identifier = '2017/03/21/SMCPFPHDmind/';
+        this.page.title = 'SMCPFPHDmind';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

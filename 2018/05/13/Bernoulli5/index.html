@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以">
+<meta name="keywords" content="伯努利,滤波器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="伯努利滤波器（五）——拓展目标的测量模型">
+<meta property="og:url" content="http://sanglongbest.github.io/2018/05/13/Bernoulli5/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-15T08:47:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="伯努利滤波器（五）——拓展目标的测量模型">
+<meta name="twitter:description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2018/05/13/Bernoulli5/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>伯努利滤波器（五）——拓展目标的测量模型 | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2018/05/13/Bernoulli5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">伯努利滤波器（五）——拓展目标的测量模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-13 23:43:18" itemprop="dateCreated datePublished" datetime="2018-05-13T23:43:18+01:00">2018-05-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-15 09:47:02" itemprop="dateModified" datetime="2018-05-15T09:47:02+01:00">2018-05-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/13/Bernoulli5/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/13/Bernoulli5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。</p>
+<h1 id="测量模型"><a href="#测量模型" class="headerlink" title="测量模型"></a>测量模型</h1><p>基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以我们得到RFS的FISST PDF是：</p>
+<p>$$<br>\eta(\mathbf{W}|{\mathbf{m}}) = \frac{L!}{(L-|\mathbf{W}|)!} p_d^{|\mathbf{W}|}[1-p_d]^{L -|\mathbf{W}|} \prod_{\mathbf{w}\in\mathbf{W}} h(\mathbf{w}|\mathbf{m}) =     \left { \begin{matrix}  (1-p_d)^L &amp; if \mathbf{W}=\emptyset   \ Lp_d(1-p_d)^{L-1}h(\mathbf{w}|\mathbf{m}) &amp; if\mathbf{W}={\mathbf{w}} \  … &amp;  \ L!p_d^Lh(\mathbf{w}_1|\mathbf{m})…h(\mathbf{w}_R|\mathbf{m})  &amp;  \end{matrix} \right .<br>$$</p>
+<p>通常来说$p_d$是依据$\mathbf{m}$而不变，这里我们忽略了，简化为常数。在现实中，我们不仅仅考虑物体的坐标，还会考虑物体速度和形状，我们假设存在一个映射$l(\mathbf{m})$，它从状态空间映射到测量空间。因为$\mathbf{m}$是RCS（random closed set），那么$h(\mathbf{m})$也是RCS。我们定义广义似然函数（generalized likelihood function,GLF） $\tilde{ g }(\mathbf{w}|\mathbf{m})= P{\mathbf{w}\in l(\mathbf{m})}$。</p>
+<p>下一步我们就是计算检测拓展目标的观测模型，同样先考虑$\mathbf{M} = \emptyset$, 我们$h_k(\mathbf{Z}|\emptyset) = \kappa(\mathbf{Z})$， 这导致了</p>
+<p>$$<br>h(\mathbf{Z}|{\mathbf{m}}) = \eta(\emptyset|{\mathbf{m}})\kappa(\mathbf{Z})+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\eta(\Omega|{\mathbf{m}})\kappa(\mathbf{Z \backslash\Omega })<br>$$<br>其中$P_{1:L}(\mathbf{Z})$ 是 $\mathbf{Z}$全子集。如果$L \ge |\mathbf{Z}|$ 是 $\mathbf{Z}$ 的幂集减去空集。所以我们可以简化得到：</p>
+<p>$$<br>h(\mathbf{Z}|{\mathbf{m}}) =\kappa(\mathbf{Z}){(1-p_d)^L+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\frac{L!}{(L-|\mathbf{\Omega}|)!}p_d^{|\Omega|}(1-p_d)^{L-|\Omega|}\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } } }<br>$$</p>
+<h1 id="更新方程"><a href="#更新方程" class="headerlink" title="更新方程"></a>更新方程</h1><p>我们得到</p>
+<p>$$<br>f(\mathbf{Z}<em>k|\mathbf{Z}</em>{1:k-1}) = \kappa(\mathbf{Z}){1-q_{k|k-1}+q_{k|k-1}(1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})} }<br>$$<br>其中</p>
+<p>$$<br>\phi = \frac{L_k!}{(L_k - |\Omega|)!}\frac{p_d^{|\Omega|}}{(1-p_d)^{|\mathbf{\Omega}|-L_k}}<br>$$</p>
+<p>当我们考虑$\mathbf{M} = \emptyset$，我们能得到</p>
+<p>$$<br>q_k = \frac{1-\triangle <em>k }{1-q</em>{k|k-1}\triangle <em>k}q</em>{k|k-1}<br>$$</p>
+<p>$$<br>\triangle <em>k =1-(1-p_d)^{L_k}-\sum</em>{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})}<br>$$<br>当$\mathbf{M}= {\mathbf{m}}$</p>
+<p>$$<br>s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } }}{1-\triangle_k}s_{k|k-1}(\mathbf{m})<br>$$<br>当$L_k = 1$时，方程就和标准的检测模型一样。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/伯努利/" rel="tag"># 伯努利</a>
+          
+            <a href="/tags/滤波器/" rel="tag"># 滤波器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/11/hexomath/" rel="next" title="喜大普奔解决 hexo 数学公式下划线问题">
+                <i class="fa fa-chevron-left"></i> 喜大普奔解决 hexo 数学公式下划线问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/14/differentRNNandYOLO/" rel="prev" title="R-CNN 家族和 YOLO的比较">
+                R-CNN 家族和 YOLO的比较 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#测量模型"><span class="nav-number">1.</span> <span class="nav-text">测量模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新方程"><span class="nav-number">2.</span> <span class="nav-text">更新方程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2018/05/13/Bernoulli5/';
+        this.page.identifier = '2018/05/13/Bernoulli5/';
+        this.page.title = '伯努利滤波器（五）——拓展目标的测量模型';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

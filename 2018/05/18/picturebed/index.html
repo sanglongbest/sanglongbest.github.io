@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云  创建存储空间,添加”对象存储”,访问控制选择”公开空间”  右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey)  在hexo主目录运行如下">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo 与七牛图床">
+<meta property="og:url" content="http://sanglongbest.github.io/2018/05/18/picturebed/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云  创建存储空间,添加”对象存储”,访问控制选择”公开空间”  右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey)  在hexo主目录运行如下">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://camo.githubusercontent.com/b917298048485558d814fe57e3fac8590fc712f0/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376439356261653638622e706e67">
+<meta property="og:image" content="https://camo.githubusercontent.com/3771e0e157b7d34f3553268a7f3e773897594d50/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376462333463623333632e676966">
+<meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-18%20at%2014.04.26.png">
+<meta property="og:updated_time" content="2019-06-20T20:06:16.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo 与七牛图床">
+<meta name="twitter:description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云  创建存储空间,添加”对象存储”,访问控制选择”公开空间”  右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey)  在hexo主目录运行如下">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/b917298048485558d814fe57e3fac8590fc712f0/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376439356261653638622e706e67">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2018/05/18/picturebed/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>hexo 与七牛图床 | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2018/05/18/picturebed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo 与七牛图床
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-18 11:17:56" itemprop="dateCreated datePublished" datetime="2018-05-18T11:17:56+01:00">2018-05-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-20 21:06:16" itemprop="dateModified" datetime="2019-06-20T21:06:16+01:00">2019-06-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/18/picturebed/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/18/picturebed/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ul>
+<li><p>注册七牛云</p>
+</li>
+<li><p>创建存储空间,添加”对象存储”,访问控制选择”公开空间”</p>
+</li>
+<li><p>右上角个人面板–&gt;密钥管理–&gt;获取AK(AccessKey)和SK(SecretKey)</p>
+</li>
+<li><p>在hexo主目录运行如下命令安装hexo-qiniu-sync插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-qiniu-sync --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在hexo主目录的_config.yml文件中配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#七牛云存储设置</span><br><span class="line">##offline       是否离线. 离线状态将使用本地地址渲染</span><br><span class="line">##sync          是否同步</span><br><span class="line">##bucket        空间名称.</span><br><span class="line">##access_key    上传密钥AccessKey</span><br><span class="line">##secret_key    上传密钥SecretKey</span><br><span class="line">##secret_file   秘钥文件路径，可以将上述两个属性配置到文件内，防止泄露，json格式。绝对路径相对路径均可</span><br><span class="line">##dirPrefix     上传的资源子目录前缀.如设置，需与urlPrefix同步 </span><br><span class="line">##urlPrefix     外链前缀.</span><br><span class="line">##up_host      上传服务器路径,如选择华北区域的话配置为http://up-z1.qiniu.com</span><br><span class="line">##local_dir     本地目录.</span><br><span class="line">##update_exist  是否更新已经上传过的文件(仅文件大小不同或在上次上传后进行更新的才会重新上传)</span><br><span class="line">##image/js/css  子参数folder为不同静态资源种类的目录名称，一般不需要改动</span><br><span class="line">##image.extend  这是个特殊参数，用于生成缩略图或加水印等操作。具体请参考http://developer.qiniu.com/docs/v6/api/reference/fop/image/ </span><br><span class="line">##              可使用基本图片处理、高级图片处理、图片水印处理这3个接口。例如 ?imageView2/2/w/500 即生成宽度最多500px的缩略图</span><br><span class="line">qiniu:</span><br><span class="line">  offline: false</span><br><span class="line">  sync: true</span><br><span class="line">  bucket: bucket_name</span><br><span class="line">  secret_file: sec/qn.json or C:</span><br><span class="line">  access_key: AccessKey</span><br><span class="line">  secret_key: SecretKey</span><br><span class="line">  dirPrefix: static</span><br><span class="line">  urlPrefix: http://bucket_name.qiniudn.com/static</span><br><span class="line">  up_host: http://upload.qiniu.com</span><br><span class="line">  local_dir: static</span><br><span class="line">  update_exist: true</span><br><span class="line">  image: </span><br><span class="line">    folder: images</span><br><span class="line">    extend: </span><br><span class="line">  js:</span><br><span class="line">    folder: js</span><br><span class="line">  css:</span><br><span class="line">    folder: css</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上一步配置好以后,执行hexo s命令,会自动在hexo主目录创建如下目录结构:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">public</span><br><span class="line">static // 静态资源目录</span><br><span class="line">	- css		//css文件存储目录</span><br><span class="line">	- images	//图片存储目录	</span><br><span class="line">	- js		//js文件存储目录</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>将本地图片放在images目录下,在md文件中以如下方式引入文件即可:</p>
+<p>正常部署</p>
+<h1 id="弄完我就后悔了。。。。"><a href="#弄完我就后悔了。。。。" class="headerlink" title="弄完我就后悔了。。。。"></a>弄完我就后悔了。。。。</h1><p>因为其实我是两个电脑写博客，所以以前只是同步一下文章文件夹，现在还要同步图片文件夹，你知道的这个图片文件夹很大，而且我还不能在 vscode 中预览图片了因为 qnimg 不支持。。</p>
+<p>所以我发现的 vscode 的一个七牛插件！<a href="https://github.com/yscoder/vscode-qiniu-upload-image" target="_blank" rel="noopener">github</a></p>
+<h2 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h2><p>下载 github 文件<br>F1 输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Extensions: Install from VSIX.</span><br></pre></td></tr></table></figure>
+
+<p>通过 VSIX 安装（通过市场安装会报错）<br>F1 输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open user setting</span><br></pre></td></tr></table></figure>
+
+<p>输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 插件开关</span><br><span class="line">    &quot;qiniu.enable&quot;: true,</span><br><span class="line"></span><br><span class="line">    // 一个有效的七牛 AccessKey 签名授权</span><br><span class="line">    &quot;qiniu.access_key&quot;: &quot;*****************************************&quot;,</span><br><span class="line"></span><br><span class="line">    // 一个有效的七牛 SecretKey 签名授权</span><br><span class="line">    &quot;qiniu.secret_key&quot;: &quot;*****************************************&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图片上传空间</span><br><span class="line">    &quot;qiniu.bucket&quot;: &quot;ysblog&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图片上传路径，参数化命名，暂时支持 $&#123;fileName&#125;、$&#123;mdFileName&#125;、$&#123;date&#125;、$&#123;dateTime&#125;</span><br><span class="line">    // 示例：</span><br><span class="line">    //   $&#123;fileName&#125;-$&#123;date&#125; -&gt; picName-20160725.jpg</span><br><span class="line">    //   $&#123;mdFileName&#125;-$&#123;dateTime&#125; -&gt; markdownName-20170412222810.jpg</span><br><span class="line">    &quot;qiniu.remotePath&quot;: &quot;$&#123;fileName&#125;&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图床域名</span><br><span class="line">    &quot;qiniu.domain&quot;: &quot;http://xxxxx.xxxx.com&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>粘贴图片路径上传：SHIFT + P</li>
+<li>直接选择图片上传：SHIFT + O</li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
+<li>建议通过 github 的vsix安装，不让vs 找不到插件</li>
+<li>大写 P 和 O 被征用了。写英文很不爽。</li>
+<li>预览不能显示（需要预览插件允许 http内容）。</li>
+<li>jpeg 不支持直接选择图片上传</li>
+</ul>
+<h1 id="Markdown-Preview-Enhanced（推荐）"><a href="#Markdown-Preview-Enhanced（推荐）" class="headerlink" title="Markdown Preview Enhanced（推荐）"></a>Markdown Preview Enhanced（推荐）</h1><p>后来发现，其实这个插件自带七牛，安装后，重启，预览处右键选择“image helper!”，点击上传图片即可。默认是code 作者的imgur图床，怕以后失效也可以设成自己图床。<br><img src="https://camo.githubusercontent.com/b917298048485558d814fe57e3fac8590fc712f0/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376439356261653638622e706e67" alt><br><img src="https://camo.githubusercontent.com/3771e0e157b7d34f3553268a7f3e773897594d50/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376462333463623333632e676966" alt></p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><ul>
+<li>Windows %USERPROFILE%.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.3.5/package.json</li>
+<li>macOS ~/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.3.5/package.json </li>
+<li>Linux ~/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.3.5/package.json </li>
+</ul>
+<p>修改里面的 default 参数。</p>
+<p>吐槽一下，网上很多教程只安装，用作者提供的库，或者再去装其他七牛的插件，多此一举，看看代码改一下比装多个插件舒服吧。</p>
+<p>早知这么简单还费什么事情。。。<br>demo<br><img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-18%20at%2014.04.26.png" alt="demo"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/17/MTT/" rel="next" title="多目标跟踪-JPDAF, MHT 和RFS">
+                <i class="fa fa-chevron-left"></i> 多目标跟踪-JPDAF, MHT 和RFS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/21/Duam_Particle flow/" rel="prev" title="Particle flow papers - Duam part">
+                Particle flow papers - Duam part <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#起因"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#弄完我就后悔了。。。。"><span class="nav-number">3.</span> <span class="nav-text">弄完我就后悔了。。。。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法："><span class="nav-number">3.1.</span> <span class="nav-text">使用方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.3.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown-Preview-Enhanced（推荐）"><span class="nav-number">4.</span> <span class="nav-text">Markdown Preview Enhanced（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-number">4.1.</span> <span class="nav-text">设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2018/05/18/picturebed/';
+        this.page.identifier = '2018/05/18/picturebed/';
+        this.page.title = 'hexo 与七牛图床';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
