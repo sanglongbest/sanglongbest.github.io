@@ -398,14 +398,19 @@
 
       
         <p>到目前为止，我们对传感器测量做出了两个假设。首先，每个测量都是测量空间中的一个点。第二，点测量的似然函数，是已知的。尽管这两个假设是普遍存在的，但在许多科学和工程领域，它们可能是不现实的。例如，一种自然的语言陈述，例如“球在球场的中心附近”，是一个关于兴趣对象（球）的非点测量。这个语句可以被翻译成一个“度量”，它涵盖了“场中心”周围的一个区域（一个区域），它由一个无穷多的点组成。这种，不精确的似然函数在实践中也很常见。</p>
-<p>当我们对某个系统、物体或现象进行推断时，有时会有一些不确定的隐含表达形式。例如，假设目标是定位一个可疑的人：“在上午9点到10点之间，嫌疑犯通常在这个转角咖啡厅。”这种情况可以表达为一个不确定的隐含规则：<strong>如果</strong> $\mathbf{y} \in \mathbf{Y}$，<strong>那么</strong> 有$\alpha$的概率$\mathbf{m}\in \mathbf{M}$。</p>
+<p>当我们对某个系统、物体或现象进行推断时，有时会有一些不确定的隐含表达形式。例如，假设目标是定位一个可疑的人：“在上午9点到10点之间，嫌疑犯通常在这个转角咖啡厅。”这种情况可以表达为一个不确定的隐含规则：<strong>如果</strong> <span class="math inline">\(\mathbf{y} \in \mathbf{Y}\)</span>，<strong>那么</strong> 有<span class="math inline">\(\alpha\)</span>的概率<span class="math inline">\(\mathbf{m}\in \mathbf{M}\)</span>。</p>
 <p>我们考虑三种非标准测量：（1）精准似然函数下的非精准测量（例如间隔或模糊的间隔）；（2）非精准似然函数下的精准测量；（3）不确定蕴涵规则。</p>
 <p>在我们分别处理这些非标准度量，我们首先实用通用框架处它们。理论上，伯努利滤波器是对于非标准测量是有效的。</p>
-<p>唯一的区别是，当我们处理非标准的需求时，似然函数$h_k(\mathbf{z}|\mathbf{m})$ 和 $c(\mathbf{z})$需要被替换为 GLF（generalised likelihood function）$\tilde { h_k(\mathbf{z}|\mathbf{m}) }$ 和 $\tilde{c(\mathbf{z})}$</p>
-<h1 id="非精准测量"><a href="#非精准测量" class="headerlink" title="非精准测量"></a>非精准测量</h1><p>非精准测量是由随机性产生的，它主要考虑两种情况：认知不确定（缺乏知识）和偶然不确定（因为随机）。在专家系统或者人工智能领域对非精准测量的讨论比较多，但是在概率领域，对这些讨论较少。</p>
-<p>$$<br>\mathbf{z} = \mathbf{f}_z(\mathbf{m}) + \mathbf{w}<br>$$<br>解决的办法是有多个结果加权得到，主要应用在检测，跟踪和自然语言处理，我们在后面会重点讲。</p>
-<h1 id="非精准似然函数"><a href="#非精准似然函数" class="headerlink" title="非精准似然函数"></a>非精准似然函数</h1><p>$$<br>\mathbf{z} = \mathbf{f}_z(\mathbf{m};\theta) + \mathbf{w}<br>$$<br>这里$\theta$为未知，如果假设$\mathbf{w}$是高斯的，那么他已可以加权消除误差。</p>
-<h1 id="不确定蕴涵规则"><a href="#不确定蕴涵规则" class="headerlink" title="不确定蕴涵规则"></a>不确定蕴涵规则</h1><p>如果蕴涵规则不确定那么主要还是靠先验知识。</p>
+<p>唯一的区别是，当我们处理非标准的需求时，似然函数<span class="math inline">\(h_k(\mathbf{z}|\mathbf{m})\)</span> 和 <span class="math inline">\(c(\mathbf{z})\)</span>需要被替换为 GLF（generalised likelihood function）<span class="math inline">\(\tilde { h_k(\mathbf{z}|\mathbf{m}) }\)</span> 和 <span class="math inline">\(\tilde{c(\mathbf{z})}\)</span></p>
+<h1 id="非精准测量">非精准测量</h1>
+<p>非精准测量是由随机性产生的，它主要考虑两种情况：认知不确定（缺乏知识）和偶然不确定（因为随机）。在专家系统或者人工智能领域对非精准测量的讨论比较多，但是在概率领域，对这些讨论较少。</p>
+<p><span class="math display">\[
+\mathbf{z} = \mathbf{f}_z(\mathbf{m}) + \mathbf{w}
+\]</span> 解决的办法是有多个结果加权得到，主要应用在检测，跟踪和自然语言处理，我们在后面会重点讲。</p>
+<h1 id="非精准似然函数">非精准似然函数</h1>
+<p><span class="math display">\[
+\mathbf{z} = \mathbf{f}_z(\mathbf{m};\theta) + \mathbf{w}
+\]</span> 这里<span class="math inline">\(\theta\)</span>为未知，如果假设<span class="math inline">\(\mathbf{w}\)</span>是高斯的，那么他已可以加权消除误差。 # 不确定蕴涵规则 如果蕴涵规则不确定那么主要还是靠先验知识。</p>
 
       
     </div>
@@ -539,7 +544,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -664,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#非精准测量"><span class="nav-number">1.</span> <span class="nav-text">非精准测量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非精准似然函数"><span class="nav-number">2.</span> <span class="nav-text">非精准似然函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不确定蕴涵规则"><span class="nav-number">3.</span> <span class="nav-text">不确定蕴涵规则</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#非精准测量"><span class="nav-number">1.</span> <span class="nav-text">非精准测量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非精准似然函数"><span class="nav-number">2.</span> <span class="nav-text">非精准似然函数</span></a></li></ol></div>
             
 
           </div>

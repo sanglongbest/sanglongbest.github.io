@@ -302,6 +302,177 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2018/05/11/Bernoulli4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/11/Bernoulli4/" itemprop="url">
+                  伯努利滤波器（四）—— 点状测量信息模型
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-11 15:05:42" itemprop="dateCreated datePublished" datetime="2018-05-11T15:05:42+01:00">2018-05-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-14 00:05:01" itemprop="dateModified" datetime="2018-05-14T00:05:01+01:00">2018-05-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/11/Bernoulli4/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/11/Bernoulli4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          监测测量（点状目标）
+测量模型
+假设测量RFS为 \(\mathbf{Z}= \{\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r\}\), \(r = |\mathbf{Z}|\)。\(\mathbf{Z} = \mathbf{C}\cup \mathbf{W
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/11/Bernoulli4/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2018/05/11/Bernoulli3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,8 +570,10 @@
       
         
           
-          强度观测模型这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将$n$个测量值存储在一个测量向量中，$\mathbf{z}_k = [z^1_k,z^2_k,…,z^n_k]^T$,
-$$z^r_k = \left {  \begin{matrix} 
+          强度观测模型
+这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将\(n\)个测量值存储在一个测量向量中，\(\mathbf{z}_k = [z^1_k,z^2_k,...,z^n_k]^T\),
+\[
+z^r_k = \left \{  \begin
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -569,7 +742,8 @@ $$z^r_k = \left {  \begin{matrix}
       
         
           
-          伯努利滤波器的预测方程在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，$q$为一个物体存在的概率，他的 RFS 是$p(\mathbf{m})$。同时我们假设当$|\mathbf{M}|&gt;2$
+          伯努利滤波器的预测方程
+在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，\(q\)为一个物体存在的概率，他的 RFS 是\(p(\mathbf{m})\)。同时我们假设当\(|\mathbf{M}|
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -738,7 +912,7 @@ $$z^r_k = \left {  \begin{matrix}
       
         
           
-          最近有人送来一个cozmo，一个可爱的小机器人，附带 SDK。挺好玩的，整理一个参数列表。
+          最近有人送来一个cozmo，一个可爱的小机器人，附带 SDK。挺好玩的，整理一个参数列表。 
 
           
           <!--noindex-->
@@ -908,8 +1082,9 @@ $$z^r_k = \left {  \begin{matrix}
       
         
           
-          简介伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。
-伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实
+          简介
+伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。
+伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1078,14 +1253,10 @@ $$z^r_k = \left {  \begin{matrix}
       
         
           
-          pssetupdoplot是否绘图
-algs_executed运行哪些算法
-lambda_type$\lambda$的取值方式。
-nlambda$\lambda$的个数。
-kflagcovariance的估计方式
-Resampling是否 resample
-Redraw是否重绘
-maxilikeSA
+          ps
+setup
+doplot
+是否绘图 ### algs_executed 运行哪些算法 ### lambda_type \(\lambda\)的取值方式。 ### nlambda \(\lambda\)的个数。 ### kflag covariance的估计方式 ### Resampling 是
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1242,7 +1413,8 @@ maxilikeSA
       
         
           
-          背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel
+          背景
+粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kerne
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1401,7 +1573,7 @@ maxilikeSA
           
           今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。
 这里有必要提下Hexo常用的几个命令：
-hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹hexo server (hexo s) 启动本地web服务，用
+hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹 hexo server (hexo s) 启动本地web服务，
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1664,7 +1836,7 @@ hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

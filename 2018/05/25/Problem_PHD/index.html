@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="PHD filter 及其变种都需要三个先决的条件：  生成模型 birth model  杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）这些信息">
+  <meta name="description" content="PHD filter 及其变种都需要三个先决的条件： - 生成模型 birth model - 杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） - 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）">
 <meta name="keywords" content="PHD filter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHD 滤波器的先验信息和解决办法">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/25/Problem_PHD/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="PHD filter 及其变种都需要三个先决的条件：  生成模型 birth model  杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）这些信息">
+<meta property="og:description" content="PHD filter 及其变种都需要三个先决的条件： - 生成模型 birth model - 杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） - 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-25T16:31:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHD 滤波器的先验信息和解决办法">
-<meta name="twitter:description" content="PHD filter 及其变种都需要三个先决的条件：  生成模型 birth model  杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）这些信息">
+<meta name="twitter:description" content="PHD filter 及其变种都需要三个先决的条件： - 生成模型 birth model - 杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） - 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）">
 
 
 
@@ -397,30 +397,16 @@
       
 
       
-        <p>PHD filter 及其变种都需要三个先决的条件：</p>
+        <p>PHD filter 及其变种都需要三个先决的条件： - 生成模型 birth model - 杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题） - 检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大） 这些信息都是一致的，但是在实际中这些是时变，未知的。怎么解决呢？ # Birth model 通常是从 measurement-driven 的模型中得到，这种模型被称为 diffuse target birth model，论文有： - Improved SMC implementation of the PHD filter (2010) - Adaptive target birth intensity in PHD and CPHD filter (2012) - PHD filter with diffuse spatial prior on the birth process with applications to GM-PHD filter (2010) 另一种思路是，partially uniform birth (PUB,部分统一生成) model，论文有： - Gaussian mixture PHD and CPHD filtering with partially uniform target birth (2012) - A partially uniform target birth model for Gaussian mixture PHD/CPHD filtering (2013)</p>
+<h1 id="clutter-model">clutter model</h1>
+<p>对于未知的 clutter model，通常采用clutter generator（杂物生成器），可以参考的论文有 - *CPHD filtering with unknown clutter rate and detection profile (2011) <a href="http://ba-tuong.vo-au.com/codes.html" target="_blank" rel="noopener">code</a> - Integrated clutter estimation and target tracking using Poisson point processes (2012) - An improved CPHD filter for unknown clutter backgrounds (2014) - CPHD filters for unknown clutter and target-birth processes (2014) 这些都假设 clutter 的 PHD 是由 clutter 生成器产生的，通过跟踪这个生成器我们就能准确的估算出来 clutter 的 PHD。</p>
+<p>在总结的过程中发现了一个有趣的文章：(Ronald Mahler 是谁？)[http://blog.sciencenet.cn/blog-388372-568338.html],讲的是第1，3，4篇的一作，Ronald Mahler 他做的如何，不是我一个小小 PHD 能说的，大家可以看一看，也算八卦了。这个不在高校，所以一般也不会公布 code。</p>
+<h1 id="detection-probability">detection probability</h1>
 <ul>
-<li>生成模型 birth model </li>
-<li>杂物模型 clutter model （filter 的一个目的就去除 clutter，所以 model 肯定未知，典型的鸡蛋问题）</li>
-<li>检测概率 detection probability （这不能通过 detection method 得到，因为你不知道遮挡等问题是否存在，而且这个和场景相关性很大）<br>这些信息都是一致的，但是在实际中这些是时变，未知的。怎么解决呢？<h1 id="Birth-model"><a href="#Birth-model" class="headerlink" title="Birth model"></a>Birth model</h1>通常是从 measurement-driven 的模型中得到，这种模型被称为 diffuse target birth model，论文有：</li>
-<li>Improved SMC implementation of the PHD filter (2010)</li>
-<li>Adaptive target birth intensity in PHD and CPHD filter (2012)</li>
-<li>PHD filter with diffuse spatial prior on the birth process with applications to GM-PHD filter (2010)<br>另一种思路是，partially uniform birth (PUB,部分统一生成) model，论文有：</li>
-<li>Gaussian mixture PHD and CPHD filtering with partially uniform target birth (2012)</li>
-<li>A partially uniform target birth model for Gaussian mixture PHD/CPHD filtering (2013)</li>
-</ul>
-<h1 id="clutter-model"><a href="#clutter-model" class="headerlink" title="clutter model"></a>clutter model</h1><p>对于未知的 clutter model，通常采用clutter generator（杂物生成器），可以参考的论文有</p>
-<ul>
-<li>*CPHD filtering with unknown clutter rate and detection profile (2011) <a href="http://ba-tuong.vo-au.com/codes.html" target="_blank" rel="noopener">code</a> </li>
-<li>Integrated clutter estimation and target tracking using Poisson point processes (2012)</li>
-<li>An improved CPHD filter for unknown clutter backgrounds (2014)</li>
-<li>CPHD filters for unknown clutter and target-birth processes (2014)<br>这些都假设 clutter 的 PHD 是由 clutter 生成器产生的，通过跟踪这个生成器我们就能准确的估算出来 clutter 的 PHD。</li>
-</ul>
-<p>在总结的过程中发现了一个有趣的文章：(Ronald Mahler 是谁？)[<a href="http://blog.sciencenet.cn/blog-388372-568338.html],讲的是第1，3，4篇的一作，Ronald" target="_blank" rel="noopener">http://blog.sciencenet.cn/blog-388372-568338.html],讲的是第1，3，4篇的一作，Ronald</a> Mahler 他做的如何，不是我一个小小 PHD 能说的，大家可以看一看，也算八卦了。这个不在高校，所以一般也不会公布 code。</p>
-<h1 id="detection-probability"><a href="#detection-probability" class="headerlink" title="detection probability"></a>detection probability</h1><ul>
-<li>Multisensor adaptive Bayesian tracking under time-varying target detection probability (2016)<br>这个一个基于贝叶斯网络的自适应滤波器，但是这个滤波器是为了单目标设计的。</li>
-<li>Scalable adaptive multitarget tracking using multiple sensors<br>这个一个基于置信度传播的多目标跟踪。</li>
-<li>Robust multi-Bernoulli filtering<br>采用 (Beta 分步)[<a href="https://zh.wikipedia.org/wiki/Β分布]来构建监测概率，但是这个需要监测概率较高。" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Β分布]来构建监测概率，但是这个需要监测概率较高。</a><br>实际上</li>
-<li>*CPHD filtering with unknown clutter rate and detection profile (2011) <a href="http://ba-tuong.vo-au.com/codes.html" target="_blank" rel="noopener">code</a><br>也做了不少工作，通过 Beta-Gaussian 来构建检测模型。但是这对历史信息要求较高。</li>
+<li>Multisensor adaptive Bayesian tracking under time-varying target detection probability (2016) 这个一个基于贝叶斯网络的自适应滤波器，但是这个滤波器是为了单目标设计的。</li>
+<li>Scalable adaptive multitarget tracking using multiple sensors 这个一个基于置信度传播的多目标跟踪。</li>
+<li>Robust multi-Bernoulli filtering 采用 (Beta 分步)[https://zh.wikipedia.org/wiki/Β分布]来构建监测概率，但是这个需要监测概率较高。 实际上</li>
+<li>*CPHD filtering with unknown clutter rate and detection profile (2011) <a href="http://ba-tuong.vo-au.com/codes.html" target="_blank" rel="noopener">code</a> 也做了不少工作，通过 Beta-Gaussian 来构建检测模型。但是这对历史信息要求较高。</li>
 </ul>
 
       
@@ -553,7 +539,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -678,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Birth-model"><span class="nav-number">1.</span> <span class="nav-text">Birth model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#clutter-model"><span class="nav-number">2.</span> <span class="nav-text">clutter model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#detection-probability"><span class="nav-number">3.</span> <span class="nav-text">detection probability</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#clutter-model"><span class="nav-number">1.</span> <span class="nav-text">clutter model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#detection-probability"><span class="nav-number">2.</span> <span class="nav-text">detection probability</span></a></li></ol></div>
             
 
           </div>
