@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="单随机变量传递 考虑到随机变量\(X:\Omega \rightarrow \mathbb{R}\), \(g: \mathbb{R}\rightarrow \mathbb{R}\)是一个波莱尔可测函数。于是我们得到了\(Y = g(X)\)，我们要计算\(Y\)的分布。我们通过CDF\(F_X(x)\)来计算\(F_Y(y)\) \[ F_Y(Y) = \mathbb{P}(g(X)\le y)">
+  <meta name="description" content="单随机变量传递考虑到随机变量$X:\Omega \rightarrow \mathbb{R}$, $g: \mathbb{R}\rightarrow \mathbb{R}$是一个波莱尔可测函数。于是我们得到了$Y = g(X)$，我们要计算$Y$的分布。我们通过CDF$F_X(x)$来计算$F_Y(y)$$$F_Y(Y) = \mathbb{P}(g(X)\le y) = \mathbb{P}({">
 <meta name="keywords" content="particle flow,math,transform">
 <meta property="og:type" content="article">
 <meta property="og:title" content="概率密度空间下的随机变量的转换映射">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/24/Transformation-of-Random-Variables/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="单随机变量传递 考虑到随机变量\(X:\Omega \rightarrow \mathbb{R}\), \(g: \mathbb{R}\rightarrow \mathbb{R}\)是一个波莱尔可测函数。于是我们得到了\(Y = g(X)\)，我们要计算\(Y\)的分布。我们通过CDF\(F_X(x)\)来计算\(F_Y(y)\) \[ F_Y(Y) = \mathbb{P}(g(X)\le y)">
+<meta property="og:description" content="单随机变量传递考虑到随机变量$X:\Omega \rightarrow \mathbb{R}$, $g: \mathbb{R}\rightarrow \mathbb{R}$是一个波莱尔可测函数。于是我们得到了$Y = g(X)$，我们要计算$Y$的分布。我们通过CDF$F_X(x)$来计算$F_Y(y)$$$F_Y(Y) = \mathbb{P}(g(X)\le y) = \mathbb{P}({">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-24T17:59:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="概率密度空间下的随机变量的转换映射">
-<meta name="twitter:description" content="单随机变量传递 考虑到随机变量\(X:\Omega \rightarrow \mathbb{R}\), \(g: \mathbb{R}\rightarrow \mathbb{R}\)是一个波莱尔可测函数。于是我们得到了\(Y = g(X)\)，我们要计算\(Y\)的分布。我们通过CDF\(F_X(x)\)来计算\(F_Y(y)\) \[ F_Y(Y) = \mathbb{P}(g(X)\le y)">
+<meta name="twitter:description" content="单随机变量传递考虑到随机变量$X:\Omega \rightarrow \mathbb{R}$, $g: \mathbb{R}\rightarrow \mathbb{R}$是一个波莱尔可测函数。于是我们得到了$Y = g(X)$，我们要计算$Y$的分布。我们通过CDF$F_X(x)$来计算$F_Y(y)$$$F_Y(Y) = \mathbb{P}(g(X)\le y) = \mathbb{P}({">
 
 
 
@@ -397,33 +397,17 @@
       
 
       
-        <h1 id="单随机变量传递">单随机变量传递</h1>
-<p>考虑到随机变量<span class="math inline">\(X:\Omega \rightarrow \mathbb{R}\)</span>, <span class="math inline">\(g: \mathbb{R}\rightarrow \mathbb{R}\)</span>是一个波莱尔可测函数。于是我们得到了<span class="math inline">\(Y = g(X)\)</span>，我们要计算<span class="math inline">\(Y\)</span>的分布。我们通过CDF<span class="math inline">\(F_X(x)\)</span>来计算<span class="math inline">\(F_Y(y)\)</span> <span class="math display">\[
-F_Y(Y) = \mathbb{P}(g(X)\le y) = \mathbb{P}(\{\omega |g(X(\omega))\le y\})
-\]</span> 设<span class="math inline">\(\mathbf{B}_y\)</span> 是满足<span class="math inline">\(g(x)\le y\)</span>的所有的<span class="math inline">\(x\)</span>的set，所以我们能得到<span class="math inline">\(F_Y(y) = \mathbb{P}_X(B_y )\)</span></p>
+        <h1 id="单随机变量传递"><a href="#单随机变量传递" class="headerlink" title="单随机变量传递"></a>单随机变量传递</h1><p>考虑到随机变量$X:\Omega \rightarrow \mathbb{R}$, $g: \mathbb{R}\rightarrow \mathbb{R}$是一个波莱尔可测函数。于是我们得到了$Y = g(X)$，我们要计算$Y$的分布。我们通过CDF$F_X(x)$来计算$F_Y(y)$<br>$$<br>F_Y(Y) = \mathbb{P}(g(X)\le y) = \mathbb{P}({\omega |g(X(\omega))\le y})
+$$<br>设$\mathbf{B}_y$ 是满足$g(x)\le y$的所有的$x$的set，所以我们能得到$F_Y(y) = \mathbb{P}_X(B_y )$</p>
 <blockquote>
-<p>例子1 设<span class="math inline">\(X\sim \mathcal{N}(0,1)\)</span>，并设<span class="math inline">\(Y = X^2\)</span> <span class="math inline">\(F_Y(y) = \mathbb{P}(X^2 \le y) = \mathbb{P}(-\sqrt { y}\le X \le \sqrt{y} )= \Phi(\sqrt{y})-\Phi(-\sqrt{y})\)</span> 其中<span class="math inline">\(\Phi\)</span> 是<span class="math inline">\(\mathcal{N}(0,1)\)</span>的CDF 同时我们知道 <span class="math display">\[
-f_Y(y) = \frac{dF_Y(y)}{dy}
-\]</span> 因为 <span class="math display">\[
-F_Y(y)= 2*\int _{0 }^{ \sqrt{y}  }{ \frac{1}{\sqrt{2\pi}} e^{\frac{-t^2}{2}}dt} 
-\]</span> 且<span class="math inline">\(t^2 = u\)</span>我们得到 <span class="math display">\[
-F_y(y)= 2*\int _{0 }^{ y  }{ \frac{1}{2\sqrt{2\pi}u} e^{\frac{-u}{2}}du} 
-\]</span> <span class="math display">\[
-f_Y(y)= \frac{1}{\sqrt{2\pi y}}e^{\frac{-u}{2}}, for\quad y&gt;0
-\]</span> 我们知道： 1. <span class="math inline">\(Y\)</span>为非负值 2. 这种高斯随机的开方分布<span class="math inline">\(f_Y(y)\)</span>被称为Chi-squared分布</p>
+<p>例子1<br>设$X\sim \mathcal{N}(0,1)$，并设$Y = X^2$<br>$F_Y(y) = \mathbb{P}(X^2 \le y) = \mathbb{P}(-\sqrt { y}\le X \le \sqrt{y} )= \Phi(\sqrt{y})-\Phi(-\sqrt{y})$<br>其中$\Phi$ 是$\mathcal{N}(0,1)$的CDF<br>同时我们知道<br>$$<br>f_Y(y) = \frac{dF_Y(y)}{dy}<br>$$<br>因为<br>$$<br>F_Y(y)= 2<em>\int _{0 }^{ \sqrt{y}  }{ \frac{1}{\sqrt{2\pi}} e^{\frac{-t^2}{2}}dt}<br>$$<br>且$t^2 = u$我们得到<br>$$<br>F_y(y)= 2</em>\int _{0 }^{ y  }{ \frac{1}{2\sqrt{2\pi}u} e^{\frac{-u}{2}}du}<br>$$<br>$$<br>f_Y(y)= \frac{1}{\sqrt{2\pi y}}e^{\frac{-u}{2}}, for\quad y&gt;0<br>$$<br>我们知道：</p>
+<ol>
+<li>$Y$为非负值</li>
+<li>这种高斯随机的开方分布$f_Y(y)$被称为Chi-squared分布</li>
+</ol>
 </blockquote>
 <p>如果方程是<strong>可微和单调</strong>的，那我们可以直接获得转换后的分布</p>
-<p>设<span class="math inline">\(X\)</span>的密度函数为<span class="math inline">\(f_X(x)\)</span>,<span class="math inline">\(g\)</span>是一个单调递增的函数，并假设<span class="math inline">\(Y = g(X)\)</span>，于是我们有 <span class="math display">\[
-F_Y(y) = \mathbb{P}(Y \le y)= \mathbb{P}(g(X)\le y) = \int ^{ g^{-1}(y) }_{ -\infty  }{ f_x(x) }dx
-\]</span> 因为<span class="math inline">\(g\)</span>是单调递增的函数，<span class="math inline">\(g(x)\le y \Rightarrow x \le g^{-1}(y)\)</span> 因为<span class="math inline">\(x = g^{-1}(t)\)</span>, 所以<span class="math inline">\(g&#39;(x)dx=dt\)</span> <span class="math display">\[
-F_Y(y) = \int ^{ y }_{ -\infty  }{ f_X(g^{-1}(t)) }\frac{dt}{g&#39;(g^{-1}(t))}
-\]</span> 微分可得 <span class="math display">\[
-f_Y(y) = { f_X(g^{-1}(y)) }\frac{1}{g&#39;(g^{-1}(y))}
-\]</span> <span class="math inline">\(\frac{1}{g&#39;(g^{-1}(y))}\)</span>可看为一个雅各比转换。 对于递减函数 <span class="math display">\[
-f_Y(y) = { f_X(g^{-1}(y)) }\frac{-1}{g&#39;(g^{-1}(y))}
-\]</span> 所以我们可以得到 <span class="math display">\[
-f_Y(y) = { f_X(g^{-1}(y)) }\frac{1}{|g&#39;(g^{-1}(y))|}
-\]</span></p>
+<p>设$X$的密度函数为$f_X(x)$,$g$是一个单调递增的函数，并假设$Y = g(X)$，于是我们有<br>$$<br>F_Y(y) = \mathbb{P}(Y \le y)= \mathbb{P}(g(X)\le y) = \int ^{ g^{-1}(y) }<em>{ -\infty  }{ f_x(x) }dx<br>$$<br>因为$g$是单调递增的函数，$g(x)\le y \Rightarrow x \le g^{-1}(y)$<br>因为$x = g^{-1}(t)$, 所以$g’(x)dx=dt$<br>$$<br>F_Y(y) = \int ^{ y }</em>{ -\infty  }{ f_X(g^{-1}(t)) }\frac{dt}{g’(g^{-1}(t))}<br>$$<br>微分可得<br>$$<br>f_Y(y) = { f_X(g^{-1}(y)) }\frac{1}{g’(g^{-1}(y))}<br>$$<br>$\frac{1}{g’(g^{-1}(y))}$可看为一个雅各比转换。<br>对于递减函数<br>$$<br>f_Y(y) = { f_X(g^{-1}(y)) }\frac{-1}{g’(g^{-1}(y))}<br>$$<br>所以我们可以得到<br>$$<br>f_Y(y) = { f_X(g^{-1}(y)) }\frac{1}{|g’(g^{-1}(y))|}<br>$$</p>
 <p><a href="http://nptel.ac.in/courses/108106083/lecture16_General_transformations_of_RVs.pdf" target="_blank" rel="noopener">参考</a></p>
 
       

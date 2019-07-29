@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="简介 伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。 伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。 通常来说，预测是基于先验知识和观测进行的，因">
+  <meta name="description" content="简介伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。 伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。 通常来说，预测是基于先验知识和观测进行的，因为">
 <meta name="keywords" content="伯努利,滤波器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伯努利滤波器（一）——背景和数学基础">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/09/Bernoulli/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="简介 伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。 伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。 通常来说，预测是基于先验知识和观测进行的，因">
+<meta property="og:description" content="简介伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。 伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。 通常来说，预测是基于先验知识和观测进行的，因为">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-11T15:06:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伯努利滤波器（一）——背景和数学基础">
-<meta name="twitter:description" content="简介 伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。 伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。 通常来说，预测是基于先验知识和观测进行的，因">
+<meta name="twitter:description" content="简介伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为随机动态系统设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。 伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。 通常来说，预测是基于先验知识和观测进行的，因为">
 
 
 
@@ -409,61 +409,38 @@
       
 
       
-        <h1 id="简介">简介</h1>
-<p>伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为<em>随机动态系统</em>设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。</p>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>伯努利滤波器是一个非高斯，非线性动态系统的基于RFS滤波器。它的主要特点是它为<em>随机动态系统</em>设计了一个开关，特别适用于跟踪时，物体时隐时现的问题，当然也适用于传染病，污染和社会问题。</p>
 <p>伯努利是没有解析解，可以通过 PF 或者 Gaussian sum filter 实现。依据不同的测量模型有不同实现方式，本文就将对于不用的测量模型，显示不用的实现。</p>
-<p>通常来说，预测是基于先验知识和观测进行的，因为先验知识和观测的 state是包含了所有描述系统的信息。 所以，在一个系统中，我们已知的信息有：{开关的随机模型（参数），state 的进化变化（先验），观测（观测值）}。 观测信息和 state 是通过一个非线性模型连接，因为不完美的监测，所以观测是 noisy，imprecise，和 ambiguous。</p>
+<p>通常来说，预测是基于先验知识和观测进行的，因为先验知识和观测的 state是包含了所有描述系统的信息。<br>所以，在一个系统中，我们已知的信息有：{开关的随机模型（参数），state 的进化变化（先验），观测（观测值）}。<br>观测信息和 state 是通过一个非线性模型连接，因为不完美的监测，所以观测是 noisy，imprecise，和 ambiguous。</p>
 <p>传统贝叶斯方法的目的是通过现在位置的的所有信息计算后验的 PDF（posterior PDF）。因为 posterior PDF 包括了所有的统计信息，所以这是问题的完备解。</p>
-<p>通过这个 PDF 可以得到最佳的 state 估计。Posterior PDF 可以通过两步计算：预测和更新。求解 posterior PDF 是 optical Bayes Stochastic filter 的根本任务。在这个系统中，随机动态过程的开关是一直打开的，measurement 只受噪音影响。前提是 detection 是完美的。 在一般的非线性非高斯的情况下，没有解析解，所以有了 Monte Carlo 的方法，进而有 particle filter 的方法，这是因为PC 性能的提升和应用的广泛。</p>
-<p>但是detection method 通常是不完美的，measurement model 通常也是不准确的，所以，标准的 Bayes filter 也进行了一些修补。通过增加的逻辑层，比如： （a）target的出现或消失是建立在tracking 信息的 logic 基础。 （b）不完美的 detection 方法可以通过 data association 的辅助。 （c）不准确的测量（特征）采用非 Bayesian 的网络（Dempster-shafer theory） 虽然有许多工程的精巧设计，但是这都不是最优的。</p>
-<p>序列贝叶丝（Sequential Bayesian estimation）结合 random set theory（RS），提供了一个不完美 detection 和不准确 measurement 的数学最优解。因为对于多目标的动态系统，RS 实现起来运算量太大，于是有了一下方法： （a）Bernoulli filter (JoTT or JoTF [joint target detection and tracking filter]). （b）PHD （c）CPHD （d）multi-Bernoulli filter</p>
-<h1 id="bernoulli-filter-的实现与应用">Bernoulli filter 的实现与应用</h1>
-<p>BF 是在单动态系统（switch 随机 on/off）下的最优 Bayes filter 在 tracking 下就是 appear or disappear。</p>
-<p>key idea：引入一个存在的布尔（binary）随机变量来表示开关。 Bernoulli random finite 和 传统方法 的区别，state 被看成一个 set （可以空的 或者 单元素），元素包含布尔变量。因为这种方法没有解析解，只能通过 Particle filter 或者 Gaussian sum filter 近似实现。</p>
-<p>我们将考虑不同的常见的 measurement model。第一个模型是针对稀疏信号的强度测量，例如声波或电磁能，化学污染水平，图像等。主要应用在信号网络，雷达/声纳或视频监控中。这种通过 measurement 来进行物体监测，跟踪叫做‘track-before-detect'。第二个模型是针对measurement是 detector 输出。这种情况下，需要处理必然丢失的监测（false detection）和误报（false alarms）。我们假设这个目标物体是一个点，一个物体只有一个观测值，其他值都是错误监测。并且哪个是 false detection 是不知道的。例如，当目标物体大于传感器的分辨率，这样就会产生一系列的 detection。最后，在某些情况下，measurement function 是不能准确知道的，或者说这种测量过程就是模糊，不准确的。这些类型的测量，被称为非标准测量。这些都可以通过random set theoretical framework和Bayesian estimation framework 计算。</p>
-<h1 id="数学基础">数学基础</h1>
-<h2 id="标准随机贝叶斯滤波器">标准随机贝叶斯滤波器</h2>
-<p>随机滤波器可以追溯到1960s年。Kalman 和 Bucy 创立了线性滤波理论，同时Stratonovich 和 Kushner 开创了了用概率手段来解决非线性问题。</p>
-<p>对于一个在贝叶斯网络下的，时域离散的随机滤波问题，通常假设 state <span class="math inline">\(\mathbf{m}\in\mathbf{M}\)</span> 向量提供了动态系统某一<span class="math inline">\(t_k\)</span>时刻下的完备的状态信息。设离散时间为<span class="math inline">\(k\)</span>。设离散动态系统的传递方程和观测方程为 <span class="math display">\[\mathbf{m}_{k}=\mathbf{f}_m(\mathbf{m}_{k-1})+\mathbf{v}_{k-1}\]</span> <span class="math display">\[\mathbf{z}_{k} = \mathbf{f}_{z}(\mathbf{m}_{k})+\mathbf{w}_{k}\]</span></p>
-<p><span class="math inline">\(\mathbf{f}_{m}\)</span> 是非线性方程，代表一阶马尔科夫过程。随机过程 <span class="math inline">\(\mathbf{v}_{k-1}\)</span> 是PDF 的独立同分布 independent identically distributed (IID)。随机过程 <span class="math inline">\(\mathbf{w}_{k}\)</span> 是不同于 <span class="math inline">\(\mathbf{v}_{k-1}\)</span> PDF 的独立同分布。设 <span class="math inline">\(\mathbf{f}_{m}\)</span>, <span class="math inline">\(\mathbf{f}_{z}\)</span> 和他们的 PDF <span class="math inline">\(p_{\mathbf{v}}\)</span> 和 <span class="math inline">\(p_{\mathbf{w}}\)</span> 是已知的。传递密度是 <span class="math inline">\(\pi_{k|k-1}(\mathbf{m}_{k}|\mathbf{m}_{k-1}) = p_{\mathbf{v}}(\mathbf{m}_{k-1}- \mathbf{f}_{m}(\mathbf{m}_{k}))\)</span>. 似然方程 <span class="math inline">\(h_{k}(\mathbf{z}_k|\mathbf{m}_k) = p_{\mathbf{w}}(\mathbf{z}_{k}- \mathbf{f}_{z}(\mathbf{m}_{k}))\)</span>。离散贝叶斯的目的就是估计状态的后验PDF <span class="math inline">\(\varphi (\mathbf{m}_k|\mathbf{z}_{1:k})\)</span>，其中 <span class="math inline">\(\mathbf{z}_{1:k} \equiv \mathbf{z}_{1},...,\mathbf{z}_{k}\)</span>，当 <span class="math inline">\(\varphi(\mathbf{m}_{0})\)</span>, <span class="math inline">\(\varphi(\mathbf{m}_{k-1}|\mathbf{z}_{1:k-1})\)</span> 和 <span class="math inline">\(\mathbf{z}_k\)</span> 已知时，通过Chapman—Kolmogorov我们可知，</p>
-<p><span class="math display">\[ \varphi(\mathbf{m}_k|\mathbf{z}_{1:k-1})=\int {\pi_{k|k-1}(\mathbf{m}_k|\mathbf{m}_{k-1})\varphi(\mathbf{m}_{k-1}|\mathbf{z}_{1:k-1})}d_{\mathbf{m}_{k-1}} \]</span></p>
+<p>通过这个 PDF 可以得到最佳的 state 估计。Posterior PDF 可以通过两步计算：预测和更新。求解 posterior PDF 是 optical Bayes Stochastic filter 的根本任务。在这个系统中，随机动态过程的开关是一直打开的，measurement 只受噪音影响。前提是 detection 是完美的。<br>在一般的非线性非高斯的情况下，没有解析解，所以有了 Monte Carlo 的方法，进而有 particle filter 的方法，这是因为PC 性能的提升和应用的广泛。</p>
+<p>但是detection method 通常是不完美的，measurement model 通常也是不准确的，所以，标准的 Bayes filter 也进行了一些修补。通过增加的逻辑层，比如：<br>（a）target的出现或消失是建立在tracking 信息的 logic 基础。<br>（b）不完美的 detection 方法可以通过 data association 的辅助。<br>（c）不准确的测量（特征）采用非 Bayesian 的网络（Dempster-shafer theory）<br>虽然有许多工程的精巧设计，但是这都不是最优的。</p>
+<p>序列贝叶丝（Sequential Bayesian estimation）结合 random set theory（RS），提供了一个不完美 detection 和不准确 measurement 的数学最优解。因为对于多目标的动态系统，RS 实现起来运算量太大，于是有了一下方法：<br>（a）Bernoulli filter (JoTT or JoTF [joint target detection and tracking filter]).<br>（b）PHD<br>（c）CPHD<br>（d）multi-Bernoulli filter</p>
+<h1 id="Bernoulli-filter-的实现与应用"><a href="#Bernoulli-filter-的实现与应用" class="headerlink" title="Bernoulli filter 的实现与应用"></a>Bernoulli filter 的实现与应用</h1><p>BF 是在单动态系统（switch 随机 on/off）下的最优 Bayes filter 在 tracking 下就是 appear or disappear。</p>
+<p>key idea：引入一个存在的布尔（binary）随机变量来表示开关。<br>Bernoulli random finite 和 传统方法 的区别，state 被看成一个 set （可以空的 或者 单元素），元素包含布尔变量。因为这种方法没有解析解，只能通过 Particle filter 或者 Gaussian sum filter 近似实现。</p>
+<p>我们将考虑不同的常见的 measurement model。第一个模型是针对稀疏信号的强度测量，例如声波或电磁能，化学污染水平，图像等。主要应用在信号网络，雷达/声纳或视频监控中。这种通过 measurement 来进行物体监测，跟踪叫做‘track-before-detect’。第二个模型是针对measurement是 detector 输出。这种情况下，需要处理必然丢失的监测（false detection）和误报（false alarms）。我们假设这个目标物体是一个点，一个物体只有一个观测值，其他值都是错误监测。并且哪个是 false detection 是不知道的。例如，当目标物体大于传感器的分辨率，这样就会产生一系列的 detection。最后，在某些情况下，measurement function 是不能准确知道的，或者说这种测量过程就是模糊，不准确的。这些类型的测量，被称为非标准测量。这些都可以通过random set theoretical framework和Bayesian estimation framework 计算。</p>
+<h1 id="数学基础"><a href="#数学基础" class="headerlink" title="数学基础"></a>数学基础</h1><h2 id="标准随机贝叶斯滤波器"><a href="#标准随机贝叶斯滤波器" class="headerlink" title="标准随机贝叶斯滤波器"></a>标准随机贝叶斯滤波器</h2><p>随机滤波器可以追溯到1960s年。Kalman 和 Bucy 创立了线性滤波理论，同时Stratonovich 和 Kushner 开创了了用概率手段来解决非线性问题。</p>
+<p>对于一个在贝叶斯网络下的，时域离散的随机滤波问题，通常假设 state $\mathbf{m}\in\mathbf{M}$ 向量提供了动态系统某一$t_k$时刻下的完备的状态信息。设离散时间为$k$。设离散动态系统的传递方程和观测方程为<br>$$\mathbf{m}<em>{k}=\mathbf{f}_m(\mathbf{m}</em>{k-1})+\mathbf{v}<em>{k-1}$$<br>$$\mathbf{z}</em>{k} = \mathbf{f}<em>{z}(\mathbf{m}</em>{k})+\mathbf{w}_{k}$$</p>
+<p>$\mathbf{f}<em>{m}$ 是非线性方程，代表一阶马尔科夫过程。随机过程 $\mathbf{v}</em>{k-1}$ 是PDF 的独立同分布 independent identically distributed (IID)。随机过程 $\mathbf{w}<em>{k}$ 是不同于 $\mathbf{v}</em>{k-1}$ PDF 的独立同分布。设 $\mathbf{f}<em>{m}$, $\mathbf{f}</em>{z}$ 和他们的 PDF $p_{\mathbf{v}}$ 和 $p_{\mathbf{w}}$ 是已知的。传递密度是 $\pi_{k|k-1}(\mathbf{m}<em>{k}|\mathbf{m}</em>{k-1}) = p_{\mathbf{v}}(\mathbf{m}<em>{k-1}- \mathbf{f}</em>{m}(\mathbf{m}<em>{k}))$. 似然方程 $h</em>{k}(\mathbf{z}<em>k|\mathbf{m}_k) = p</em>{\mathbf{w}}(\mathbf{z}<em>{k}- \mathbf{f}</em>{z}(\mathbf{m}<em>{k}))$。离散贝叶斯的目的就是估计状态的后验PDF $\varphi (\mathbf{m}_k|\mathbf{z}</em>{1:k})$，其中 $\mathbf{z}<em>{1:k} \equiv  \mathbf{z}</em>{1},…,\mathbf{z}<em>{k}$，当 $\varphi(\mathbf{m}</em>{0})$, $\varphi(\mathbf{m}<em>{k-1}|\mathbf{z}</em>{1:k-1})$ 和 $\mathbf{z}_k$ 已知时，通过Chapman—Kolmogorov我们可知，</p>
+<p>$$ \varphi(\mathbf{m}<em>k|\mathbf{z}</em>{1:k-1})=\int {\pi_{k|k-1}(\mathbf{m}<em>k|\mathbf{m}</em>{k-1})\varphi(\mathbf{m}<em>{k-1}|\mathbf{z}</em>{1:k-1})}d_{\mathbf{m}_{k-1}} $$</p>
 <p>第二部是使用贝叶斯网络来更新预测的 PDF</p>
-<p><span class="math display">\[ \varphi(\mathbf{m}_k|\mathbf{z}_{1:k}) = \frac{h_{k}(\mathbf{z}_k|\mathbf{m}_k)\varphi(\mathbf{m}_k|\mathbf{z}_{1:k-1})}{\int h_k( {\mathbf{z}_k|\mathbf{m}_k)\varphi(\mathbf{m}_k|\mathbf{z}_{1:k-1})}d_{\mathbf{m}_{k}} }\]</span></p>
-<h2 id="随机有限子集">随机有限子集</h2>
-<p>随机有限子集（RFS）是一个在无序有限子集中取值的随机变量。RFS的基数 <span class="math inline">\(\mathbf{M}\)</span> 是随机，通过离散分布来构建 <span class="math inline">\(p(n) = P\{|\mathbf{M} = n|\}\)</span>，<span class="math inline">\(n \in N_0\)</span>.<span class="math inline">\(\mathbf{M}\)</span> 是通过他的基数分步 <span class="math inline">\(p(n)\)</span> 完全给定。并有对称联系分步<span class="math inline">\(\varphi_n(\mathbf{m}_1,...,\mathbf{m}_n)\)</span>.</p>
-<p>为了简化，我们采用Mahler的方法，referred to finite set statistics (FISST)。RFS变量<span class="math inline">\(\mathbf{M}\)</span>的FISST为<span class="math inline">\(f(\mathbf{M}\)</span>. PDF 可以通过 <span class="math inline">\(p(n)\)</span> 和 <span class="math inline">\(\varphi_n(\mathbf{m}_1,...,\mathbf{m}_n)\)</span> 来唯一确定。</p>
-<p><span class="math display">\[ f({\mathbf{m}_1,..,\mathbf{m}_n}) = n!p(n)\varphi_n(\mathbf{m}_1,...,\mathbf{m}_n)\]</span></p>
+<p>$$ \varphi(\mathbf{m}<em>k|\mathbf{z}</em>{1:k}) = \frac{h_{k}(\mathbf{z}<em>k|\mathbf{m}_k)\varphi(\mathbf{m}_k|\mathbf{z}</em>{1:k-1})}{\int h_k( {\mathbf{z}<em>k|\mathbf{m}_k)\varphi(\mathbf{m}_k|\mathbf{z}</em>{1:k-1})}d_{\mathbf{m}_{k}} }$$</p>
+<h2 id="随机有限子集"><a href="#随机有限子集" class="headerlink" title="随机有限子集"></a>随机有限子集</h2><p>随机有限子集（RFS）是一个在无序有限子集中取值的随机变量。RFS的基数 $\mathbf{M}$ 是随机，通过离散分布来构建 $p(n) = P{|\mathbf{M} = n|}$，$n \in N_0$.$\mathbf{M}$ 是通过他的基数分步 $p(n)$ 完全给定。并有对称联系分步$\varphi_n(\mathbf{m}_1,…,\mathbf{m}_n)$.</p>
+<p>为了简化，我们采用Mahler的方法，referred to finite set statistics (FISST)。RFS变量$\mathbf{M}$的FISST为$f(\mathbf{M}$. PDF 可以通过 $p(n)$ 和 $\varphi_n(\mathbf{m}_1,…,\mathbf{m}_n)$ 来唯一确定。</p>
+<p>$$ f({\mathbf{m}_1,..,\mathbf{m}_n}) = n!p(n)\varphi_n(\mathbf{m}_1,…,\mathbf{m}_n)$$</p>
 <p>当为整数集时，</p>
-<p><span class="math display">\[\int{f(\mathbf{M})\delta(\mathbf{M})}= f(\emptyset) + \sum^{\infty}_{n =1}{\frac{1}{n!}\int{f({\mathbf{m}_1,...,\mathbf{m}_n})}}d_{\mathbf{m}_1},...,d_{\mathbf{m}_n}\]</span></p>
-<p><span class="math inline">\(f(\mathbf{M})\)</span> 收敛于1.</p>
-<h3 id="伯努利-rfs">伯努利 RFS：</h3>
-<p>RFS 的势（cardinality）分步 <span class="math inline">\(p(x)\)</span> 是伯努利的。伯努利 RFS是空（概率<span class="math inline">\(1-p\)</span>）或者是一个元素(概率<span class="math inline">\(p\)</span>)。所以伯努利RFS <span class="math inline">\(\mathbf{M}\)</span> 的FISST PDF可以表示为： <span class="math display">\[
-f(\mathbf{M})=\begin{cases} \begin{matrix} 1-q &amp; if\quad \mathbf{M} =\emptyset  \\ q\varphi (\mathbf{m}) &amp; if\quad \mathbf{M}=\{ \mathbf{m}\}  \end{matrix}\end{cases}
-\]</span> ### 独立同分布（IID）簇RFS 已知势 <span class="math inline">\(|\mathbf{M}|\)</span> ，独立同分布簇RFS<span class="math inline">\(\mathbf{M}\)</span>的元素是每个IID随机变量根据PDF <span class="math inline">\(\varphi(m)\)</span> 来分布。于是我们可知 <span class="math inline">\(\mathbf{M}\)</span> 的FISST PDF为 <span class="math display">\[
-f(\mathbf{M}) = |\mathbf{M}|!\varphi(|\mathbf{M}|)\prod_{ \mathbf{m}\in \mathbf{M}}{ \varphi(\mathbf{m}) }
-\]</span></p>
+<p>$$\int{f(\mathbf{M})\delta(\mathbf{M})}= f(\emptyset) + \sum^{\infty}<em>{n =1}{\frac{1}{n!}\int{f({\mathbf{m}_1,…,\mathbf{m}_n})}}d</em>{\mathbf{m}<em>1},…,d</em>{\mathbf{m}_n}$$</p>
+<p>$f(\mathbf{M})$ 收敛于1.</p>
+<h3 id="伯努利-RFS："><a href="#伯努利-RFS：" class="headerlink" title="伯努利 RFS："></a>伯努利 RFS：</h3><p>RFS 的势（cardinality）分步 $p(x)$ 是伯努利的。伯努利 RFS是空（概率$1-p$）或者是一个元素(概率$p$)。所以伯努利RFS $\mathbf{M}$ 的FISST PDF可以表示为：<br>$$<br>f(\mathbf{M})=\begin{cases} \begin{matrix} 1-q &amp; if\quad \mathbf{M} =\emptyset  \ q\varphi (\mathbf{m}) &amp; if\quad \mathbf{M}={ \mathbf{m}}  \end{matrix}\end{cases}<br>$$</p>
+<h3 id="独立同分布（IID）簇RFS"><a href="#独立同分布（IID）簇RFS" class="headerlink" title="独立同分布（IID）簇RFS"></a>独立同分布（IID）簇RFS</h3><p>已知势 $|\mathbf{M}|$ ，独立同分布簇RFS$\mathbf{M}$的元素是每个IID随机变量根据PDF $\varphi(m)$ 来分布。于是我们可知 $\mathbf{M}$ 的FISST PDF为<br>$$<br>f(\mathbf{M}) = |\mathbf{M}|!\varphi(|\mathbf{M}|)\prod_{ \mathbf{m}\in \mathbf{M}}{ \varphi(\mathbf{m}) }<br>$$</p>
 <p>因为IID的独立性</p>
-<p><span class="math display">\[
-\varphi_n(\mathbf{m}_1,...,\mathbf{m}_n) = \prod_{ \mathbf{m}\in \mathbf{M}}{ \varphi(\mathbf{m}) }
-\]</span></p>
-<h3 id="伯松rfs">伯松RFS</h3>
-<p>伯松RFs是IDD 簇RFS的特殊形式，因为假设势的分布伯松的</p>
-<p><span class="math display">\[
-\varphi(\mathbf{m}) = \frac{e^{-\lambda}\lambda^n}{n!}, n = 0,1,2,...
-\]</span></p>
-<h3 id="二项式rfs">二项式RFS</h3>
-<p>二项式RFS也是IID簇RFS的特殊形式，他的势分布是个二项式分布（项的数目为 <span class="math inline">\(L\)</span>, 成功概率为 <span class="math inline">\(q\)</span>）</p>
-<p><span class="math display">\[
-p(n) = \left(\begin{matrix}  L \\ n  \end{matrix}\right)q^n(1-q)^{L-n}, n = 0,1,2,...,L
-\]</span> 它的 FISST PDF变为 <span class="math display">\[
-f(\mathbf{M})= \frac{L!}{(L-|\mathbf{M}|)!}q^{|\mathbf{M}|}(1-q)^{L-|\mathbf{M}|}\prod_{ \mathbf{m}\in \mathbf{M}}{p(\mathbf{m})}
-\]</span> <em>注意：</em> 当<span class="math inline">\(L = 1\)</span>, 二项式RFS就变成伯努利RFS</p>
-<p>假设我们在 k 时，有了有限集来表示多目标，<span class="math inline">\(\mathbf{M}_k = \{\mathbf{m}_{k,1},...,\mathbf{m}_{k,n_k}\}\)</span>，这里<span class="math inline">\(n_k\)</span>是时变目标的数目。我们假设这个过程是一个 Markov 过程，他的传递密度是<span class="math inline">\(\phi_{k|k-1}(\mathbf{M}_k|\mathbf{M}_{k-1})\)</span>。<span class="math inline">\(\mathbf{M}_k\)</span>的观测为<span class="math inline">\(\mathbf{Z}_k\)</span>，他可以是向量，一个 RFS 也可以是一个封闭集。<span class="math inline">\(h_k(\mathbf{Z}_k|\mathbf{X}_k)\)</span>是似然函数。通过 <span class="math display">\[
-f_{k|k-1}(\mathbf{M}_k|\mathbf{Z}_{1:k-1})=\int {\phi_{k|k-1}(\mathbf{M_k|\mathbf{M}_{k-1}})f_{k-1}(\mathbf{M}_{k-1}|\mathbf{Z}_{1:k-1})\sigma{\mathbf{M}_k}}
-\]</span> <span class="math display">\[
-f_{k}(\mathbf{M}_{k}|\mathbf{Z}_{1:k})= \frac{h_k(\mathbf{Z}_k|\mathbf{M}_k)f_{k|k-1}(\mathbf{M}_k|\mathbf{Z}_{1:k-1})}{\int{h_k(\mathbf{Z}_k|\mathbf{M})f_{k|k-1}(\mathbf{M}|\mathbf{Z}_{1:k-1})}\sigma{\mathbf{M}}}
-\]</span> RFS是贝叶斯的非同寻常的扩展，因为传递密度和似然密度可以很复杂。</p>
-<h2 id="section"></h2>
+<p>$$<br>\varphi_n(\mathbf{m}<em>1,…,\mathbf{m}_n) = \prod</em>{ \mathbf{m}\in \mathbf{M}}{ \varphi(\mathbf{m}) }<br>$$</p>
+<h3 id="伯松RFS"><a href="#伯松RFS" class="headerlink" title="伯松RFS"></a>伯松RFS</h3><p>伯松RFs是IDD 簇RFS的特殊形式，因为假设势的分布伯松的</p>
+<p>$$<br>\varphi(\mathbf{m}) = \frac{e^{-\lambda}\lambda^n}{n!}, n = 0,1,2,…<br>$$</p>
+<h3 id="二项式RFS"><a href="#二项式RFS" class="headerlink" title="二项式RFS"></a>二项式RFS</h3><p>二项式RFS也是IID簇RFS的特殊形式，他的势分布是个二项式分布（项的数目为 $L$, 成功概率为 $q$）</p>
+<p>$$<br>p(n) = \left(\begin{matrix}  L \ n  \end{matrix}\right)q^n(1-q)^{L-n}, n = 0,1,2,…,L<br>$$<br>它的 FISST PDF变为<br>$$<br>f(\mathbf{M})= \frac{L!}{(L-|\mathbf{M}|)!}q^{|\mathbf{M}|}(1-q)^{L-|\mathbf{M}|}\prod_{ \mathbf{m}\in \mathbf{M}}{p(\mathbf{m})}<br>$$<br><em>注意：</em> 当$L = 1$, 二项式RFS就变成伯努利RFS</p>
+<p>假设我们在 k 时，有了有限集来表示多目标，$\mathbf{M}<em>k = {\mathbf{m}</em>{k,1},…,\mathbf{m}<em>{k,n_k}}$，这里$n_k$是时变目标的数目。我们假设这个过程是一个 Markov 过程，他的传递密度是$\phi</em>{k|k-1}(\mathbf{M}<em>k|\mathbf{M}</em>{k-1})$。$\mathbf{M}<em>k$的观测为$\mathbf{Z}_k$，他可以是向量，一个 RFS 也可以是一个封闭集。$h_k(\mathbf{Z}_k|\mathbf{X}_k)$是似然函数。通过<br>$$<br>f</em>{k|k-1}(\mathbf{M}<em>k|\mathbf{Z}</em>{1:k-1})=\int {\phi_{k|k-1}(\mathbf{M_k|\mathbf{M}<em>{k-1}})f</em>{k-1}(\mathbf{M}<em>{k-1}|\mathbf{Z}</em>{1:k-1})\sigma{\mathbf{M}<em>k}}<br>$$<br>$$<br>f</em>{k}(\mathbf{M}<em>{k}|\mathbf{Z}</em>{1:k})= \frac{h_k(\mathbf{Z}<em>k|\mathbf{M}_k)f</em>{k|k-1}(\mathbf{M}<em>k|\mathbf{Z}</em>{1:k-1})}{\int{h_k(\mathbf{Z}<em>k|\mathbf{M})f</em>{k|k-1}(\mathbf{M}|\mathbf{Z}_{1:k-1})}\sigma{\mathbf{M}}}<br>$$<br>RFS是贝叶斯的非同寻常的扩展，因为传递密度和似然密度可以很复杂。</p>
+<p>## </p>
 
       
     </div>
@@ -722,7 +699,7 @@ f_{k}(\mathbf{M}_{k}|\mathbf{Z}_{1:k})= \frac{h_k(\mathbf{Z}_k|\mathbf{M}_k)f_{k
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bernoulli-filter-的实现与应用"><span class="nav-number">2.</span> <span class="nav-text">Bernoulli filter 的实现与应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学基础"><span class="nav-number">3.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准随机贝叶斯滤波器"><span class="nav-number">3.1.</span> <span class="nav-text">标准随机贝叶斯滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机有限子集"><span class="nav-number">3.2.</span> <span class="nav-text">随机有限子集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伯努利-rfs"><span class="nav-number">3.2.1.</span> <span class="nav-text">伯努利 RFS：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伯松rfs"><span class="nav-number">3.2.2.</span> <span class="nav-text">伯松RFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二项式rfs"><span class="nav-number">3.2.3.</span> <span class="nav-text">二项式RFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number">3.3.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bernoulli-filter-的实现与应用"><span class="nav-number">2.</span> <span class="nav-text">Bernoulli filter 的实现与应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数学基础"><span class="nav-number">3.</span> <span class="nav-text">数学基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准随机贝叶斯滤波器"><span class="nav-number">3.1.</span> <span class="nav-text">标准随机贝叶斯滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机有限子集"><span class="nav-number">3.2.</span> <span class="nav-text">随机有限子集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伯努利-RFS："><span class="nav-number">3.2.1.</span> <span class="nav-text">伯努利 RFS：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独立同分布（IID）簇RFS"><span class="nav-number">3.2.2.</span> <span class="nav-text">独立同分布（IID）簇RFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伯松RFS"><span class="nav-number">3.2.3.</span> <span class="nav-text">伯松RFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二项式RFS"><span class="nav-number">3.2.4.</span> <span class="nav-text">二项式RFS</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

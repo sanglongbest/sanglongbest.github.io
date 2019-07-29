@@ -418,16 +418,13 @@
       
         <p>Multitarget tracking (MTT) 多目标跟踪一直是一个热点话题，这个问题已经都50年了，但是一直得不到一个很好的解决，在图像跟踪上，大家可能比较熟悉相关滤波，我们今天从另一个角度去思考这个问题，<strong>多目标跟踪是单目标的复杂形式</strong>，但是问题就变成了如何处理，检测丢失，噪点，初始位置不清和target的增减等问题，注意这里讨论的问题不仅仅是图像领域而是一种很通用的MTT问题，比如传感器网络等。</p>
 <p>现在主要的三类解决方式是：JPDAF (joint probabilistic data association filter, 联合概率数据互联滤波器), MHT (multiple hypothesis tracking, 多假设跟踪) 和 RFS (random finite set, 随机有限子集)。 这是从处理measurement 和 target 的关系的角度来说明的，我们在这总结一下。我会尽量用最少的语言和少量的公式讲明白。因为RFS是我的研究方向可能笔墨会多一点。现在很多的方法其实主要还是用的是JPDAF的思想来消除false alarm，减少了误检，但是如果要解决目标丢失和目标重叠等问题，我觉得还是要从MHT和RFS的角度来思考。</p>
-<h1 id="基本mtt问题">基本MTT问题</h1>
-<ul>
-<li>图中展现了一个典型的MTT问题，一个target没有被雷达检测到（missed detection），两个临近的目标叠加在了一起（unresolved），同时还有噪点（fasle alarm），这些统称为measurment的原始不确定性。 <img src="http://p8x77a5rp.bkt.clouddn.com/95a122026efcc1d91b0896f47b1aa8a9.png"></li>
-<li>target 数目是时变得，同时每个target产生多个随机的measurement。 <img src="http://p8x77a5rp.bkt.clouddn.com/1db275dc5d46743454a9887f2561fa98.png"></li>
-<li>target 排列是无序的。 <img src="http://p8x77a5rp.bkt.clouddn.com/5b9ad2892f576fc0ed1aec8553a13eb1.png"></li>
+<h1 id="基本MTT问题"><a href="#基本MTT问题" class="headerlink" title="基本MTT问题"></a>基本MTT问题</h1><ul>
+<li>图中展现了一个典型的MTT问题，一个target没有被雷达检测到（missed detection），两个临近的目标叠加在了一起（unresolved），同时还有噪点（fasle alarm），这些统称为measurment的原始不确定性。<br><img src="http://p8x77a5rp.bkt.clouddn.com/95a122026efcc1d91b0896f47b1aa8a9.png" alt></li>
+<li>target 数目是时变得，同时每个target产生多个随机的measurement。<br><img src="http://p8x77a5rp.bkt.clouddn.com/1db275dc5d46743454a9887f2561fa98.png" alt></li>
+<li>target 排列是无序的。<br><img src="http://p8x77a5rp.bkt.clouddn.com/5b9ad2892f576fc0ed1aec8553a13eb1.png" alt></li>
 </ul>
-<h1 id="jpdaf">JPDAF</h1>
-<p>JPDAF是单目标的PDAF在多目标问题上的延伸。</p>
-<h2 id="基本假设">基本假设</h2>
-<ul>
+<h1 id="JPDAF"><a href="#JPDAF" class="headerlink" title="JPDAF"></a>JPDAF</h1><p>JPDAF是单目标的PDAF在多目标问题上的延伸。</p>
+<h2 id="基本假设"><a href="#基本假设" class="headerlink" title="基本假设"></a>基本假设</h2><ul>
 <li>measurement 可以包含false alarm。</li>
 <li>target数目是<strong>已知的</strong>。</li>
 <li>每个物体的初始位置是<strong>已知的</strong>。</li>
@@ -437,33 +434,29 @@
 <li>target的检测是独立的，并且检测的概率已知。</li>
 <li>target 是高斯的和independent across target（均值和方差可以迭代的）。</li>
 </ul>
-<h2 id="基本步骤">基本步骤</h2>
-<ul>
+<h2 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h2><ul>
 <li>设置了一个验证矩阵(validation matrix)，他显示了每个测量的所有可能来源。</li>
-<li>从这个验证矩阵中，根据规则计算所有可行的联合关联事件。
-<ul>
+<li>从这个验证矩阵中，根据规则计算所有可行的联合关联事件。<ul>
 <li>每个测量都有一个源。</li>
 <li>每个目标的至多有一个测量（或不测量）。</li>
-</ul></li>
-<li>这些联合事件可以通过以下假设评估：
-<ul>
+</ul>
+</li>
+<li>这些联合事件可以通过以下假设评估：<ul>
 <li>目标产生的测量值的分布概率是高斯的。</li>
 <li>虚假测量均匀随机分布的。</li>
-<li>虚假测量的数量遵循。
-<ul>
+<li>虚假测量的数量遵循。<ul>
 <li>泊松先验 - 参数JPDAF。</li>
 <li>弥散先验 - 非参数JPDAF</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>边际（目标的独立测量）关联概率可以从联合关联概率获得。</li>
 <li>通过使用这些边际概率，target state 可以被独立（未耦合的）PDA滤波器估计。</li>
 </ul>
-<h2 id="小结">小结</h2>
-<p>因为他要求目标已知，很大方面限制了他的局限性，但是它想法直观，很多方法都还有他的影子，现在很多基于detection的tracking方法，也是通过建立data association去消除false alarm。 <a href="https://github.com/apennisi/jpdaf_tracking" target="_blank" rel="noopener">code</a>。</p>
-<h1 id="mht">MHT</h1>
-<p>MHT会为每个候选目标建立一个潜在跟踪假设树，然后，计算每一个跟踪的概率，选出最有可能的跟踪组合。因为在计算概率时，整个跟踪假设都会被考虑到，所以MHT理论上适用于高阶信息例如长期的运动和外观模型。MHT分为两类HOMHT（hypothesis-oriented MHT）和TOMHT(track-oriented MHT)。其中TOMHT又分tree based 和non-tree based。 <em>注</em> Hypothesis 是estimated target的轨迹。</p>
-<h2 id="基本假设-1">基本假设</h2>
-<ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>因为他要求目标已知，很大方面限制了他的局限性，但是它想法直观，很多方法都还有他的影子，现在很多基于detection的tracking方法，也是通过建立data association去消除false alarm。<br> <a href="https://github.com/apennisi/jpdaf_tracking" target="_blank" rel="noopener">code</a>。</p>
+<h1 id="MHT"><a href="#MHT" class="headerlink" title="MHT"></a>MHT</h1><p>MHT会为每个候选目标建立一个潜在跟踪假设树，然后，计算每一个跟踪的概率，选出最有可能的跟踪组合。因为在计算概率时，整个跟踪假设都会被考虑到，所以MHT理论上适用于高阶信息例如长期的运动和外观模型。MHT分为两类HOMHT（hypothesis-oriented MHT）和TOMHT(track-oriented MHT)。其中TOMHT又分tree based 和non-tree based。<br><em>注</em> Hypothesis 是estimated target的轨迹。</p>
+<h2 id="基本假设-1"><a href="#基本假设-1" class="headerlink" title="基本假设"></a>基本假设</h2><ul>
 <li>不知道 measurement 不知道是属于target 还是 clutter。如果属于target，也不知道属于哪个target。</li>
 <li>当target miss的概率小于检测的联合概率时，miss是不知道的。</li>
 <li>为了限制data association的数目，算法采用<strong>gatting</strong>。其中<strong>fine gatting（椭圆gatting）</strong>最为常见。矩形 gatting 也有采用，因为计算量比较少。</li>
@@ -476,28 +469,24 @@
 <li><strong>一个target 能至多产生一个measurement</strong>。</li>
 <li>target的检测是独立的。</li>
 </ul>
-<h2 id="基本步骤-1">基本步骤</h2>
-<ul>
-<li>设现在有2个target轨迹，和三个measurements。 <img src="http://p8x77a5rp.bkt.clouddn.com/36249b773de024a5aebaf71c3d50aafd.png"></li>
-<li>建立树形结构。 <img src="http://p8x77a5rp.bkt.clouddn.com//7f4cc238eb1996198dc1e1e1e846539d.png"></li>
-<li>得到所有的track hypotheses。 <img src="http://p8x77a5rp.bkt.clouddn.com//bd7cc2ace89c5123f7e6684d3d61fc6b.png"></li>
+<h2 id="基本步骤-1"><a href="#基本步骤-1" class="headerlink" title="基本步骤"></a>基本步骤</h2><ul>
+<li>设现在有2个target轨迹，和三个measurements。<br><img src="http://p8x77a5rp.bkt.clouddn.com/36249b773de024a5aebaf71c3d50aafd.png" alt></li>
+<li>建立树形结构。<br><img src="http://p8x77a5rp.bkt.clouddn.com//7f4cc238eb1996198dc1e1e1e846539d.png" alt></li>
+<li>得到所有的track hypotheses。<br><img src="http://p8x77a5rp.bkt.clouddn.com//bd7cc2ace89c5123f7e6684d3d61fc6b.png" alt></li>
 <li>只保留一个best global hypothesis（BGH）其他的丢掉。</li>
 <li>可以通过多次扫描再做取舍来提高系统正确率。单次扫描被称作2D assignment problem，多次被成为multi-frame assignment (MFA) 或者 multi-dimensional assignment (MDA)。</li>
 <li>association hypotheses随measurement而指数增多。为了抑制增多，我们可以采用clustering, gating, N-scan pruning 和 track-score based pruning。</li>
 </ul>
-<h2 id="小结-1">小结</h2>
-<p>随之计算机性能提升，经典MHT算法在标准测试数据集上能与目前一流的方法媲美。比如在MOT2017上排第9。可见性能还是很不错的。 <a href="http://rehg.org/mht/" target="_blank" rel="noopener">code</a>。</p>
-<h1 id="rfs">RFS</h1>
-<p>RFS就是把多目标的state看成单目标的state，这样就能通过单目标的方法解决问题，他与前两个区别在于它不需要data association。最简单的RFS，是伯努利RFS。我们也可以取RFS的泰勒一阶展开，即PHD（Probability Hypothesis Density）或者intensity function。 PHD的卷积就是估算的target数量。</p>
+<h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>随之计算机性能提升，经典MHT算法在标准测试数据集上能与目前一流的方法媲美。比如在MOT2017上排第9。可见性能还是很不错的。<br> <a href="http://rehg.org/mht/" target="_blank" rel="noopener">code</a>。</p>
+<h1 id="RFS"><a href="#RFS" class="headerlink" title="RFS"></a>RFS</h1><p> RFS就是把多目标的state看成单目标的state，这样就能通过单目标的方法解决问题，他与前两个区别在于它不需要data association。最简单的RFS，是伯努利RFS。我们也可以取RFS的泰勒一阶展开，即PHD（Probability Hypothesis Density）或者intensity function。 PHD的卷积就是估算的target数量。</p>
 <ul>
 <li>generalized labeled multi-Bernoulli filter 和 particle marginal Metropolis-Hasting tracker都考虑了物体的label信息，所以有滤波递归的解析解。</li>
 <li>PHD，CPHD 和 multi-Bernoulli filter不考虑label信息，所以有近似解析解。</li>
 </ul>
-<h2 id="基本假设-2">基本假设</h2>
-<ul>
+<h2 id="基本假设-2"><a href="#基本假设-2" class="headerlink" title="基本假设"></a>基本假设</h2><ul>
 <li>RFS在空间X的有限子集上取值，而不是在空间X上取值，所以他不符合在X上的贝叶斯理论，它是建立在采样理论上的计算。</li>
 <li>通常考虑的是FISST(Finite Set Statistc)， 因为他易于形成测量理论结构。</li>
-<li>考虑了miss detection 或者 target death，也会考虑bitrh，<strong>同时兼顾appear and disappear。</strong></li>
+<li>考虑了miss detection 或者 target death，也会考虑bitrh，<strong>同时兼顾appear and disappear。</strong><ul>
 <li>target数目是<strong>未知的</strong>。</li>
 <li>每个物体的初始位置是<strong>未知的</strong>。</li>
 <li>每个target 状态方程可以不同。</li>
@@ -507,20 +496,19 @@
 <li>网络是非齐次的，非泊松的。</li>
 <li><strong>检测概率和state相关方程明确</strong>。</li>
 </ul>
-<h2 id="phd">PHD</h2>
-<p>计算廉价，假设更新和预测的RFS为Possion的。他的closed form形态被称为GM-PHD。对于非线性，还有SMC-PHD。CPHD就还考虑了基数分布，通过高计算复杂来获取高性能，同时假设更新和预测的RFS为cluster 的独立同分布。他们的计算量和target数量成线性，PHD同measurement的数量成线性，CPHD是成<span class="math inline">\(N_z^2\log{N_Z}\)</span> 对于PHD filter 大家可以读一下<a href="https://books.google.co.uk/books?hl=en&amp;lr=&amp;id=zPBaBAAAQBAJ&amp;oi=fnd&amp;pg=PR5&amp;dq=advances+in+statistical+multisource-multitarget+information+fusion&amp;ots=soI_UGvrw6&amp;sig=hhjwhtnDYoB_eDH_a6Iy8revmMc#v=onepage&amp;q=advances%20in%20statistical%20multisource-multitarget%20information%20fusion&amp;f=false" target="_blank" rel="noopener">advances in statistical multisource-multitarget information fusion</a>。书也不贵1000左右吧。。。</p>
-<h2 id="伯努利滤波器">伯努利滤波器</h2>
-<p>欢迎大家看我之前发的blog:</p>
-<p><a href="https://sanglongbest.github.io/2018/05/09/Bernoulli/">伯努利滤波器（一）——背景和数学基础</a>。</p>
-<p><a href="https://sanglongbest.github.io/2018/05/10/Bernoulli2/">伯努利滤波器（二）——随机动态方程和更新函数</a>。</p>
-<p><a href="https://sanglongbest.github.io/2018/05/11/Bernoulli3/">伯努利滤波器（三）—— 强度测量信模型息</a>。</p>
-<p><a href="https://sanglongbest.github.io/2018/05/11/Bernoulli4/">伯努利滤波器（四）—— 点状测量信息模型</a>。</p>
-<p><a href="https://sanglongbest.github.io/2018/05/13/Bernoulli5/">伯努利滤波器（五）——拓展目标的测量模型</a>。</p>
-<p><a href="https://sanglongbest.github.io/2018/05/15/Bernoulli6/">伯努利滤波器（六）——不确定测量</a>。</p>
-<p><a href="https://sanglongbest.github.io/2018/05/17/Bernoulli7/">伯努利滤波器（七）——伯努利粒子滤波器</a>。</p>
+</li>
+</ul>
+<h2 id="PHD"><a href="#PHD" class="headerlink" title="PHD"></a>PHD</h2><p> 计算廉价，假设更新和预测的RFS为Possion的。他的closed form形态被称为GM-PHD。对于非线性，还有SMC-PHD。CPHD就还考虑了基数分布，通过高计算复杂来获取高性能，同时假设更新和预测的RFS为cluster 的独立同分布。他们的计算量和target数量成线性，PHD同measurement的数量成线性，CPHD是成$N_z^2\log{N_Z}$<br> 对于PHD filter 大家可以读一下<a href="https://books.google.co.uk/books?hl=en&lr=&id=zPBaBAAAQBAJ&oi=fnd&pg=PR5&dq=advances+in+statistical+multisource-multitarget+information+fusion&ots=soI_UGvrw6&sig=hhjwhtnDYoB_eDH_a6Iy8revmMc#v=onepage&q=advances%20in%20statistical%20multisource-multitarget%20information%20fusion&f=false" target="_blank" rel="noopener">advances in statistical multisource-multitarget information fusion</a>。书也不贵1000左右吧。。。</p>
+<h2 id="伯努利滤波器"><a href="#伯努利滤波器" class="headerlink" title="伯努利滤波器"></a>伯努利滤波器</h2><p> 欢迎大家看我之前发的blog:</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/09/Bernoulli/">伯努利滤波器（一）——背景和数学基础</a>。</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/10/Bernoulli2/">伯努利滤波器（二）——随机动态方程和更新函数</a>。</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/11/Bernoulli3/">伯努利滤波器（三）—— 强度测量信模型息</a>。</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/11/Bernoulli4/">伯努利滤波器（四）—— 点状测量信息模型</a>。</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/13/Bernoulli5/">伯努利滤波器（五）——拓展目标的测量模型</a>。</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/15/Bernoulli6/">伯努利滤波器（六）——不确定测量</a>。</p>
+<p> <a href="https://sanglongbest.github.io/2018/05/17/Bernoulli7/">伯努利滤波器（七）——伯努利粒子滤波器</a>。</p>
 <p>文章还没修正，而且我不是专业做Bernourlli的，所以字符会有点乱。。。。见谅。</p>
-<h2 id="generalized-labeled-multi-bernoulli-tracker">Generalized Labeled Multi-Bernoulli Tracker</h2>
-<p>前面的filter 包括multi-Bernoulli filter 都是不输出轨迹的。而GLMB是输出轨迹的。他的label包含两个部分一个是出生的时间，一个是对应的target。它是Bayes 多目标filter的第一个完全close form解。但是<strong>计算量很大和观测成立方增长</strong> 他的数学推导我们会再开专题，<a href="http://ba-ngu.vo-au.com/vo/VV_Conjugate_TSP13.pdf" target="_blank" rel="noopener">paper</a>。</p>
+<h2 id="Generalized-Labeled-Multi-Bernoulli-Tracker"><a href="#Generalized-Labeled-Multi-Bernoulli-Tracker" class="headerlink" title="Generalized Labeled Multi-Bernoulli Tracker"></a>Generalized Labeled Multi-Bernoulli Tracker</h2><p> 前面的filter 包括multi-Bernoulli filter 都是不输出轨迹的。而GLMB是输出轨迹的。他的label包含两个部分一个是出生的时间，一个是对应的target。它是Bayes 多目标filter的第一个完全close form解。但是<strong>计算量很大和观测成立方增长</strong><br> 他的数学推导我们会再开专题，<a href="http://ba-ngu.vo-au.com/vo/VV_Conjugate_TSP13.pdf" target="_blank" rel="noopener">paper</a>。</p>
 
       
     </div>
@@ -791,7 +779,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本mtt问题"><span class="nav-number">1.</span> <span class="nav-text">基本MTT问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jpdaf"><span class="nav-number">2.</span> <span class="nav-text">JPDAF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本假设"><span class="nav-number">2.1.</span> <span class="nav-text">基本假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本步骤"><span class="nav-number">2.2.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mht"><span class="nav-number">3.</span> <span class="nav-text">MHT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本假设-1"><span class="nav-number">3.1.</span> <span class="nav-text">基本假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本步骤-1"><span class="nav-number">3.2.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rfs"><span class="nav-number">4.</span> <span class="nav-text">RFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本假设-2"><span class="nav-number">4.1.</span> <span class="nav-text">基本假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phd"><span class="nav-number">4.2.</span> <span class="nav-text">PHD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伯努利滤波器"><span class="nav-number">4.3.</span> <span class="nav-text">伯努利滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generalized-labeled-multi-bernoulli-tracker"><span class="nav-number">4.4.</span> <span class="nav-text">Generalized Labeled Multi-Bernoulli Tracker</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本MTT问题"><span class="nav-number">1.</span> <span class="nav-text">基本MTT问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JPDAF"><span class="nav-number">2.</span> <span class="nav-text">JPDAF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本假设"><span class="nav-number">2.1.</span> <span class="nav-text">基本假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本步骤"><span class="nav-number">2.2.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MHT"><span class="nav-number">3.</span> <span class="nav-text">MHT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本假设-1"><span class="nav-number">3.1.</span> <span class="nav-text">基本假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本步骤-1"><span class="nav-number">3.2.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RFS"><span class="nav-number">4.</span> <span class="nav-text">RFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本假设-2"><span class="nav-number">4.1.</span> <span class="nav-text">基本假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHD"><span class="nav-number">4.2.</span> <span class="nav-text">PHD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伯努利滤波器"><span class="nav-number">4.3.</span> <span class="nav-text">伯努利滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generalized-Labeled-Multi-Bernoulli-Tracker"><span class="nav-number">4.4.</span> <span class="nav-text">Generalized Labeled Multi-Bernoulli Tracker</span></a></li></ol></li></ol></div>
             
 
           </div>

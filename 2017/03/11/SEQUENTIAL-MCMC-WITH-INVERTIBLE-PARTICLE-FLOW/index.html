@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="背景 粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机 解决的方式  auxiliary particle filter [^1] [^1]">
+  <meta name="description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter [^1][^1]: Fi">
 <meta name="keywords" content="particle flow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SEQUENTIAL MCMC WITH INVERTIBLE PARTICLE FLOW">
 <meta property="og:url" content="http://sanglongbest.github.io/2017/03/11/SEQUENTIAL-MCMC-WITH-INVERTIBLE-PARTICLE-FLOW/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="背景 粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机 解决的方式  auxiliary particle filter [^1] [^1]">
+<meta property="og:description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter [^1][^1]: Fi">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2017-03-11T23:40:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SEQUENTIAL MCMC WITH INVERTIBLE PARTICLE FLOW">
-<meta name="twitter:description" content="背景 粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机 解决的方式  auxiliary particle filter [^1] [^1]">
+<meta name="twitter:description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter [^1][^1]: Fi">
 
 
 
@@ -397,19 +397,20 @@
       
 
       
-        <h1 id="背景">背景</h1>
-<p>粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。</p>
-<h1 id="维度危机">维度危机</h1>
-<h2 id="解决的方式">解决的方式</h2>
-<ul>
-<li><p>auxiliary particle filter [^1] [^1]: Filtering via simulation: Auxiliary particle filters</p></li>
-<li><p>Rao-Blackwellised particle filter [^2] [^2]: Rao-Blackwellised particle filtering for dynamic Bayesian networks ## opticla flow 分类</p></li>
-<li><p>通过移动 prior distribution 到 posterior distribution. 这种滤波器概率学上不连续，因为是approximation errors。 The filters are not statistically consistent due to approximation errors in- troduced during implementation.</p></li>
-<li><p>通过 particle flow 去重新构建近似的 posterior distribution.</p></li>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。</p>
+<h1 id="维度危机"><a href="#维度危机" class="headerlink" title="维度危机"></a>维度危机</h1><h2 id="解决的方式"><a href="#解决的方式" class="headerlink" title="解决的方式"></a>解决的方式</h2><ul>
+<li><p>auxiliary particle filter [^1]<br>[^1]: Filtering via simulation: Auxiliary particle filters</p>
+</li>
+<li><p>Rao-Blackwellised particle filter [^2]<br>[^2]: Rao-Blackwellised particle filtering for dynamic Bayesian networks</p>
+<h2 id="opticla-flow-分类"><a href="#opticla-flow-分类" class="headerlink" title="opticla flow 分类"></a>opticla flow 分类</h2></li>
+<li><p>通过移动 prior distribution 到 posterior distribution.<br>这种滤波器概率学上不连续，因为是approximation errors。<br>The filters are not statistically consistent due to approximation errors in- troduced during implementation.</p>
+</li>
+<li><p>通过 particle flow 去重新构建近似的 posterior distribution.</p>
+</li>
 </ul>
-<p>块级公式： <span class="math display">\[  x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]</span></p>
-<p>\[  = 1+ {1+ {1+ {1+ {1+} } } } \]</p>
-<p>行内公式： <span class="math inline">\(\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N\)</span></p>
+<p>块级公式：<br>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
+<p>\[ \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =<br>1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}<br>{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</p>
+<p>行内公式： $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$</p>
 
       
     </div>
@@ -666,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#维度危机"><span class="nav-number">2.</span> <span class="nav-text">维度危机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决的方式"><span class="nav-number">2.1.</span> <span class="nav-text">解决的方式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#维度危机"><span class="nav-number">2.</span> <span class="nav-text">维度危机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决的方式"><span class="nav-number">2.1.</span> <span class="nav-text">解决的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#opticla-flow-分类"><span class="nav-number">2.2.</span> <span class="nav-text">opticla flow 分类</span></a></li></ol></li></ol></div>
             
 
           </div>
