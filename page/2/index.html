@@ -399,8 +399,7 @@
       
         
           
-          首先更新一下
-12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vn
+          首先更新一下12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vnc
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -904,10 +903,8 @@ Bootstrap particle filter (BPF) 会遇到
           起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。
 配置
 注册七牛云
-
 创建存储空间,添加”对象存储”,访问控制选择”公开空间”
-
-右上角个人面板–&gt;密钥
+右上角个人面板–&gt;密钥管理
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1246,9 +1243,10 @@ Bootstrap particle filter (BPF) 会遇到
         
           
           强度模型下的伯努利粒子滤波：
-输入： 存在概率 $\varphi$, ${\omega^i_{k-1},\mathbf{m}^i_{k-1}}^{N+N_B}_{i=1}$, $\mathbf{z}_k$
+输入： 存在概率 $\varphi$, ${\omega^i{k-1},\mathbf{m}^i{k-1}}^{N+NB}{i=1}$, $\mathbf{z}_k$
 
-预测存在概率 $q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}$
+预测存在概率 $q{k|k-1} = p_b(1-q{k-1})+psq{k-1}$。
+取样$\ma
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1905,8 +1903,8 @@ Bootstrap particle filter (BPF) 会遇到
 
 next 主题自带的，发现 mathjax 不好使， 
 hexo-renderer-kramed 不好使
-hexo-math 可以但是对$$ 无效，对$$ $$有效
-试了Katex 显示公式重复。最后是 hexo-math 加 hexo-renderer-p
+hexo-math 可以但是对无效，对 $$有效
+试了Katex 显示公式重复。最后是 hexo-math 加 hexo-renderer-pandoc
           ...
           <!--noindex-->
           <div class="post-button text-center">

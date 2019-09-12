@@ -458,14 +458,12 @@
 <li>对于EDH 我们可以得到如下性质：</li>
 </ul>
 <ol>
-<li><p>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m_\lambda$ 是有界的。设，$\rho (.)$是谱半径函数，$\rho(\bm{A}(\lambda))$ 是 $\bm{A}(\lambda)$ 的上边界。</p>
-</li>
-<li><p>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m_\lambda$ 是有界的。如果$\triangle \lambda$足够小，$\triangle \lambda&lt;\frac{2\underline {r}(\lambda) }{\overline{p}\overline{h}^2}$, $f_\lambda$是可逆的</p>
+<li>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m_\lambda$ 是有界的。设，$\rho (.)$是谱半径函数，$\rho(\bm{A}(\lambda))$ 是 $\bm{A}(\lambda)$ 的上边界。</li>
+<li><p>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m<em>\lambda$ 是有界的。如果$\triangle \lambda$足够小，$\triangle \lambda&lt;\frac{2\underline {r}(\lambda) }{\overline{p}\overline{h}^2}$, $f</em>\lambda$是可逆的</p>
 </li>
 <li><p>EDH particle filter 是一个可逆映射，</p>
 </li>
-<li><p>如果 $\triangle \lambda &lt; \frac{2\underline{r}(\lambda)}{\overline{p}\overline{h}^2}$, 那么$0&lt;\left| \dot { T }^i (m^i_o) \right| &lt;\infty $</p>
-</li>
+<li>如果 $\triangle \lambda &lt; \frac{2\underline{r}(\lambda)}{\overline{p}\overline{h}^2}$, 那么$0&lt;\left| \dot { T }^i (m^i_o) \right| &lt;\infty $</li>
 </ol>
 <h1 id="LEDH-PFPF-和EDH-PFPF的区别"><a href="#LEDH-PFPF-和EDH-PFPF的区别" class="headerlink" title="LEDH PFPF 和EDH PFPF的区别"></a>LEDH PFPF 和EDH PFPF的区别</h1><p>在 EDH中，$A$ 和 $\left| \dot { T }^i (m^i_o) \right|$不与particle state 和 index 相关，所以计算weight 时可以不考虑$\left| \dot { T }^i (m^i_o) \right|$，因为归一化时会消掉。在 LEDH中，$A$ 和 $\left| \dot { T }^i (m^i_o) \right|$与particle state 和 index 相关。</p>
 <p>这就导致了：</p>
@@ -484,10 +482,8 @@
 </li>
 <li><p>为什么是小于？<br><img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.47.05.png" alt="Screen Shot 2018-05-24 at 10.47.05"></p>
 </li>
-<li><p>“One possible concern with the proposed implementation is<br>that flow parameters are calculated using the auxiliary flow” 这里的‘auxiliary flow’指的是？</p>
-</li>
-<li><p>如果保证步长是足够小的，满足可逆，因为参数都是未知的？</p>
-</li>
+<li>“One possible concern with the proposed implementation is<br>that flow parameters are calculated using the auxiliary flow” 这里的‘auxiliary flow’指的是？</li>
+<li>如果保证步长是足够小的，满足可逆，因为参数都是未知的？</li>
 </ol>
 <p>感谢云鹏（作者）对论文不懂地方的解答。</p>
 

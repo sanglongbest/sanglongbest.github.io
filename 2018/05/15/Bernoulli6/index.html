@@ -403,8 +403,10 @@
 <p>在我们分别处理这些非标准度量，我们首先实用通用框架处它们。理论上，伯努利滤波器是对于非标准测量是有效的。</p>
 <p>唯一的区别是，当我们处理非标准的需求时，似然函数$h_k(\mathbf{z}|\mathbf{m})$ 和 $c(\mathbf{z})$需要被替换为 GLF（generalised likelihood function）$\tilde { h_k(\mathbf{z}|\mathbf{m}) }$ 和 $\tilde{c(\mathbf{z})}$</p>
 <h1 id="非精准测量"><a href="#非精准测量" class="headerlink" title="非精准测量"></a>非精准测量</h1><p>非精准测量是由随机性产生的，它主要考虑两种情况：认知不确定（缺乏知识）和偶然不确定（因为随机）。在专家系统或者人工智能领域对非精准测量的讨论比较多，但是在概率领域，对这些讨论较少。</p>
-<p>$$<br>\mathbf{z} = \mathbf{f}_z(\mathbf{m}) + \mathbf{w}<br>$$<br>解决的办法是有多个结果加权得到，主要应用在检测，跟踪和自然语言处理，我们在后面会重点讲。</p>
-<h1 id="非精准似然函数"><a href="#非精准似然函数" class="headerlink" title="非精准似然函数"></a>非精准似然函数</h1><p>$$<br>\mathbf{z} = \mathbf{f}_z(\mathbf{m};\theta) + \mathbf{w}<br>$$<br>这里$\theta$为未知，如果假设$\mathbf{w}$是高斯的，那么他已可以加权消除误差。</p>
+<script type="math/tex; mode=display">
+\mathbf{z} = \mathbf{f}_z(\mathbf{m}) + \mathbf{w}</script><p>解决的办法是有多个结果加权得到，主要应用在检测，跟踪和自然语言处理，我们在后面会重点讲。</p>
+<h1 id="非精准似然函数"><a href="#非精准似然函数" class="headerlink" title="非精准似然函数"></a>非精准似然函数</h1><script type="math/tex; mode=display">
+\mathbf{z} = \mathbf{f}_z(\mathbf{m};\theta) + \mathbf{w}</script><p>这里$\theta$为未知，如果假设$\mathbf{w}$是高斯的，那么他已可以加权消除误差。</p>
 <h1 id="不确定蕴涵规则"><a href="#不确定蕴涵规则" class="headerlink" title="不确定蕴涵规则"></a>不确定蕴涵规则</h1><p>如果蕴涵规则不确定那么主要还是靠先验知识。</p>
 
       

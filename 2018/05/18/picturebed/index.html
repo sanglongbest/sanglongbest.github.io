@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云  创建存储空间,添加”对象存储”,访问控制选择”公开空间”  右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey)  在hexo主目录运行如下">
+  <meta name="description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云 创建存储空间,添加”对象存储”,访问控制选择”公开空间” 右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey) 在hexo主目录运行如下命令安">
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo 与七牛图床">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/18/picturebed/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云  创建存储空间,添加”对象存储”,访问控制选择”公开空间”  右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey)  在hexo主目录运行如下">
+<meta property="og:description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云 创建存储空间,添加”对象存储”,访问控制选择”公开空间” 右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey) 在hexo主目录运行如下命令安">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://camo.githubusercontent.com/b917298048485558d814fe57e3fac8590fc712f0/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376439356261653638622e706e67">
 <meta property="og:image" content="https://camo.githubusercontent.com/3771e0e157b7d34f3553268a7f3e773897594d50/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376462333463623333632e676966">
@@ -122,7 +122,7 @@
 <meta property="og:updated_time" content="2019-06-20T20:06:16.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 与七牛图床">
-<meta name="twitter:description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云  创建存储空间,添加”对象存储”,访问控制选择”公开空间”  右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey)  在hexo主目录运行如下">
+<meta name="twitter:description" content="起因因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。 配置 注册七牛云 创建存储空间,添加”对象存储”,访问控制选择”公开空间” 右上角个人面板–&amp;gt;密钥管理–&amp;gt;获取AK(AccessKey)和SK(SecretKey) 在hexo主目录运行如下命令安">
 <meta name="twitter:image" content="https://camo.githubusercontent.com/b917298048485558d814fe57e3fac8590fc712f0/68747470733a2f2f692e6c6f6c692e6e65742f323031372f30382f30372f353938376439356261653638622e706e67">
 
 
@@ -415,12 +415,9 @@
       
         <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>因为写博客需要图床，所以一开始我用知乎做图床，没想到知乎对外链管的很严，图片换了IP加载不出来，所以采用了七牛图床。 建议直接使用 Markdown Preview Enhanced。</p>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ul>
-<li><p>注册七牛云</p>
-</li>
-<li><p>创建存储空间,添加”对象存储”,访问控制选择”公开空间”</p>
-</li>
-<li><p>右上角个人面板–&gt;密钥管理–&gt;获取AK(AccessKey)和SK(SecretKey)</p>
-</li>
+<li>注册七牛云</li>
+<li>创建存储空间,添加”对象存储”,访问控制选择”公开空间”</li>
+<li>右上角个人面板–&gt;密钥管理–&gt;获取AK(AccessKey)和SK(SecretKey)</li>
 <li><p>在hexo主目录运行如下命令安装hexo-qiniu-sync插件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-qiniu-sync --save</span><br></pre></td></tr></table></figure>
 </li>
@@ -429,22 +426,15 @@
 </li>
 <li><p>上一步配置好以后,执行hexo s命令,会自动在hexo主目录创建如下目录结构:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">public</span><br><span class="line">static // 静态资源目录</span><br><span class="line">	- css		//css文件存储目录</span><br><span class="line">	- images	//图片存储目录	</span><br><span class="line">	- js		//js文件存储目录</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <p>将本地图片放在images目录下,在md文件中以如下方式引入文件即可:</p>
 <p>正常部署</p>
 <h1 id="弄完我就后悔了。。。。"><a href="#弄完我就后悔了。。。。" class="headerlink" title="弄完我就后悔了。。。。"></a>弄完我就后悔了。。。。</h1><p>因为其实我是两个电脑写博客，所以以前只是同步一下文章文件夹，现在还要同步图片文件夹，你知道的这个图片文件夹很大，而且我还不能在 vscode 中预览图片了因为 qnimg 不支持。。</p>
 <p>所以我发现的 vscode 的一个七牛插件！<a href="https://github.com/yscoder/vscode-qiniu-upload-image" target="_blank" rel="noopener">github</a></p>
-<h2 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h2><p>下载 github 文件<br>F1 输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Extensions: Install from VSIX.</span><br></pre></td></tr></table></figure>
-
-<p>通过 VSIX 安装（通过市场安装会报错）<br>F1 输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open user setting</span><br></pre></td></tr></table></figure>
-
-<p>输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 插件开关</span><br><span class="line">    &quot;qiniu.enable&quot;: true,</span><br><span class="line"></span><br><span class="line">    // 一个有效的七牛 AccessKey 签名授权</span><br><span class="line">    &quot;qiniu.access_key&quot;: &quot;*****************************************&quot;,</span><br><span class="line"></span><br><span class="line">    // 一个有效的七牛 SecretKey 签名授权</span><br><span class="line">    &quot;qiniu.secret_key&quot;: &quot;*****************************************&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图片上传空间</span><br><span class="line">    &quot;qiniu.bucket&quot;: &quot;ysblog&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图片上传路径，参数化命名，暂时支持 $&#123;fileName&#125;、$&#123;mdFileName&#125;、$&#123;date&#125;、$&#123;dateTime&#125;</span><br><span class="line">    // 示例：</span><br><span class="line">    //   $&#123;fileName&#125;-$&#123;date&#125; -&gt; picName-20160725.jpg</span><br><span class="line">    //   $&#123;mdFileName&#125;-$&#123;dateTime&#125; -&gt; markdownName-20170412222810.jpg</span><br><span class="line">    &quot;qiniu.remotePath&quot;: &quot;$&#123;fileName&#125;&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图床域名</span><br><span class="line">    &quot;qiniu.domain&quot;: &quot;http://xxxxx.xxxx.com&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h2><p>下载 github 文件<br>F1 输入命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Extensions: Install from VSIX.</span><br></pre></td></tr></table></figure></p>
+<p>通过 VSIX 安装（通过市场安装会报错）<br>F1 输入命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open user setting</span><br></pre></td></tr></table></figure></p>
+<p>输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 插件开关</span><br><span class="line">    &quot;qiniu.enable&quot;: true,</span><br><span class="line"></span><br><span class="line">    // 一个有效的七牛 AccessKey 签名授权</span><br><span class="line">    &quot;qiniu.access_key&quot;: &quot;*****************************************&quot;,</span><br><span class="line"></span><br><span class="line">    // 一个有效的七牛 SecretKey 签名授权</span><br><span class="line">    &quot;qiniu.secret_key&quot;: &quot;*****************************************&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图片上传空间</span><br><span class="line">    &quot;qiniu.bucket&quot;: &quot;ysblog&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图片上传路径，参数化命名，暂时支持 $&#123;fileName&#125;、$&#123;mdFileName&#125;、$&#123;date&#125;、$&#123;dateTime&#125;</span><br><span class="line">    // 示例：</span><br><span class="line">    //   $&#123;fileName&#125;-$&#123;date&#125; -&gt; picName-20160725.jpg</span><br><span class="line">    //   $&#123;mdFileName&#125;-$&#123;dateTime&#125; -&gt; markdownName-20170412222810.jpg</span><br><span class="line">    &quot;qiniu.remotePath&quot;: &quot;$&#123;fileName&#125;&quot;,</span><br><span class="line"></span><br><span class="line">    // 七牛图床域名</span><br><span class="line">    &quot;qiniu.domain&quot;: &quot;http://xxxxx.xxxx.com&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
 <li>粘贴图片路径上传：SHIFT + P</li>
 <li>直接选择图片上传：SHIFT + O</li>
