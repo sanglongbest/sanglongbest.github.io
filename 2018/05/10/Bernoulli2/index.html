@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="伯努利滤波器的预测方程在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，$q$为一个物体存在的概率，他的 RFS 是$p(\mathbf{m})$。同时我们假设当$|\mathbf{M}|&amp;gt;2$时，$f(\mathbf{M})= 0$。于是基于上文中的 set integral （集积分），我">
+  <meta name="description" content="伯努利滤波器的预测方程 在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，\(q\)为一个物体存在的概率，他的 RFS 是\(p(\mathbf{m})\)。同时我们假设当\(|\mathbf{M}|&amp;gt;2\)时，\(f(\mathbf{M})= 0\)。于是基于上文中的 set integra">
 <meta name="keywords" content="伯努利,滤波器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伯努利滤波器（二）——随机动态方程和更新函数">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/10/Bernoulli2/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="伯努利滤波器的预测方程在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，$q$为一个物体存在的概率，他的 RFS 是$p(\mathbf{m})$。同时我们假设当$|\mathbf{M}|&amp;gt;2$时，$f(\mathbf{M})= 0$。于是基于上文中的 set integral （集积分），我">
+<meta property="og:description" content="伯努利滤波器的预测方程 在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，\(q\)为一个物体存在的概率，他的 RFS 是\(p(\mathbf{m})\)。同时我们假设当\(|\mathbf{M}|&amp;gt;2\)时，\(f(\mathbf{M})= 0\)。于是基于上文中的 set integra">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-11T15:06:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伯努利滤波器（二）——随机动态方程和更新函数">
-<meta name="twitter:description" content="伯努利滤波器的预测方程在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，$q$为一个物体存在的概率，他的 RFS 是$p(\mathbf{m})$。同时我们假设当$|\mathbf{M}|&amp;gt;2$时，$f(\mathbf{M})= 0$。于是基于上文中的 set integral （集积分），我">
+<meta name="twitter:description" content="伯努利滤波器的预测方程 在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，\(q\)为一个物体存在的概率，他的 RFS 是\(p(\mathbf{m})\)。同时我们假设当\(|\mathbf{M}|&amp;gt;2\)时，\(f(\mathbf{M})= 0\)。于是基于上文中的 set integra">
 
 
 
@@ -409,29 +409,53 @@
       
 
       
-        <h1 id="伯努利滤波器的预测方程"><a href="#伯努利滤波器的预测方程" class="headerlink" title="伯努利滤波器的预测方程"></a>伯努利滤波器的预测方程</h1><p>在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，$q$为一个物体存在的概率，他的 RFS 是$p(\mathbf{m})$。同时我们假设当$|\mathbf{M}|&gt;2$时，$f(\mathbf{M})= 0$。于是基于上文中的 set integral （集积分），我们得到：<br>$$<br>\int f(\mathbf{M})\delta \mathbf{M} = f(\emptyset) + \int f({\mathbf{m}})d{\mathbf{m}}<br>$$</p>
-<p>因为$p(\mathbf{m})$ 是$\textit{M}$的常规PDF，下面的式子趋近于1。</p>
-<p>$$ \int{f(\mathbf{M})}\delta\mathbf{M}= 1 -q + q \int{g\varphi(\mathbf{m})}d_{\mathbf{m}} =1$$</p>
-<p>如果，目标出现，我们假设这是一个已知传递密度$p_{k|k-1}(\mathbf{m}|\mathbf{m}’)$。我们采用$\varepsilon_k \in {0,1}$来表示目标存在。$\varepsilon_k \in {0,1}$的动态变化可以通过一个一阶马尔可夫链，其传递概率矩阵（TPM）是$\Pi$, $[\Pi]<em>{ij}= P{\varepsilon_k = j-1|\varepsilon</em>{k-1}= i -1}, i,j\in{1,2}$。于是我们得到</p>
-<p>$$<br>\Pi = \left[ \begin{matrix} (1-p_b) &amp; p_b \ (1-p_s) &amp; p_s \end{matrix} \right]<br>$$</p>
-<p>举个例子，$p_b = P{\varepsilon_{k+1} = 1|\varepsilon_k = 0 }$ 表示birth的概率。birth的密度是$b_{k|k-1}(\mathbf{m})$。<br>总体来说，我们可以计算传递FISST PDF $\phi_{k|k-1}(\mathbf{M}|\mathbf{M}’)$</p>
-<p>$$<br>\phi_{k|k-1}(\mathbf{M}|\emptyset) = \left {  \begin{matrix} 1-p_b &amp; if \quad\mathbf{M}= \emptyset \ p_bb_{k|k-1}(\mathbf{m}) &amp; if \quad \mathbf{M} = {\mathbf{m}} \ 0  &amp; if \quad |\mathbf{M}|\ge 2 \end{matrix}\right .<br>$$</p>
-<p>$$<br>\phi_{k|k-1}(\mathbf{M}|{\mathbf{m}’}) = \left {  \begin{matrix} 1-p_b &amp; if \quad\mathbf{M}= \emptyset \ p_sp_{k|k-1}(\mathbf{m}|\mathbf{m}’) &amp; if \quad \mathbf{M} = {\mathbf{m}} \ 0  &amp; if \quad |\mathbf{M}|\ge 2 \end{matrix}\right .<br>$$</p>
-<h1 id="伯努利滤波器的预测方程-1"><a href="#伯努利滤波器的预测方程-1" class="headerlink" title="伯努利滤波器的预测方程"></a>伯努利滤波器的预测方程</h1><p>我们设后验FISST PDF为$f_{k}(\mathbf{M}<em>k|\mathbf{Z}</em>{1:k})$,他包含两个部分</p>
+        <h1 id="伯努利滤波器的预测方程">伯努利滤波器的预测方程</h1>
+<p>在跟踪问题中，我们主要考虑的是动态系统，目标的状态和数目会随时间而发生变化，每个目标也只是在一段时间内出现在视野内。根据伯努利的 RFS 方程可知，<span class="math inline">\(q\)</span>为一个物体存在的概率，他的 RFS 是<span class="math inline">\(p(\mathbf{m})\)</span>。同时我们假设当<span class="math inline">\(|\mathbf{M}|&gt;2\)</span>时，<span class="math inline">\(f(\mathbf{M})= 0\)</span>。于是基于上文中的 set integral （集积分），我们得到： <span class="math display">\[
+\int f(\mathbf{M})\delta \mathbf{M} = f(\emptyset) + \int f({\mathbf{m}})d{\mathbf{m}}
+\]</span></p>
+<p>因为<span class="math inline">\(p(\mathbf{m})\)</span> 是<span class="math inline">\(\textit{M}\)</span>的常规PDF，下面的式子趋近于1。</p>
+<p><span class="math display">\[ \int{f(\mathbf{M})}\delta\mathbf{M}= 1 -q + q \int{g\varphi(\mathbf{m})}d_{\mathbf{m}} =1\]</span></p>
+<p>如果，目标出现，我们假设这是一个已知传递密度<span class="math inline">\(p_{k|k-1}(\mathbf{m}|\mathbf{m}&#39;)\)</span>。我们采用<span class="math inline">\(\varepsilon_k \in \{0,1\}\)</span>来表示目标存在。<span class="math inline">\(\varepsilon_k \in \{0,1\}\)</span>的动态变化可以通过一个一阶马尔可夫链，其传递概率矩阵（TPM）是<span class="math inline">\(\Pi\)</span>, <span class="math inline">\([\Pi]_{ij}= P\{\varepsilon_k = j-1|\varepsilon_{k-1}= i -1\}, i,j\in\{1,2\}\)</span>。于是我们得到</p>
+<p><span class="math display">\[
+\Pi = \left[ \begin{matrix} (1-p_b) &amp; p_b \\ (1-p_s) &amp; p_s \end{matrix} \right] 
+\]</span></p>
+<p>举个例子，<span class="math inline">\(p_b = P\{\varepsilon_{k+1} = 1|\varepsilon_k = 0 \}\)</span> 表示birth的概率。birth的密度是<span class="math inline">\(b_{k|k-1}(\mathbf{m})\)</span>。 总体来说，我们可以计算传递FISST PDF <span class="math inline">\(\phi_{k|k-1}(\mathbf{M}|\mathbf{M}&#39;)\)</span></p>
+<p><span class="math display">\[
+\phi_{k|k-1}(\mathbf{M}|\emptyset) = \left \{  \begin{matrix} 1-p_b &amp; if \quad\mathbf{M}= \emptyset \\ p_bb_{k|k-1}(\mathbf{m}) &amp; if \quad \mathbf{M} = {\mathbf{m}} \\ 0  &amp; if \quad |\mathbf{M}|\ge 2 \end{matrix}\right .
+\]</span></p>
+<p><span class="math display">\[
+\phi_{k|k-1}(\mathbf{M}|\{\mathbf{m}&#39;\}) = \left \{  \begin{matrix} 1-p_b &amp; if \quad\mathbf{M}= \emptyset \\ p_sp_{k|k-1}(\mathbf{m}|\mathbf{m}&#39;) &amp; if \quad \mathbf{M} = {\mathbf{m}} \\ 0  &amp; if \quad |\mathbf{M}|\ge 2 \end{matrix}\right .
+\]</span></p>
+<h1 id="伯努利滤波器的预测方程-1">伯努利滤波器的预测方程</h1>
+<p>我们设后验FISST PDF为<span class="math inline">\(f_{k}(\mathbf{M}_k|\mathbf{Z}_{1:k})\)</span>,他包含两个部分</p>
 <ul>
-<li>存在目标的后验概率$q_{k} = P{|\mathbf{M}<em>k|= 1|\mathbf{Z}</em>{1:k}}$.</li>
-<li>后验空间PDF $s_k(\mathbf{M}) = p(\mathbf{m}<em>k|\mathbf{Z}</em>{1:k})$</li>
+<li>存在目标的后验概率<span class="math inline">\(q_{k} = P\{|\mathbf{M}_k|= 1|\mathbf{Z}_{1:k}\}\)</span>.</li>
+<li>后验空间PDF <span class="math inline">\(s_k(\mathbf{M}) = p(\mathbf{m}_k|\mathbf{Z}_{1:k})\)</span></li>
 </ul>
 <p>根据RFS框架下的贝叶斯滤波器，我们可知</p>
-<p>$$<br>f_{k|k-1}(\mathbf{M}|\mathbf{Z}<em>{1:k-1}) = \int{\phi</em>{k|k-1}(\mathbf{M}|\mathbf{M}’)f_{k-1}(\mathbf{M}’|\mathbf{Z}<em>{1:k-1})}\delta{\mathbf{M}’}<br>= \phi</em>{k|k-1}(\mathbf{M}|\emptyset)f_{k-1}(\emptyset|\mathbf{Z_{1:k-1}})+\int\phi_{k|k-1}(\mathbf{M}|{\mathbf{m}’})f_{k-1}({\mathbf{m’}|\mathbf{Z}_{1:k-1}})d\mathbf{m}’<br>$$<br>其中</p>
-<p>$$<br>f_{k|k-1}(\emptyset|\mathbf{Z}<em>{1:k-1}) = \phi</em>{k|k-1}(\emptyset|\emptyset)f_{k-1}(\emptyset|\mathbf{Z}<em>{1:k-1}) + \int{\phi</em>{k|k-1}(\emptyset|{\mathbf{m}’})f_{k-1}({\mathbf{m’}}|\mathbf{Z}<em>{1:k-1})}d\mathbf{m}’ = (1-p_b)<br>=(1-p_b)(1-q</em>{k-1})+(1-p_s)q_{k-1}<br>$$</p>
-<p>$$<br>f_{k|k-1}({\mathbf{x}}|\mathbf{Z}<em>{1:k-1}) = \phi</em>{k|k-1}({\mathbf{m}}|\emptyset)f_{k-1}(\emptyset|\mathbf{Z}<em>{1:k-1}) + \int \phi</em>{k|k-1}({\mathbf{m}}|{\mathbf{m}’})f_{k-1}(\mathbf{m}’|\mathbf{Z}<em>{1:k-1})d\mathbf{m}’<br>= p_b(1-q</em>{k-1})b_{k|k-1}(\mathbf{m}) + p_s q_{k-1}\int{p_{k-1}(\mathbf{m}|\mathbf{m}’)s_{k-1}(\mathbf{m}’)d_{\mathbf{m}’}}<br>$$<br>同时因为 $f_{k|k-1}(\mathbf{M}|\mathbf{Z}<em>{1:k-1}) = 0, if |\mathbf{M}|\ge2$<br>所以我们能够证实$\int{f</em>{k|k-1}(\mathbf{M}|\mathbf{Z}_{1:k-1})}\delta\mathbf{M} = 1$<br>于是我们还可以得到</p>
-<p>$$<br>1-q_{k|k-1} = f_{k|k-1}(\emptyset|\mathbf{Z}<em>{1:k-1}) =(1-p_b)(1-q</em>{k-1})+(1-p_s)q_{k-1} = (1-p_b)(1-q_{k-1})+(1-p_s)q_{k-1}<br>$$<br>然后</p>
-<p>$$<br>q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}<br>$$<br><em>所以，我们也明白了思路，计算$q_{k|k-1}$需要从$f_{k|k-1}(\emptyset|\mathbf{Z}<em>{1:k-1})$,因为 $f</em>{k|k-1}(\emptyset|\mathbf{Z}<em>{1:k-1}) = 1 - q</em>{k|k-1}$</em>。
-我们也能知道，一个物体持续存在的概率包括两部分：新生物体被误认为持续存在的概率和正在持续存在的概率。<br>根据$f_{k|k-1}({\mathbf{x}}|\mathbf{Z}<em>{1:k-1})= s</em>{k|k-1}q_{k|k-1}$，我们能得到，</p>
-<p>$$<br>s_{k|k-1} = \frac{p_b(1-q_{k-1}b_{k|k-1}(\mathbf{m})}{q_{k|k-1}}+\frac{p_sq_{k-1}\int{p_{k|k-1}}(\mathbf{m}|\mathbf{m}’)s_{k-1}(\mathbf{m}’)d\mathbf{m}’}{q_{k|k-1}}<br>$$<br>如果$p_b = 0$, $q_{k-1} =1$, $s_{k|k-1}$ 就是标准的Chapman-Kolmogorov  </p>
-<p><em>注</em> ：$\mathbf{m}$ 是 state, $\mathbf{M}$ 是 RFS, $\textit{M}$ 是 set of states</p>
-<p>$f$-&gt; RFS, $s$-&gt;后验PDF(空间上), $q$-&gt;物体继续存在的后验概率,$p_{k|k-1}$-&gt;传递密度$\pi_{k|k-1}$</p>
+<p><span class="math display">\[
+f_{k|k-1}(\mathbf{M}|\mathbf{Z}_{1:k-1}) = \int{\phi_{k|k-1}(\mathbf{M}|\mathbf{M}&#39;)f_{k-1}(\mathbf{M}&#39;|\mathbf{Z}_{1:k-1})}\delta{\mathbf{M}&#39;}
+= \phi_{k|k-1}(\mathbf{M}|\emptyset)f_{k-1}(\emptyset|\mathbf{Z_{1:k-1}})+\int\phi_{k|k-1}(\mathbf{M}|\{\mathbf{m}&#39;\})f_{k-1}(\{\mathbf{m&#39;}|\mathbf{Z}_{1:k-1}\})d\mathbf{m}&#39;
+\]</span> 其中</p>
+<p><span class="math display">\[
+f_{k|k-1}(\emptyset|\mathbf{Z}_{1:k-1}) = \phi_{k|k-1}(\emptyset|\emptyset)f_{k-1}(\emptyset|\mathbf{Z}_{1:k-1}) + \int{\phi_{k|k-1}(\emptyset|\{\mathbf{m}&#39;\})f_{k-1}(\{\mathbf{m&#39;}\}|\mathbf{Z}_{1:k-1})}d\mathbf{m}&#39; = (1-p_b)
+=(1-p_b)(1-q_{k-1})+(1-p_s)q_{k-1}
+\]</span></p>
+<p><span class="math display">\[
+f_{k|k-1}(\{\mathbf{x}\}|\mathbf{Z}_{1:k-1}) = \phi_{k|k-1}(\{\mathbf{m}\}|\emptyset)f_{k-1}(\emptyset|\mathbf{Z}_{1:k-1}) + \int \phi_{k|k-1}(\{\mathbf{m}\}|\{\mathbf{m}&#39;\})f_{k-1}(\mathbf{m}&#39;|\mathbf{Z}_{1:k-1})d\mathbf{m}&#39;
+= p_b(1-q_{k-1})b_{k|k-1}(\mathbf{m}) + p_s q_{k-1}\int{p_{k-1}(\mathbf{m}|\mathbf{m}&#39;)s_{k-1}(\mathbf{m}&#39;)d_{\mathbf{m}&#39;}}
+\]</span> 同时因为 <span class="math inline">\(f_{k|k-1}(\mathbf{M}|\mathbf{Z}_{1:k-1}) = 0, if |\mathbf{M}|\ge2\)</span> 所以我们能够证实<span class="math inline">\(\int{f_{k|k-1}(\mathbf{M}|\mathbf{Z}_{1:k-1})}\delta\mathbf{M} = 1\)</span> 于是我们还可以得到</p>
+<p><span class="math display">\[
+1-q_{k|k-1} = f_{k|k-1}(\emptyset|\mathbf{Z}_{1:k-1}) =(1-p_b)(1-q_{k-1})+(1-p_s)q_{k-1} = (1-p_b)(1-q_{k-1})+(1-p_s)q_{k-1}
+\]</span> 然后</p>
+<p><span class="math display">\[
+q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}
+\]</span> <em>所以，我们也明白了思路，计算<span class="math inline">\(q_{k|k-1}\)</span>需要从<span class="math inline">\(f_{k|k-1}(\emptyset|\mathbf{Z}_{1:k-1})\)</span>,因为 <span class="math inline">\(f_{k|k-1}(\emptyset|\mathbf{Z}_{1:k-1}) = 1 - q_{k|k-1}\)</span></em>。 我们也能知道，一个物体持续存在的概率包括两部分：新生物体被误认为持续存在的概率和正在持续存在的概率。 根据<span class="math inline">\(f_{k|k-1}(\{\mathbf{x}\}|\mathbf{Z}_{1:k-1})= s_{k|k-1}q_{k|k-1}\)</span>，我们能得到，</p>
+<p><span class="math display">\[
+s_{k|k-1} = \frac{p_b(1-q_{k-1}b_{k|k-1}(\mathbf{m})}{q_{k|k-1}}+\frac{p_sq_{k-1}\int{p_{k|k-1}}(\mathbf{m}|\mathbf{m}&#39;)s_{k-1}(\mathbf{m}&#39;)d\mathbf{m}&#39;}{q_{k|k-1}}
+\]</span> 如果<span class="math inline">\(p_b = 0\)</span>, <span class="math inline">\(q_{k-1} =1\)</span>, <span class="math inline">\(s_{k|k-1}\)</span> 就是标准的Chapman-Kolmogorov</p>
+<p><em>注</em> ：<span class="math inline">\(\mathbf{m}\)</span> 是 state, <span class="math inline">\(\mathbf{M}\)</span> 是 RFS, <span class="math inline">\(\textit{M}\)</span> 是 set of states</p>
+<p><span class="math inline">\(f\)</span>-&gt; RFS, <span class="math inline">\(s\)</span>-&gt;后验PDF(空间上), <span class="math inline">\(q\)</span>-&gt;物体继续存在的后验概率,<span class="math inline">\(p_{k|k-1}\)</span>-&gt;传递密度<span class="math inline">\(\pi_{k|k-1}\)</span></p>
 
       
     </div>

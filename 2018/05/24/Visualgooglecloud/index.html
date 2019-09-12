@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="首先更新一下 12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vncserver :1``` 输入密码  1然后关闭进程并修改文件  vncserver -kill">
+  <meta name="description" content="首先更新一下 12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vncserver :1``` 输入密码 1然后关闭进程并修改文件 vncserver -kill :1">
 <meta name="keywords" content="Google cloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Google cloud 的图形化界面">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/24/Visualgooglecloud/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="首先更新一下 12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vncserver :1``` 输入密码  1然后关闭进程并修改文件  vncserver -kill">
+<meta property="og:description" content="首先更新一下 12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vncserver :1``` 输入密码 1然后关闭进程并修改文件 vncserver -kill :1">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-24T16:28:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google cloud 的图形化界面">
-<meta name="twitter:description" content="首先更新一下 12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vncserver :1``` 输入密码  1然后关闭进程并修改文件  vncserver -kill">
+<meta name="twitter:description" content="首先更新一下 12345678910111213sudo apt-get updatesudo apt-get upgrade``` 然后安装图形界面``` sudo apt-get install vnc4serversudo apt-get install xfce4``` 然后输入``` vncserver :1``` 输入密码 1然后关闭进程并修改文件 vncserver -kill :1">
 
 
 
@@ -397,19 +397,12 @@
       
 
       
-        <p>首先更新一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line">``` </span><br><span class="line">然后安装图形界面</span><br><span class="line">``` </span><br><span class="line">sudo apt-get install vnc4server</span><br><span class="line">sudo apt-get install xfce4</span><br><span class="line">``` </span><br><span class="line">然后输入</span><br><span class="line">``` </span><br><span class="line">vncserver :1</span><br><span class="line">``` </span><br><span class="line">输入密码</span><br></pre></td></tr></table></figure>
-
+        <p>首先更新一下 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line">``` </span><br><span class="line">然后安装图形界面</span><br><span class="line">``` </span><br><span class="line">sudo apt-get install vnc4server</span><br><span class="line">sudo apt-get install xfce4</span><br><span class="line">``` </span><br><span class="line">然后输入</span><br><span class="line">``` </span><br><span class="line">vncserver :1</span><br><span class="line">``` </span><br><span class="line">输入密码</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后关闭进程并修改文件</span><br></pre></td></tr></table></figure>
-
-<p>vncserver -kill :1<br>sudo vim ~/.vnc/xstartup</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">添加</span><br></pre></td></tr></table></figure>
-
-<p>sesion-manager &amp; xfdesktop &amp; xfce4-panel &amp;<br>xfce4-menu-plugin &amp;<br>xfsettingsd &amp;<br>xfconfd &amp;<br>xfwm4 &amp;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">然后再修改谷歌云的防火墙规则,允许5901-5908端口tcp,</span><br><span class="line">![tcp](https://i.imgur.com/wZPmA64.png)</span><br><span class="line">启动</span><br></pre></td></tr></table></figure>
-
-<p>vncserver -geometry 1440x1080 :1<br>```</p>
-<p>分辨率自定 然后在VNC viewer上输入<br>外部ip:5901</p>
+<p>vncserver -kill :1 sudo vim ~/.vnc/xstartup <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">添加</span><br></pre></td></tr></table></figure></p>
+<p>sesion-manager &amp; xfdesktop &amp; xfce4-panel &amp; xfce4-menu-plugin &amp; xfsettingsd &amp; xfconfd &amp; xfwm4 &amp; <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">然后再修改谷歌云的防火墙规则,允许5901-5908端口tcp,</span><br><span class="line">![tcp](https://i.imgur.com/wZPmA64.png)</span><br><span class="line">启动</span><br></pre></td></tr></table></figure></p>
+<p>vncserver -geometry 1440x1080 :1 ```</p>
+<p>分辨率自定 然后在VNC viewer上输入 外部ip:5901</p>
 
       
     </div>

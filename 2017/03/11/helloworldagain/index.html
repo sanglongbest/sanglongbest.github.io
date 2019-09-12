@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。 这里有必要提下Hexo常用的几个命令： hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹hexo server (hexo s) 启动本地web服务，用于博客的预览hexo deploy (hexo d) 部署播客到远端（比如github, herok">
+  <meta name="description" content="今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。 这里有必要提下Hexo常用的几个命令： hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹 hexo server (hexo s) 启动本地web服务，用于博客的预览 hexo deploy (hexo d) 部署播客到远端（比如github, her">
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你好 hexo">
 <meta property="og:url" content="http://sanglongbest.github.io/2017/03/11/helloworldagain/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。 这里有必要提下Hexo常用的几个命令： hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹hexo server (hexo s) 启动本地web服务，用于博客的预览hexo deploy (hexo d) 部署播客到远端（比如github, herok">
+<meta property="og:description" content="今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。 这里有必要提下Hexo常用的几个命令： hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹 hexo server (hexo s) 启动本地web服务，用于博客的预览 hexo deploy (hexo d) 部署播客到远端（比如github, her">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2017-03-11T20:25:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你好 hexo">
-<meta name="twitter:description" content="今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。 这里有必要提下Hexo常用的几个命令： hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹hexo server (hexo s) 启动本地web服务，用于博客的预览hexo deploy (hexo d) 部署播客到远端（比如github, herok">
+<meta name="twitter:description" content="今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。 这里有必要提下Hexo常用的几个命令： hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹 hexo server (hexo s) 启动本地web服务，用于博客的预览 hexo deploy (hexo d) 部署播客到远端（比如github, her">
 
 
 
@@ -399,11 +399,11 @@
       
         <p>今天构建完了hexo 到 github 上，但是还是很不熟悉，决定把常用操作放上来。</p>
 <p>这里有必要提下Hexo常用的几个命令：</p>
-<p>hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹<br>hexo server (hexo s) 启动本地web服务，用于博客的预览<br>hexo deploy (hexo d) 部署播客到远端（比如github, heroku等平台）<br>另外还有其他几个常用命令：</p>
-<p>$ hexo new “postName” #新建文章<br>$ hexo new page “pageName” #新建页面<br>常用简写</p>
-<p>$ hexo n == hexo new<br>$ hexo g == hexo generate<br>$ hexo s == hexo server<br>$ hexo d == hexo deploy<br>常用组合<br>$ hexo d -g #生成部署<br>$ hexo s -g #生成预览<br>安装主题<br>git clone <a href="https://github.com/ppoffice/hexo-theme-hueman.git" target="_blank" rel="noopener">https://github.com/ppoffice/hexo-theme-hueman.git</a> themes/yilia</p>
-<p>推送如果遇到 key 问题<br>需要先执行：ssh-add ~/.ssh/github_rsa<br>key在 key 管理器的 SSH 项里。</p>
-<p>如果还不行只能<br>hexo generate<br>cp -R public/* .deploy/sanglongbest.github.io<br>cd .deploy/sanglongbest.github.io<br>git add .<br>git commit -m “update”<br>git push origin master</p>
+<p>hexo generate (hexo g) 生成静态文件，会在当前目录下生成一个新的叫做public的文件夹 hexo server (hexo s) 启动本地web服务，用于博客的预览 hexo deploy (hexo d) 部署播客到远端（比如github, heroku等平台） 另外还有其他几个常用命令：</p>
+<p>$ hexo new "postName" #新建文章 $ hexo new page "pageName" #新建页面 常用简写</p>
+<p>$ hexo n == hexo new $ hexo g == hexo generate $ hexo s == hexo server $ hexo d == hexo deploy 常用组合 $ hexo d -g #生成部署 $ hexo s -g #生成预览 安装主题 git clone https://github.com/ppoffice/hexo-theme-hueman.git themes/yilia</p>
+<p>推送如果遇到 key 问题 需要先执行：ssh-add ~/.ssh/github_rsa key在 key 管理器的 SSH 项里。</p>
+<p>如果还不行只能 hexo generate cp -R public/* .deploy/sanglongbest.github.io cd .deploy/sanglongbest.github.io git add . git commit -m “update” git push origin master</p>
 
       
     </div>
