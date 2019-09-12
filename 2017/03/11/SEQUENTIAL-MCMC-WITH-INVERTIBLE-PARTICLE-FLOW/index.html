@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter 1 1. Filteri">
+  <meta name="description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter [^1][^1]: Fi">
 <meta name="keywords" content="particle flow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SEQUENTIAL MCMC WITH INVERTIBLE PARTICLE FLOW">
 <meta property="og:url" content="http://sanglongbest.github.io/2017/03/11/SEQUENTIAL-MCMC-WITH-INVERTIBLE-PARTICLE-FLOW/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter 1 1. Filteri">
+<meta property="og:description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter [^1][^1]: Fi">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2017-03-11T23:40:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SEQUENTIAL MCMC WITH INVERTIBLE PARTICLE FLOW">
-<meta name="twitter:description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter 1 1. Filteri">
+<meta name="twitter:description" content="背景粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。 维度危机解决的方式 auxiliary particle filter [^1][^1]: Fi">
 
 
 
@@ -399,21 +399,17 @@
       
         <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>粒子滤波对于非高斯和非线性问题有奇效。但是它有维度危机。Sequential Markov chain Monte Carlo (SMCMC) 是一种基于连续推断的解决方式。今天介绍的方法是在 SMCMC 网络下的composite Metropolis-Hastings (MH) kernel。</p>
 <h1 id="维度危机"><a href="#维度危机" class="headerlink" title="维度危机"></a>维度危机</h1><h2 id="解决的方式"><a href="#解决的方式" class="headerlink" title="解决的方式"></a>解决的方式</h2><ul>
-<li>auxiliary particle filter <sup><a href="#fn_1" id="reffn_1">1</a></sup><blockquote id="fn_1">
-<sup>1</sup>. Filtering via simulation: Auxiliary particle filters<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
+<li><p>auxiliary particle filter [^1]<br>[^1]: Filtering via simulation: Auxiliary particle filters</p>
 </li>
-<li>Rao-Blackwellised particle filter <sup><a href="#fn_2" id="reffn_2">2</a></sup><blockquote id="fn_2">
-<sup>2</sup>. Rao-Blackwellised particle filtering for dynamic Bayesian networks<a href="#reffn_2" title="Jump back to footnote [2] in the text."> &#8617;</a>
-</blockquote>
+<li><p>Rao-Blackwellised particle filter [^2]<br>[^2]: Rao-Blackwellised particle filtering for dynamic Bayesian networks</p>
 <h2 id="opticla-flow-分类"><a href="#opticla-flow-分类" class="headerlink" title="opticla flow 分类"></a>opticla flow 分类</h2></li>
 <li><p>通过移动 prior distribution 到 posterior distribution.<br>这种滤波器概率学上不连续，因为是approximation errors。<br>The filters are not statistically consistent due to approximation errors in- troduced during implementation.</p>
 </li>
 <li><p>通过 particle flow 去重新构建近似的 posterior distribution.</p>
 </li>
 </ul>
-<p>块级公式：</p>
-<script type="math/tex; mode=display">x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}</script><p>\[ \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =<br>1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}<br>{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</p>
+<p>块级公式：<br>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
+<p>\[ \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} =<br>1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}<br>{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</p>
 <p>行内公式： $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$</p>
 
       
@@ -546,7 +542,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -611,7 +607,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

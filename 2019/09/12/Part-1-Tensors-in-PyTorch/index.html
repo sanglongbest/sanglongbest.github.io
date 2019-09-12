@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基于Pytorch深度学习在本文中，我将介绍一下PyTorch，PyTorch是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于Tensorflow 有更好的兼容性。 神经网络深">
+<meta name="keywords" content="Pytorch,从入门到放弃">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【从入门到放弃】PyTorch入门（1）">
+<meta property="og:url" content="http://sanglongbest.github.io/2019/09/12/Part-1-Tensors-in-PyTorch/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="基于Pytorch深度学习在本文中，我将介绍一下PyTorch，PyTorch是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于Tensorflow 有更好的兼容性。 神经网络深">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-pytorch/assets/simple_neuron.png?raw=1">
+<meta property="og:image" content="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-pytorch/assets/tensor_examples.png?raw=1">
+<meta property="og:image" content="https://github.com/yangliuav/deep-learning-with-pytorch-
+Chinese-version/blob/master/intro-to-pytorch/assets/sigmoid_function.png?raw=1">
+<meta property="og:image" content="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-
+pytorch/assets/multilayer_diagram_weights.png?raw=1">
+<meta property="og:updated_time" content="2019-09-12T12:37:58.901Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【从入门到放弃】PyTorch入门（1）">
+<meta name="twitter:description" content="基于Pytorch深度学习在本文中，我将介绍一下PyTorch，PyTorch是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于Tensorflow 有更好的兼容性。 神经网络深">
+<meta name="twitter:image" content="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-pytorch/assets/simple_neuron.png?raw=1">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2019/09/12/Part-1-Tensors-in-PyTorch/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【从入门到放弃】PyTorch入门（1） | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2019/09/12/Part-1-Tensors-in-PyTorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【从入门到放弃】PyTorch入门（1）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-12 13:23:36 / Modified: 13:37:58" itemprop="dateCreated datePublished" datetime="2019-09-12T13:23:36+01:00">2019-09-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/12/Part-1-Tensors-in-PyTorch/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/12/Part-1-Tensors-in-PyTorch/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基于Pytorch深度学习"><a href="#基于Pytorch深度学习" class="headerlink" title="基于Pytorch深度学习"></a>基于Pytorch深度学习</h1><p>在本文中，我将介绍一下<a href="http://pytorch.org/" target="_blank" rel="noopener">PyTorch</a>，PyTorch<br>是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于<br>Tensorflow 有更好的兼容性。</p>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>深度学习是一套基于人工神经网络的函数拟合方法。网络有多个“神经元”构成。每个神经元又有多个输入，每个输入又有自己的权重。这些输入将会权重加成后，输入激活函数得到输出值。<br><img src="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-pytorch/assets/simple_neuron.png?raw=1" width="400px"></p>
+<p>数学表达式为：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+y &= f(w_1 x_1 + w_2 x_2 + b) \\
+y &=
+f\left(\sum_i w_i x_i +b \right)
+\end{align}</script><p>这里的向量乘法为点乘。</p>
+<script type="math/tex; mode=display">
+h =
+\begin{bmatrix}
+x_1 \, x_2 \cdots  x_n
+\end{bmatrix}
+\cdot 
+\begin{bmatrix}
+w_1 \\
+w_2 \\
+\vdots \\
+w_n
+\end{bmatrix}</script><h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><p>通过对张量的线性运算，我们就能够得出各种各样的神经网络。张量其实是一种，矩阵的扩展表达形式，一维张量是标量，二维张量是向量，三维张量是矩阵（如下图所示）。<br><img src="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-pytorch/assets/tensor_examples.png?raw=1" width="600px"></p>
+<p>下面我们看一下如何使用PyTorch来构建一个简单的神经网络。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先引入 PyTorch</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">activation</span><span class="params">(x)</span>:</span></span><br><span class="line"><span class="string">""" Sigmoid 激活函数</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">变量定义</span></span><br><span class="line"><span class="string">---------</span></span><br><span class="line"><span class="string">x: torch.Tensor</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+torch.exp(-x))</span><br></pre></td></tr></table></figure>
+<p>Sigmoid 函数：</p>
+<p><img src="https://github.com/yangliuav/deep-learning-with-pytorch-
+Chinese-version/blob/master/intro-to-pytorch/assets/sigmoid_function.png?raw=1" width="400px"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 生成数据</span></span><br><span class="line">torch.manual_seed(<span class="number">7</span>) <span class="comment"># 设置随机种子数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于标注正态分布，获得5个随机数, size 1*5，均值为0，方差为1。</span></span><br><span class="line">features = torch.randn((<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line">print(features)</span><br><span class="line"><span class="comment"># 设置Ground-Truth（GT）权重，size 同 features。 </span></span><br><span class="line">weights = torch.randn_like(features)</span><br><span class="line"><span class="comment"># 设置GT的偏移量。</span></span><br><span class="line">bias = torch.randn((<span class="number">1</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p>以上我们就完成了，训练简单神经网络的准备数据。现在他们还都是基于正态随机分布的随机取值，但是随着训练过程的进行，他们将收敛于GT。</p>
+<p>Pytorch<br>的张量可以进行，相加，相乘，相减等操作，和你平常使用的Numpy的array用法一样。现在，我们将用生成的随机数据计算这个简单神经网络的输出值。</p>
+<p>&gt;<br><strong>练习</strong>: 通过特征 <code>features</code>，权重<br><code>weights</code>，和偏移量<code>bias</code>计算网络的输出值。类似与Numpy，在Pytorch中可以使用<a href="https://pytorch.org/docs/stable/torch.html#torch.sum" target="_blank" rel="noopener"><code>torch.sum()</code></a>函数进行求和，然后使用我们定义的激活函数来计算输出值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 解</span></span><br><span class="line"></span><br><span class="line">y = activation(torch.sum(features * weights) + bias)</span><br><span class="line">y = activation((features * weights).sum() + bias)</span><br></pre></td></tr></table></figure>
+<p>你也可以用采用矩阵相乘的办法来一次完成相乘和求和的操作。通常来说，我更建议采用矩阵相乘的方式来进行计算，因为这样做更高效。PyTorch提供了大量的库函数和GPU接口，来加速矩阵运算。<br>如果我们想使用矩阵乘法，我们就需要调用函数<a href="https://pytorch.org/docs/stable/torch.html#torch.mm" target="_blank" rel="noopener"><code>torch.mm()</code></a><br>或者<br><a href="https://pytorch.org/docs/stable/torch.html#torch.matmul" target="_blank" rel="noopener"><code>torch.matmul()</code></a>。我个人更建议使用后者，因为它有更多的特性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.matmul(features, weights)</span><br></pre></td></tr></table></figure>
+<p>但是当我们运行时，就会出现如下错误<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; torch.matmul(features, weights)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">RuntimeError                              Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input<span class="number">-13</span><span class="number">-15</span>d592eb5279&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; 1 torch.matmul(features,</span><br><span class="line">weights)</span><br><span class="line"></span><br><span class="line">RuntimeError: size mismatch, m1: [<span class="number">1</span> x <span class="number">5</span>], m2: [<span class="number">1</span> x <span class="number">5</span>] at</span><br><span class="line">/pytorch/aten/src/TH/generic/THTensorMath.cpp:<span class="number">961</span></span><br></pre></td></tr></table></figure></p>
+<p>这是因为张量的大小（shape）不正确，造成的矩阵不能相乘。这是一个非常常见的问题。<br>解决办法也很简单，就是直接调整<code>weights</code>的大小，来适应矩阵乘法运算。</p>
+<p><strong>注意:</strong><br>张量的大小标示为<code>tensor.shape</code>。这是一个非常常见的运算函数，请记住它。</p>
+<p>Pytorch 也提供了诸多适合改变shape（大小）的函数，例如：<br><a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.reshape" target="_blank" rel="noopener"><code>weights.reshape()</code></a>,<br><a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.resize_" target="_blank" rel="noopener"><code>weights.resize_()</code></a>,<br>和<br><a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.view" target="_blank" rel="noopener"><code>weights.view()</code></a>.</p>
+<ul>
+<li><code>weights.reshape(a, b)</code> 是讲<code>weights</code>的数据<strong><em>拷贝</em></strong>到一个新的内存中，并整形为a*b。</li>
+</ul>
+<p>*<br><code>weights.resize_(a, b)</code><br>也能得到相同的结果，唯一不同的是，他会检查shape。当新tensor比原tensor的元素少时，多余的元素将会在新tensor中剔除（但你依然可以通过原tensor获得这部分数据），如果新tesnor的元素多于原tensor，那么程序将阻止它初始化。同时要注意，不同于reshape，这里的操作都是原地操作，没有拷贝。如果你想对原地操作有更过的了解可以查看<br><a href="https://discuss.pytorch.org/t/what-is-in-
+place-operation/16244" target="_blank" rel="noopener">read more about in-place operations</a> in PyTorch.</p>
+<ul>
+<li><code>weights.view(a, b)</code><br>其实和reshape差不多，但是由于存在时间比较长，所以用的人也比较多。<br>我个人建议倾向于使用<code>reshape</code>，但是如果你使用另外两个一般也不会影响你的使用结果。</li>
+</ul>
+<blockquote>
+<p><strong>练习</strong>: 使用矩阵相乘来计算神经元输出。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 解</span></span><br><span class="line"></span><br><span class="line">y = activation(torch.mm(features, weights.reshape(<span class="number">5</span>,<span class="number">1</span>)) + bias)</span><br></pre></td></tr></table></figure>
+<h3 id="实现第一个网络吧！"><a href="#实现第一个网络吧！" class="headerlink" title="实现第一个网络吧！"></a>实现第一个网络吧！</h3><p>现在我们已经学会了如何计算一个神经元。现在我们来试着把这些神经元堆叠在一起，从而试想一个网络，第一层的神经元的输出可以作为第二层神经元的输入。因为每层都有多个神经元，所以我们用矩阵来表示权重。<br><img src="https://github.com/yangliuav/deep-learning-with-pytorch-Chinese-
+version/blob/master/intro-to-
+pytorch/assets/multilayer_diagram_weights.png?raw=1" width="450px"><br>最底下的一层是神经网络的输入，我们称之为<strong>输入层</strong>。中间的称为<strong>隐藏层</strong>，最顶端的称为<strong>输出层</strong>。下面我们从数学的角度来分析一下网络的运算原理。例如，隐藏层（$h_1$<br>和$h_2$）可表示为：</p>
+<script type="math/tex; mode=display">
+\vec{h} = [h_1 \, h_2] = 
+\begin{bmatrix}
+x_1 \, x_2 \cdots \,
+x_n
+\end{bmatrix}
+\cdot 
+\begin{bmatrix}
+w_{11} & w_{12} \\
+w_{21} &w_{22} \\
+\vdots &\vdots \\
+w_{n1} &w_{n2}
+\end{bmatrix}</script><p>隐藏层的输出就是输出层的输入。那么整个网络的输出就可以表达为：</p>
+<script type="math/tex; mode=display">
+y =  f_2 \! \left(\, f_1 \!
+\left(\vec{x} \, \mathbf{W_1}\right) \mathbf{W_2} \right)</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 生成数据</span></span><br><span class="line">torch.manual_seed(<span class="number">7</span>) <span class="comment"># 设置随机种子</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成3个正态分布随机数</span></span><br><span class="line">features = torch.randn((<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义网络每层的大小 </span></span><br><span class="line">n_input = features.shape[<span class="number">1</span>]     <span class="comment"># 输入的大小</span></span><br><span class="line">n_hidden = <span class="number">2</span>                    <span class="comment"># 隐藏层神经元数目</span></span><br><span class="line">n_output = <span class="number">1</span>                    <span class="comment"># 输出层神经元数目</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐藏层输入的权重</span></span><br><span class="line">W1 = torch.randn(n_input, n_hidden)</span><br><span class="line"><span class="comment"># 隐藏层输出的权重</span></span><br><span class="line">W2 = torch.randn(n_hidden, n_output)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐藏层和输出层的偏移量</span></span><br><span class="line">B1 = torch.randn((<span class="number">1</span>, n_hidden))</span><br><span class="line">B2 = torch.randn((<span class="number">1</span>, n_output))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>练习:</strong> 使用权重<code>W1</code>，<code>W2</code>和偏移量<code>B1</code>，<code>B2</code>计算神经网络的输出。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 解</span></span><br><span class="line"></span><br><span class="line">h = activation(torch.mm(features, W1) + B1)</span><br><span class="line">output = activation(torch.mm(h, W2) + B2)</span><br><span class="line">print(output)</span><br></pre></td></tr></table></figure>
+<p>如果计算正确，你的输出为 <code>tensor([[ 0.3171]])</code>.<br>隐藏单元的数目称为<strong>hyperparameter（超参数）</strong>。每个权重和偏移量的超参数都不尽相同。同时，有更多层，更多单元的网络在相同数据中有更好的性能，因为他们学习到更多的特征，当然计算量也越大。</p>
+<h2 id="Numpy-与-Torch-相互转换"><a href="#Numpy-与-Torch-相互转换" class="headerlink" title="Numpy 与 Torch 相互转换"></a>Numpy 与 Torch 相互转换</h2><p>和Numpy的相互转化是PyTorch的主打特性之一。具体操作为：<br>Numpy -&gt; PyTorch<br><code>torch.from_numpy()</code></p>
+<p>PyTorch -&gt; Numpy</p>
+<p><code>.numpy()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.random.rand(<span class="number">4</span>,<span class="number">3</span>) <span class="comment"># numpy的随机array</span></span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b = torch.from_numpy(a) <span class="comment"># 转换成torch的张量</span></span><br><span class="line">b</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b.numpy() <span class="comment"># 转换回 numpy 的array</span></span><br></pre></td></tr></table></figure>
+<p>注意这里所有的操作都是‘in-place’的。因为numpy和pyTorch共享内存。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pytorh乘2</span></span><br><span class="line">b.mul_(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Numpy array 也会有相应的变化，希望使用时大家能注意</span></span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+            <a href="/tags/从入门到放弃/" rel="tag"># 从入门到放弃</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/12/SVM/" rel="next" title="Deep Learning Interview-Support Vector Machine (SVM)">
+                <i class="fa fa-chevron-left"></i> Deep Learning Interview-Support Vector Machine (SVM)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/12/Part-2-Neural-Networks-in-PyTorch/" rel="prev" title="【从入门到放弃】PyTorch入门（2）">
+                【从入门到放弃】PyTorch入门（2） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于Pytorch深度学习"><span class="nav-number">1.</span> <span class="nav-text">基于Pytorch深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络"><span class="nav-number">1.1.</span> <span class="nav-text">神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#张量"><span class="nav-number">1.2.</span> <span class="nav-text">张量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现第一个网络吧！"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现第一个网络吧！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Numpy-与-Torch-相互转换"><span class="nav-number">1.3.</span> <span class="nav-text">Numpy 与 Torch 相互转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2019/09/12/Part-1-Tensors-in-PyTorch/';
+        this.page.identifier = '2019/09/12/Part-1-Tensors-in-PyTorch/';
+        this.page.title = '【从入门到放弃】PyTorch入门（1）';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

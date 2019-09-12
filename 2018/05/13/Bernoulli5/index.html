@@ -411,22 +411,18 @@
       
         <p>这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。</p>
 <h1 id="测量模型"><a href="#测量模型" class="headerlink" title="测量模型"></a>测量模型</h1><p>基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以我们得到RFS的FISST PDF是：</p>
-<script type="math/tex; mode=display">
-\eta(\mathbf{W}|\{\mathbf{m}\}) = \frac{L!}{(L-|\mathbf{W}|)!} p_d^{|\mathbf{W}|}[1-p_d]^{L -|\mathbf{W}|} \prod_{\mathbf{w}\in\mathbf{W}} h(\mathbf{w}|\mathbf{m}) =     \left \{ \begin{matrix}  (1-p_d)^L & if \mathbf{W}=\emptyset   \\ Lp_d(1-p_d)^{L-1}h(\mathbf{w}|\mathbf{m}) & if\mathbf{W}=\{\mathbf{w}\} \\  ... &  \\ L!p_d^Lh(\mathbf{w}_1|\mathbf{m})...h(\mathbf{w}_R|\mathbf{m})  &  \end{matrix} \right .</script><p>通常来说$p_d$是依据$\mathbf{m}$而不变，这里我们忽略了，简化为常数。在现实中，我们不仅仅考虑物体的坐标，还会考虑物体速度和形状，我们假设存在一个映射$l(\mathbf{m})$，它从状态空间映射到测量空间。因为$\mathbf{m}$是RCS（random closed set），那么$h(\mathbf{m})$也是RCS。我们定义广义似然函数（generalized likelihood function,GLF） $\tilde{ g }(\mathbf{w}|\mathbf{m})= P{\mathbf{w}\in l(\mathbf{m})}$。</p>
+<p>$$<br>\eta(\mathbf{W}|{\mathbf{m}}) = \frac{L!}{(L-|\mathbf{W}|)!} p_d^{|\mathbf{W}|}[1-p_d]^{L -|\mathbf{W}|} \prod_{\mathbf{w}\in\mathbf{W}} h(\mathbf{w}|\mathbf{m}) =     \left { \begin{matrix}  (1-p_d)^L &amp; if \mathbf{W}=\emptyset   \ Lp_d(1-p_d)^{L-1}h(\mathbf{w}|\mathbf{m}) &amp; if\mathbf{W}={\mathbf{w}} \  … &amp;  \ L!p_d^Lh(\mathbf{w}_1|\mathbf{m})…h(\mathbf{w}_R|\mathbf{m})  &amp;  \end{matrix} \right .<br>$$</p>
+<p>通常来说$p_d$是依据$\mathbf{m}$而不变，这里我们忽略了，简化为常数。在现实中，我们不仅仅考虑物体的坐标，还会考虑物体速度和形状，我们假设存在一个映射$l(\mathbf{m})$，它从状态空间映射到测量空间。因为$\mathbf{m}$是RCS（random closed set），那么$h(\mathbf{m})$也是RCS。我们定义广义似然函数（generalized likelihood function,GLF） $\tilde{ g }(\mathbf{w}|\mathbf{m})= P{\mathbf{w}\in l(\mathbf{m})}$。</p>
 <p>下一步我们就是计算检测拓展目标的观测模型，同样先考虑$\mathbf{M} = \emptyset$, 我们$h_k(\mathbf{Z}|\emptyset) = \kappa(\mathbf{Z})$， 这导致了</p>
-<script type="math/tex; mode=display">
-h(\mathbf{Z}|\{\mathbf{m}\}) = \eta(\emptyset|\{\mathbf{m}\})\kappa(\mathbf{Z})+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\eta(\Omega|\{\mathbf{m}\})\kappa(\mathbf{Z \backslash\Omega })</script><p>其中$P_{1:L}(\mathbf{Z})$ 是 $\mathbf{Z}$全子集。如果$L \ge |\mathbf{Z}|$ 是 $\mathbf{Z}$ 的幂集减去空集。所以我们可以简化得到：</p>
-<script type="math/tex; mode=display">
-h(\mathbf{Z}|\{\mathbf{m}\}) =\kappa(\mathbf{Z})\{(1-p_d)^L+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\frac{L!}{(L-|\mathbf{\Omega}|)!}p_d^{|\Omega|}(1-p_d)^{L-|\Omega|}\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } } \}</script><h1 id="更新方程"><a href="#更新方程" class="headerlink" title="更新方程"></a>更新方程</h1><p>我们得到</p>
-<script type="math/tex; mode=display">
-f(\mathbf{Z}_k|\mathbf{Z}_{1:k-1}) = \kappa(\mathbf{Z})\{1-q_{k|k-1}+q_{k|k-1}(1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})} \}</script><p>其中</p>
-<script type="math/tex; mode=display">
-\phi = \frac{L_k!}{(L_k - |\Omega|)!}\frac{p_d^{|\Omega|}}{(1-p_d)^{|\mathbf{\Omega}|-L_k}}</script><p>当我们考虑$\mathbf{M} = \emptyset$，我们能得到</p>
-<script type="math/tex; mode=display">
-q_k = \frac{1-\triangle _k }{1-q_{k|k-1}\triangle _k}q_{k|k-1}</script><script type="math/tex; mode=display">
-\triangle _k =1-(1-p_d)^{L_k}-\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})}</script><p>当$\mathbf{M}= {\mathbf{m}}$</p>
-<script type="math/tex; mode=display">
-s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } }}{1-\triangle_k}s_{k|k-1}(\mathbf{m})</script><p>当$L_k = 1$时，方程就和标准的检测模型一样。</p>
+<p>$$<br>h(\mathbf{Z}|{\mathbf{m}}) = \eta(\emptyset|{\mathbf{m}})\kappa(\mathbf{Z})+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\eta(\Omega|{\mathbf{m}})\kappa(\mathbf{Z \backslash\Omega })<br>$$<br>其中$P_{1:L}(\mathbf{Z})$ 是 $\mathbf{Z}$全子集。如果$L \ge |\mathbf{Z}|$ 是 $\mathbf{Z}$ 的幂集减去空集。所以我们可以简化得到：</p>
+<p>$$<br>h(\mathbf{Z}|{\mathbf{m}}) =\kappa(\mathbf{Z}){(1-p_d)^L+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\frac{L!}{(L-|\mathbf{\Omega}|)!}p_d^{|\Omega|}(1-p_d)^{L-|\Omega|}\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } } }<br>$$</p>
+<h1 id="更新方程"><a href="#更新方程" class="headerlink" title="更新方程"></a>更新方程</h1><p>我们得到</p>
+<p>$$<br>f(\mathbf{Z}<em>k|\mathbf{Z}</em>{1:k-1}) = \kappa(\mathbf{Z}){1-q_{k|k-1}+q_{k|k-1}(1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})} }<br>$$<br>其中</p>
+<p>$$<br>\phi = \frac{L_k!}{(L_k - |\Omega|)!}\frac{p_d^{|\Omega|}}{(1-p_d)^{|\mathbf{\Omega}|-L_k}}<br>$$</p>
+<p>当我们考虑$\mathbf{M} = \emptyset$，我们能得到</p>
+<p>$$<br>q_k = \frac{1-\triangle <em>k }{1-q</em>{k|k-1}\triangle <em>k}q</em>{k|k-1}<br>$$</p>
+<p>$$<br>\triangle <em>k =1-(1-p_d)^{L_k}-\sum</em>{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})}<br>$$<br>当$\mathbf{M}= {\mathbf{m}}$</p>
+<p>$$<br>s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } }}{1-\triangle_k}s_{k|k-1}(\mathbf{m})<br>$$<br>当$L_k = 1$时，方程就和标准的检测模型一样。</p>
 
       
     </div>
@@ -560,7 +556,7 @@ s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -625,7 +621,13 @@ s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
