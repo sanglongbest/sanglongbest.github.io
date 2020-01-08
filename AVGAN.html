@@ -1,5 +1,364 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Speech2Face: Learning the Face Behind a Voice        window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag(&apos;js&apos;, new Date());    gtag(&apos;config&apos;, &apos;UA-65563">
+<meta property="og:type" content="website">
+<meta property="og:title" content="桑龙的博客">
+<meta property="og:url" content="http://sanglongbest.github.io/avgan.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="Speech2Face: Learning the Face Behind a Voice        window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag(&apos;js&apos;, new Date());    gtag(&apos;config&apos;, &apos;UA-65563">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31">
+<meta property="og:image" content="https://i.imgur.com/oQgO2g8.jpg">
+<meta property="og:image" content="https://i.imgur.com/WHZ95Qy.jpg">
+<meta property="og:image" content="https://i.imgur.com/dnVb8cq.png">
+<meta property="og:image" content="https://i.imgur.com/hbmKlZI.jpg">
+<meta property="og:image" content="https://i.imgur.com/BJw0RQu.jpg">
+<meta property="og:image" content="https://i.imgur.com/Xji5v02.png">
+<meta property="og:image" content="https://i.imgur.com/Sutgc9M.png">
+<meta property="og:image" content="https://i.imgur.com/rWLgcWI.jpg">
+<meta property="og:image" content="https://i.imgur.com/CwflxHj.png">
+<meta property="og:image" content="https://i.imgur.com/SqSiT4q.jpg">
+<meta property="og:image" content="https://i.imgur.com/lNVBkCG.png">
+<meta property="og:image" content="https://i.imgur.com/QqrxoUM.png">
+<meta property="og:image" content="https://i.imgur.com/b7c8wqM.png">
+<meta property="og:image" content="https://i.imgur.com/lBi5Vys.png">
+<meta property="og:image" content="https://i.imgur.com/WR7E1kH.png">
+<meta property="og:image" content="https://i.imgur.com/di3rp7w.png">
+<meta property="og:image" content="https://i.imgur.com/5gGo1lv.png">
+<meta property="og:image" content="https://i.imgur.com/Ye7HMwU.png">
+<meta property="og:image" content="https://i.imgur.com/A5mUUDo.png">
+<meta property="og:image" content="https://i.imgur.com/PtGLLtr.png">
+<meta property="og:image" content="https://i.imgur.com/YbW9mG0.png">
+<meta property="og:image" content="https://i.imgur.com/JWgUfXu.png">
+<meta property="og:image" content="https://i.imgur.com/hzd8Yoy.png">
+<meta property="og:updated_time" content="2020-01-08T11:47:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="桑龙的博客">
+<meta name="twitter:description" content="Speech2Face: Learning the Face Behind a Voice        window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag(&apos;js&apos;, new Date());    gtag(&apos;config&apos;, &apos;UA-65563">
+<meta name="twitter:image" content="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/avgan.html"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline"></h1>
+
+<div class="post-meta">
+  
+  
+
+
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><meta name="generator" content="Hexo 3.9.0">
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -100,10 +459,10 @@ Speech2Face: Learning the Face Behind a Voice
             <td><img src="https://i.imgur.com/lBi5Vys.png" width="100"></td>
             <td><img src="https://i.imgur.com/WR7E1kH.png" width="100"></td>
             <td><img src="https://i.imgur.com/di3rp7w.png" width="100"></td>
-            <td><img src="images/teaser/s2f/0014Kodi_Smit-McPhee_NUZdfoqhB8o_0000015.jpg" width="100"></td>
-            <td><img src="images/teaser/s2f/1114Maria_Sharapova_rWaBVelzaFk_0000022.jpg" width="100"></td>
-            <td><img src="images/teaser/s2f/0022Andre_Braugher_p5AJtU5gclc_0000004.jpg" width="100"></td>
-            <td><img src="images/teaser/s2f/1111Parineeti_Chopra_2yUgv3B_YcI_0000002.jpg" width="100"></td>
+            <td><img src="https://i.imgur.com/5gGo1lv.png" width="100"></td>
+            <td><img src="https://i.imgur.com/Ye7HMwU.png" width="100"></td>
+            <td><img src="https://i.imgur.com/A5mUUDo.png" width="100"></td>
+            <td><img src="https://i.imgur.com/PtGLLtr.png" width="100"></td>
           </tr>
           <tr>
             <td colspan="10" align="center">Imagined images reconstructed from audio recording</td>
@@ -112,116 +471,74 @@ Speech2Face: Learning the Face Behind a Voice
       </tr></table>
     
     <tr>
-      <td colspan="2" class="caption"><p>We consider the task of reconstructing an image of a person’s face from a short input audio segment of speech. We show several results of our method on VoxCeleb dataset.<strong> Our model takes only an audio waveform as input </strong>(the true faces are shown just for reference)<strong>.</strong> Note that our goal is not to reconstruct an accurate image of the person, but rather to recover characteristic physical features that are correlated with the input speech. <br>
+      <td colspan="2" class="caption"><p>We consider the task of the acoustic scene classification with the `imagined' images reconstructed from a short audio recording. We show several results of our method on Youtube 8M dataset.<strong> Our model takes only an audio recording as input </strong>(the true image are shown just for reference)<strong>.</strong> Note that our goal is not to reconstruct an accurate image of the scene, but rather to use these reconstructed images to classify the sound recording.<br>
       </p></td>
     </tr>
   
 	<br>
-<td class="caption"><img src="https://i.imgur.com/I2BDReg.png" width="270" alt></td>
-      <td class="caption"><table width="75%" border="0" align="right" cellpadding="0">
-  <p><span class="section">Abstract</span> </p>
-  <p>How much can we infer about a person's looks from the way they speak? In this paper, we study the task of reconstructing a facial image of a person from a short audio recording of that person speaking. We design and train a deep neural network to perform this task using millions of natural videos of people speaking from 
-Internet/Youtube. During training, our model learns audiovisual, voice-face correlations that allow it to produce images that capture various physical attributes of the speakers such as age, gender and ethnicity. This is done in a self-supervised manner, by utilizing the natural co-occurrence of faces and speech in Internet videos, without the need to model attributes explicitly. 
-Our reconstructions, obtained directly from audio, reveal the  correlations between faces and voices. We evaluate and numerically quantify how--and in what manner--our Speech2Face reconstructions from audio resemble the true face images of the speakers.<br>
+
+  <p><span class="section"><strong>Abstract</strong></span> </p>
+  <p>Acoustic scene classification is a challenging task due due to the fact that the sound is sensitive to kind of environment, recording time, equipment used for capture and susceptible to contamination from sounds produced by other objects in the scene vicinity. On the contrary, it is an easy task for humans to recognise a scene from a short audio recording based on their knowledge and experience. In this paper, we introduce an audio-visual generative adversarial network (AVGAN) to classify the acoustic scene and reconstruct visual scenes from the sound. The proposed AVGAN is trained on a large number of audio-visual pairs of Youtube 8M. In the training step, visual features are generated by passing frames through an encoder network. Audio information is used to generate the `imagined' visual features with a generator network. These two features are distinguished by an additional discriminator. With the `imagined' feature, an extra decoder is used to reconstruct the `imagined' images, and a classifier gives the category of the sound. We test our purposed AVGAN on the scene classification task of Dcase 2019 and ESC-50 and get the highest accuracy compared to the baseline methods. <br>
 	  &nbsp;<br>
+ <td class="caption"><img src="https://i.imgur.com/YbW9mG0.png" width="1000" alt></td>
+  <td colspan="2" class="caption"><p>This figure describes the layers of the model we have used. The audio-visual pairs of the Youtube 8M dataset are used to train the encoder, decoder, generator and discriminator. The goal of using video dataset is to reconstruct the image from the audio recording. The 'real' feature and 'imagined' features are shown as blue boxes. The audio recording of Dcase dataset is used to train the classifier for predicting the category of the audio recording when the generator is fixed. The light yellow color represents the convolutional part, whereas the dark orange represents the ReLU activation. The purple balls represent residual connections. <br>
+  
+      </p></td>
 </p>
-  <p class="section">Paper</p>
+  <p class="section"><strong>Paper</strong> (Coming soon)</p>
   <table border="0">
     <tbody>
       <tr>
-        <td height="195"><a href="https://arxiv.org/abs/1905.09773" target="_blank" rel="noopener"><img src="images/webthumbnail.jpg" alt width="175" height="211"></a></td>
+        <td height="195"><a href="https://www.google.com" target="_blank" rel="noopener"><img src="https://i.imgur.com/JWgUfXu.png" alt width="175" height="211"></a></td>
         <td>&nbsp;</td>
 	<td>&nbsp;</td>
-        <td>&quot;Speech2Face: Learning the Face Behind a Voice&quot;,<br>
-            Tae-Hyun Oh, Tali Dekel, Changil Kim, Inbar Mosseri, William T. Freeman, Michael Rubinstein, Wojciech Matusik<br>
-	IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2019<br>
-        <p><a href="https://arxiv.org/abs/1905.09773" target="_blank" rel="noopener">[Arxiv]</a></p></td>
+        <td>&quot;Acoustic Scene Classification with `Imagined' Images&quot;,<br>
+            Yang Liu, Eric Sommerlade, Alexandros Neophytou, Sunando Sengupta<br>
+	International Joint Conferences on Artificial Intelligence (IJCAI) 2020<br>
+        <p><a href="https://www.google.com" target="_blank" rel="noopener">[Arxiv]</a></p></td>
       </tr>
     </tbody>
   </table>
 &nbsp;<br>
-  <p class="section">Supplementary Material</p>
+  <p class="section"><strong>Code </strong>(Coming soon)</p>
   <table width="283" height="136" border="0">
     <tbody>
       <tr>
-        <td width="165"><a href="supplemental/index.html"><img src="images/supp_fig.jpg" alt width="207"></a></td>
+        <td width="165"><a href="https://www.google.com" target="_blank" rel="noopener"><img src="https://i.imgur.com/hzd8Yoy.png" alt width="207"></a></td>
         <td width="6">&nbsp;</td>
-        <td width="56"><p>[<a href="supplemental/index.html">Link</a>]</p></td>
+        <td width="56"><p>[<a href="https://www.google.com" target="_blank" rel="noopener">Link</a>]</p></td>
       </tr>
     </tbody>
   </table>
 &nbsp;<br>
-<p class="section">Ethical Considerations</p>
-  <table border="0">
-    <tbody>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>
-		Although this is a purely academic investigation, we feel that it is important to explicitly discuss in the paper a set of ethical considerations due to the potential sensitivity of facial information.<br>
-		&nbsp;<br>
-	</td>
-	</tr>
-	<tr>
-	<td>&nbsp;</td>
-        <td>&nbsp;</td>
-	<td>
-		<strong>Privacy.</strong> As mentioned, our method cannot recover the true identity of a person from their voice (i.e., an exact image of their face). 
-This is because our model is trained to capture visual features (related to age, gender, etc.) that are common to <i>many</i> individuals, and only in cases where there is strong enough evidence to connect those visual features with vocal/speech attributes in the data (see ``voice-face correlations'' below). As such, the model will only produce average-looking faces, with characteristic visual features that are correlated with the input speech. It will not produce images of specific individuals. <br>
-		&nbsp;<br>
-	</td></tr>
-	<tr>
-	<td>&nbsp;</td>
-        <td>&nbsp;</td>
-	<td>
-		<strong>Voice-face correlations and dataset bias.</strong> Our model is designed to reveal statistical correlations that exist between facial features and voices of speakers in the training data. The training data we use is a collection of educational videos from YouTube, and does not represent equally the entire world population. Therefore, the model---as is the case with any machine learning model---is affected by this uneven distribution of data. <br>
-
-		More specifically, if a set of speakers might have vocal-visual traits that are relatively uncommon in the data, then the quality of our reconstructions for such cases may degrade.  For example, if a certain language does not appear in the training data, our reconstructions will not capture well the facial attributes that may be correlated with that language. <br>
-
-		Note that some of the features in our predicted faces may not even be physically connected to speech, for example hair color or style. However, if many speakers in the training set who speak in a similar way (e.g., in the same language) also share some common visual traits (e.g., a common hair color or style), then those visual traits may show up in the predictions. <br>
- 
-		For the above reasons, we recommend that any further investigation or practical use of this technology will be carefully tested to ensure that the training data is representative of the intended user population. If that is not the case, more representative data should be broadly collected. <br>
-		&nbsp;<br>
-	</td>
-	</tr>
-	<tr>
-	<td>&nbsp;</td>
-        <td>&nbsp;</td>
-	<td>
-		<strong>Categories.</strong>
-		In our experimental section, we mention inferred demographic categories such as "White" and "Asian". These are categories defined and used by a commercial face attribute classifier (<a href="https://www.faceplusplus.com/" target="_blank" rel="noopener">Face++</a>), and were only used for evaluation in this paper. Our model is not supplied with and does not make use of this information at any stage.<br>
-		&nbsp;<br>
-	</td>
-      </tr>
-    </tbody>
-  </table>
-<p class="section">Further Reading
+<p class="section"><strong>Further Reading </strong>
 </p>
 <table border="0">
   <tbody>
     <tr>
       <td width="6">&nbsp;</td>
       <td width="6">&nbsp;</td>
-      <td width="977"><p><em>&quot;Seeing voices and hearing faces: Cross-modal biometric matching&quot;,  A. Nagrani, S. Albanie, and A. Zisserman, CVPR 2018</em></p>
-	<p><em>&quot;On Learning Associations of Faces and Voices&quot;, C. Kim, H. V. Shin, T.-H. Oh, A. Kaspar, M. Elgharib, and W. Matusik, ACCV 2018 </em></p>
-        <p><em>&quot;Wav2Pix: speech-conditioned face generation using generative adversarial networks&quot;, A. Duarte, F. Roldan, M. Tubau, J. Escur, S. Pascual, A. Salvador, E. Mohedano, K. McGuinness, J. Torres, and X. Giroi-Nieto, ICASSP 2019 </em></p>
-        <p><em>&quot;Disjoint mapping network for cross-modal matching of voices and faces&quot;, Y. Wen, M. A. Ismail, W. Liu, B. Raj, and R. Singh, ICLR 2019</em></p>
-        <p><em>&quot;Putting the face to the voice: Matching identity across modality&quot;, M. Kamachi, H. Hill, K. Lander, and E. Vatikiotis-Bateson, Current Biology, 2003        </em><em><br>
+      <td width="977"><p><em>&quot;Soundnet: Learning sound representations from unlabeled video&quot;, Aytar, Y., Vondrick, C. and Torralba, A., Advances in Neural Information Processing Systems 2016</em></p>
+		  
+	<p><em>&quot;Learning aligned cross-modal representations from weakly aligned data&quot;, Castrejon, L., Aytar, Y., Vondrick, C., Pirsiavash, H. and Torralba, A., CVPR 2016 </em></p>
+		  
+        <p><em>&quot;Speech2Face: Learning the Face Behind a Voice&quot;, Oh, T.H., Dekel, T., Kim, C., Mosseri, I., Freeman, W.T., Rubinstein, M. and Matusik, W., CVPR 2019 </em></p>
+		  
+        <p><em>&quot;Audio-visual domain adaptation using conditional semi-supervised Generative Adversarial Networks&quot;, Athanasiadis, C., Hortal, E. and Asteriadis, S., Neurocomputing 2019</em></p>
+		  
+        <p><em>&quot;Look, listen and learn&quot;, Arandjelovic, R. and Zisserman, A., CVPR 2017   </em><em><br>
         </em></p></td>
     </tr>
   </tbody>
 </table>
-<p class="section">Acknowledgment</p>
+<p class="section"><strong>Acknowledgment</strong></p>
   <table border="0">
     <tbody>
       <tr>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>
-		The authors would like to thank Suwon
-Shon, James Glass, Forrester Cole and Dilip Krishnan for
-helpful discussion. T.-H. Oh and C. Kim were supported by
-QCRI-CSAIL Computer Science Research Program at MIT.
+		The authors would like to thank the perception ground in Microsoft. 
 <br>
 		&nbsp;<br>
 	</td>
@@ -262,6 +579,416 @@ QCRI-CSAIL Computer Science Research Program at MIT.
   <p class="section">&nbsp;</p>
 -->
   <p class="section">&nbsp;</p>
-</table></td></div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg"
+                alt="桑龙(Yang Liu）" />
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/avgan.html';
+        this.page.identifier = 'avgan.html';
+        this.page.title = '';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
