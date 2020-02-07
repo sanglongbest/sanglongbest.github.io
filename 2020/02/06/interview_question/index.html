@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Background Information What is the difference between supervised and unsupervised learning? Simply say, the input of supervised learning is labelled while that of unsupervised learning is unlabelled.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="桑龙的博客">
+<meta property="og:url" content="http://sanglongbest.github.io/2020/02/06/interview_question/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="Background Information What is the difference between supervised and unsupervised learning? Simply say, the input of supervised learning is labelled while that of unsupervised learning is unlabelled.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/IidmQjG.png">
+<meta property="og:image" content="https://i.imgur.com/gNSraeU.png">
+<meta property="og:updated_time" content="2020-02-06T16:49:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="桑龙的博客">
+<meta name="twitter:description" content="Background Information What is the difference between supervised and unsupervised learning? Simply say, the input of supervised learning is labelled while that of unsupervised learning is unlabelled.">
+<meta name="twitter:image" content="https://i.imgur.com/IidmQjG.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2020/02/06/interview_question/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2020/02/06/interview_question/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-02-06 16:49:57" itemprop="dateCreated datePublished" datetime="2020-02-06T16:49:57+00:00">2020-02-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/06/interview_question/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/06/interview_question/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="background-information">Background Information</h1>
+<h2 id="what-is-the-difference-between-supervised-and-unsupervised-learning">What is the difference between supervised and unsupervised learning?</h2>
+<p>Simply say, the input of supervised learning is labelled while that of unsupervised learning is unlabelled. Therefore, we can use supervised learning to do prediction while we use unsupervised learning to do analysis.</p>
+<h2 id="what-is-selection-bias">What is selection bias?</h2>
+<p>Selection bias is a kind of error that happens when you choose what is studied. The training results would depend on the method of collecting samples. When the selection is not random, the statistical analysis would be not reliable or called distorted. The trained model would not be used in the real world.</p>
+<p>There are four kinds of selection bias: 1. Sampling bias: A systematic error due to the non-random sample. Some samples have more probability of being chosen than others.</p>
+<ol start="2" type="1">
+<li><p>Time interval: The measurements at one time can not represent the whole sample set. Especially when some targets are disappeared. You will get some extreme values.</p></li>
+<li><p>Data: The data is chosen for supporting one conclusion not based on generally agreed rules.</p></li>
+<li><p>Attrition: It is a kind of selection bias caused by attrition (loss of participants) discounting trial subjects/tests</p></li>
+</ol>
+<h2 id="what-is-the-bias-what-is-the-variance-what-is-bias-variance-trade-off">What is the bias? What is the variance? What is bias-variance trade-off?</h2>
+<p>The bias is an error that shows the difference between the real data and the predicted data. The variance shows the instability of the dataset. It shows how far a set of data is spread out from their mean value.</p>
+<p>When the model is under-fitting, the bias would have a large value while the variance would have a small value. When the model is over-fitting, the bias has the low value while the variance has the high value. The goal of any supervised machine learning algorithm is to have low bias and low variance to achieve good prediction performance. This is the reason why we discuss the bias-variance trade-off.</p>
+<h2 id="what-are-the-types-of-biases-that-can-occur-during-sampling">What are the types of biases that can occur during sampling?</h2>
+<p>Selection bias Under coverage bias Survivorship bias</p>
+<h2 id="what-is-the-survivorship-bias">What is the survivorship Bias?</h2>
+<p>It is the logical error of focusing aspects that support surviving some process and casually overlooking those that did not work because of their lack of prominence. This can lead to wrong conclusions in numerous different means.</p>
+<h2 id="how-a-roc-curve-works">How a ROC curve works?</h2>
+<p>ROC curve is a graphical representation of the contrast between true positive and false positive rates.</p>
+<h2 id="what-is-the-confusion-matrix">What is the confusion matrix?</h2>
+<p>The confusion matrix is a 2*2 table provided by the binary classifier. It have 4 outputs. They are true positives, false negatives, false positives and true negatives. The confusion matrix is calculated with the testing data.</p>
+<p>Therefore, we can get: 1. Error Rate = (FP+FN)/(P+N) 2. Accuracy = (TP+TN)/(P+N) 3. Sensitivity(Recall or True positive rate) = TP/P where P = TP + FN 4. Specificity(True negative rate) = TN/N where N = TN + FP 5. Precision(Positive predicted value) = TP/(TP+FP) F-Score: <span class="math display">\[F_{1}=\left(\frac{2}{\operatorname{recall}^{-1}+\operatorname{precision}^{-1}}\right)=2 \cdot \frac{\text { precision } \cdot \text { recall }}{\text { precision }+\text { recall }}\]</span></p>
+<h1 id="statistics">Statistics</h1>
+<h2 id="what-is-the-normal-distribution">What is the normal distribution?</h2>
+<p>It is also called as Gaussian distribution. The properties are: 1. one mode 2. left and right have same shape. 3. maximum point at the mean. 4. mean is same as mode and median. 5. asymptotic. [æsɪmp'tɒtɪk]</p>
+<h2 id="what-are-the-correlation-and-covariance">What are the correlation and covariance?</h2>
+<p>Correlation: Correlation measures how strongly two variables are related. value from -1 to 1 and has not unit.</p>
+<p>Covariance: systematic relation between a pair of variables. Value from -inf to inf and has unit.</p>
+<h2 id="what-are-the-point-estimates-and-confidence-intervals">What are the point estimates and confidence intervals?</h2>
+<p>The point estimation gives us a particular values as an estimate of a parameter.</p>
+<p>The confidence interval is a range of values which is likely to contain the parameter.</p>
+<h2 id="what-is-the-goal-of-ab-testing">What is the goal of A/B testing?</h2>
+<p>The goal of A/B Testing is to identify any changes to effect results.</p>
+<h2 id="what-is-the-p-value">What is the p-value?</h2>
+<p>p-value is used to show the strength of the results.</p>
+<h2 id="what-is-the-statistical-power-of-sensitivity-tpp-and-how-to-calculate-it">What is the statistical power of sensitivity (TP/P) and how to calculate it?</h2>
+<p>Sensitivity is eqaul to TP/(TP+NF).</p>
+<p>Sensitivity is used to validate the accuracy of a classifier (Logistic, SVM, Random Forest)</p>
+<p>https://www.edureka.co/blog/interview-questions/data-science-interview-questions/</p>
+<h2 id="what-is-the-difference-between-the-over-fitting-and-under-fitting">What is the difference between the over-fitting and under-fitting?</h2>
+<p>Overfitting: model describes random error or noise instead of the underlying relationship. The model is complex and has too many parameters.</p>
+<p>Unde-fitting: model can not caoture the underlying relationship.</p>
+<h2 id="what-is-regularisation-why-is-it-useful">What is regularisation? Why is it useful?</h2>
+<p>Regularisation is the process of adding tuning parameter to a model to induce smoothness in order to prevent overfitting. This is most often done by adding a constant multiple to an existing weight vector. This constant is often the L1(Lasso) or L2(ridge).</p>
+<h1 id="normalization">Normalization</h1>
+<h2 id="what-is-data-normalization-and-why-do-we-need-it">What is data normalization and why do we need it?</h2>
+<p>Data normalization is a very important preprocessing step for training. It is used to rescale values to fit in a specific range to make better convergence during backpropagation. (Independent and identically distributed random)</p>
+<p>Normally, there are two ways to normalize data: 1. Min-max Scaling: The original data would be mapped to an interval, from 0 to 1. Each data point subtracts the minimum value and then dividing by the difference between the maximum value and the minimum value.</p>
+<ol start="2" type="1">
+<li>Z-Score Normalization: Each data point subtracts the mean of each data point and dividing by the standard deviation.</li>
+</ol>
+<p>If we do not use the normalization, the high-magnitude features will be weighted more in the cost function, while the affections of the low-magnitude features will be not insignificant. After normalization, we can faster to find the optimal global solution.</p>
+<p>Of course, the normalization can not address all the optimization problem. It is only useful for the methods based on the gradient, such as linear regression, logical regression, support vector machine, neural network and other models. For binary trees problems, the normalization is not a good choice.</p>
+<h1 id="network-training">Network Training</h1>
+<h2 id="why-we-like-to-use-the-soft-max">Why we like to use the soft-max?</h2>
+<p>The input is a vector of the real numbers and output is a probability distribution. The element is non-negative and the sum over all components is 1. This is the first benefit. <img src="https://i.imgur.com/IidmQjG.png" alt="enter image description here"> second, it is easy to calculate at backpropagation. <img src="https://i.imgur.com/gNSraeU.png" alt="enter image description here"></p>
+<h2 id="can-you-explain-the-difference-between-a-validation-set-and-a-test-set">Can you explain the difference between a Validation Set and a Test Set?</h2>
+<p>A Validation set can be considered as a part of the training set as it is used for parameter selection and to avoid overfitting of the model being built. On the other hand, a Test Set is used for testing or evaluating the performance of a trained machine learning model.</p>
+<h2 id="what-is-cross-validation.">What is cross-validation.</h2>
+<p>Cross-validation is a model validation technique for evaluating how the outcomes of statistical analysis will generalize to an independent dataset.</p>
+<h2 id="what-is-naive-in-a-naive-bayes">What is ‘Naive’ in a Naive Bayes?</h2>
+<p>Variables are independent.</p>
+<h1 id="svm">SVM</h1>
+<h2 id="explain-svm">Explain SVM</h2>
+<p>If you have n features in your training set, SVM will plot it in n-dimensional space. SVM will try to find a <em>hyperplanes</em> to separate out different classes based on a provided kernel function.</p>
+<h2 id="what-is-the-support-vectors-in-svm">what is the support vectors in SVM?</h2>
+<p>The lines show the distance between the hyperplanes to the closest data poitns called the support vector. The support vector is parallel to the hyperplanes. The distance between the two support vectors is called the margin.</p>
+<h2 id="what-are-the-different-kernels-in-svm">What are the different kernels in SVM?</h2>
+<p>Linear Kernel Polynomial kernel Radial basis kernel Sigmoid kernel</p>
+<h1 id="decision-tree">Decision Tree</h1>
+<h2 id="what-is-the-decision-tree">What is the decision tree?</h2>
+<p>It splits a large dataset into smaller and smaller subset while an associate decision tree is incrementally developed. The final result is a tree with decision nodes and leaf nodes.</p>
+<h2 id="what-are-entropy-and-information-gain">What are entropy and information gain?</h2>
+<p>Entropy : A decision tree is used to involve data into homogenious subsets. If the sample is completely homogenious then entropy is zero and if the sample is an equally divided it has entropy of one.</p>
+<p>Information Gain : The Information Gain is based on the decrease in entropy after a dataset is split on an attribute. Constructing a decision tree is all about finding attributes that return the highest information gain.</p>
+<h2 id="what-is-pruning-in-decision-tree">What is pruning in Decision Tree?</h2>
+<p>Pruning is removing sections of the tree that provide little power to classify instances.</p>
+<h1 id="logistic-regression">logistic regression</h1>
+<h2 id="what-is-logistic-regression">What is logistic regression?</h2>
+<p>Logistic regression is a logit model to predict the binary outcome from a linear combination of predictor variables.</p>
+<h2 id="what-is-linear-regression">What is Linear Regression?</h2>
+<p>Linear regression predict the Y from a second variable X.</p>
+<h2 id="what-are-the-drawbacks-of-the-linear-model">What are the drawbacks of the linear model?</h2>
+<ol type="1">
+<li>error is linearity</li>
+<li>can not be used for multiple or binary outcomes.</li>
+<li>can not address the over-fitting.</li>
+</ol>
+<h2 id="how-to-choose-the-number-of-clusters-in-k-means">How to choose the number of clusters in k-means?</h2>
+<p>Based on the <em>Elbow Curve</em>, which is show <em>within Sum of Squares</em> at the different number of clusters. The bending points is the K.</p>
+<h2 id="what-is-ensemble-learning">What is Ensemble Learning?</h2>
+<p>Ensemble Learning is basically combining a diverse set of learners (Individual models) together to improvise on the stability and predictive power of the model. The common method is bagging and boosting.</p>
+<h2 id="how-are-weights-initialized-in-a-network">How Are Weights Initialized in a Network?</h2>
+<p>Initializing all weights to 0: This makes your model similar to a linear model. All the neurons and every layer perform the same operation, giving the same output and making the deep net useless.</p>
+<p>Initializing all weights randomly: Here, the weights are assigned randomly by initializing them very close to 0. It gives better accuracy to the model since every neuron performs different computations. This is the most commonly used method.</p>
+<h2 id="what-is-the-cost-function">What Is the Cost Function?</h2>
+<p>Cost function is a measure to evaluate how good your model’s performance is. It’s used to compute the error of the output layer during <em>backpropagation</em>. We push that error backwards through the neural network and use that during the different training functions.</p>
+<h2 id="what-are-hyperparameters">What Are Hyperparameters?</h2>
+<p>A hyperparameter is a parameter whose value is set before the learning process begins. It determines how a network is trained and the structure of the network</p>
+<h2 id="what-will-happen-if-the-learning-rate-is-set-inaccurately">What Will Happen If the Learning Rate Is Set inaccurately ?</h2>
+<p>When your learning rate is too low, training of the model will progress very slowly as we are making minimal updates to the weights. It will take many updates before reaching the minimum point.</p>
+<p>If the learning rate is set too high, this causes undesirable divergent behaviour to the loss function due to drastic updates in weights. It may fail to converge (model can give a good output) or even diverge (data is too chaotic for the network to train).</p>
+<h2 id="wwhat-are-the-different-layers-on-cnn">WWhat Are the Different Layers on CNN?</h2>
+<ol type="1">
+<li>Convolutional Layer</li>
+<li>ReLU Layer</li>
+<li>Pooling Layer</li>
+<li>Fully Connected Layer</li>
+</ol>
+<h2 id="what-is-pooling-on-cnn-and-how-does-it-work">What Is Pooling on CNN, and How Does It Work?</h2>
+<p>It performs down-sampling operations to reduce the dimensionality and creates a pooled feature map by sliding a filter matrix over the input matrix.</p>
+<h2 id="what-is-gradient-descent">What is Gradient Descent?</h2>
+<p>A gradient measures how much the output of a function changes if you change the inputs a little bit.</p>
+<p>A gradient measures how much the output of a function changes if you change the inputs a little bit.</p>
+<h2 id="what-is-exploding-gradients-what-is-exploding-gradients">What is exploding gradients? What is exploding gradients?</h2>
+<p>if you see exponentially growing (very large) error gradients which accumulate and result in very large updates to neural network model weights during training, they’re known as exploding gradients. weight-&gt;NaN</p>
+<p>While training an RNN, your slope can become either too small; this makes the training difficult. When the slope is too small, the problem is known as a Vanishing Gradient. It leads to long training times, poor performance, and low accuracy.</p>
+<h2 id="explain-back-propagation">Explain Back Propagation</h2>
+<ol type="1">
+<li>Forward Propagation of Training Data</li>
+<li>Error (lost) are computed using output and target</li>
+<li>Back Propagate for computing derivative of error with activation function.</li>
+<li>Using previously calculated derivatives for output</li>
+<li>Update the Weights</li>
+</ol>
+<h2 id="what-is-the-role-of-the-activation-function">What is the role of the Activation Function?</h2>
+<p>Activation Function is a switch-like things in the neural network. It's used to introduce non-linearity into the neural network helping it to learn more complex function.</p>
+<h2 id="what-is-an-auto-encoder">What is an Auto-Encoder?</h2>
+<p>Auto-encoders are simple learning networks that aim to transform inputs into outputs with the minimum possible error. This means that we want the output to be as close to input as possible. We add a couple of layers between the input and the output, and the sizes of these layers are smaller than the input layer. The auto-encoder receives unlabelled input which is then encoded to reconstruct the input.</p>
+<h2 id="what-is-dropout-and-batch-normalization">What Is Dropout and Batch Normalization?</h2>
+<p>Dropout is a technique of dropping out hidden and visible units of a network randomly to prevent overfitting of data.</p>
+<p>Batch normalization is the technique to improve the performance and stability of neural networks by normalizing the inputs in every layer.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/16/GAN/" rel="next" title="Telling GAN">
+                <i class="fa fa-chevron-left"></i> Telling GAN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#background-information"><span class="nav-number">1.</span> <span class="nav-text">Background Information</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-difference-between-supervised-and-unsupervised-learning"><span class="nav-number">1.1.</span> <span class="nav-text">What is the difference between supervised and unsupervised learning?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-selection-bias"><span class="nav-number">1.2.</span> <span class="nav-text">What is selection bias?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-bias-what-is-the-variance-what-is-bias-variance-trade-off"><span class="nav-number">1.3.</span> <span class="nav-text">What is the bias? What is the variance? What is bias-variance trade-off?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-the-types-of-biases-that-can-occur-during-sampling"><span class="nav-number">1.4.</span> <span class="nav-text">What are the types of biases that can occur during sampling?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-survivorship-bias"><span class="nav-number">1.5.</span> <span class="nav-text">What is the survivorship Bias?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-a-roc-curve-works"><span class="nav-number">1.6.</span> <span class="nav-text">How a ROC curve works?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-confusion-matrix"><span class="nav-number">1.7.</span> <span class="nav-text">What is the confusion matrix?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#statistics"><span class="nav-number">2.</span> <span class="nav-text">Statistics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-normal-distribution"><span class="nav-number">2.1.</span> <span class="nav-text">What is the normal distribution?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-the-correlation-and-covariance"><span class="nav-number">2.2.</span> <span class="nav-text">What are the correlation and covariance?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-the-point-estimates-and-confidence-intervals"><span class="nav-number">2.3.</span> <span class="nav-text">What are the point estimates and confidence intervals?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-goal-of-ab-testing"><span class="nav-number">2.4.</span> <span class="nav-text">What is the goal of A/B testing?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-p-value"><span class="nav-number">2.5.</span> <span class="nav-text">What is the p-value?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-statistical-power-of-sensitivity-tpp-and-how-to-calculate-it"><span class="nav-number">2.6.</span> <span class="nav-text">What is the statistical power of sensitivity (TP/P) and how to calculate it?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-difference-between-the-over-fitting-and-under-fitting"><span class="nav-number">2.7.</span> <span class="nav-text">What is the difference between the over-fitting and under-fitting?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-regularisation-why-is-it-useful"><span class="nav-number">2.8.</span> <span class="nav-text">What is regularisation? Why is it useful?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#normalization"><span class="nav-number">3.</span> <span class="nav-text">Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-data-normalization-and-why-do-we-need-it"><span class="nav-number">3.1.</span> <span class="nav-text">What is data normalization and why do we need it?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#network-training"><span class="nav-number">4.</span> <span class="nav-text">Network Training</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#why-we-like-to-use-the-soft-max"><span class="nav-number">4.1.</span> <span class="nav-text">Why we like to use the soft-max?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#can-you-explain-the-difference-between-a-validation-set-and-a-test-set"><span class="nav-number">4.2.</span> <span class="nav-text">Can you explain the difference between a Validation Set and a Test Set?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-cross-validation."><span class="nav-number">4.3.</span> <span class="nav-text">What is cross-validation.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-naive-in-a-naive-bayes"><span class="nav-number">4.4.</span> <span class="nav-text">What is ‘Naive’ in a Naive Bayes?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#svm"><span class="nav-number">5.</span> <span class="nav-text">SVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#explain-svm"><span class="nav-number">5.1.</span> <span class="nav-text">Explain SVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-support-vectors-in-svm"><span class="nav-number">5.2.</span> <span class="nav-text">what is the support vectors in SVM?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-the-different-kernels-in-svm"><span class="nav-number">5.3.</span> <span class="nav-text">What are the different kernels in SVM?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#decision-tree"><span class="nav-number">6.</span> <span class="nav-text">Decision Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-decision-tree"><span class="nav-number">6.1.</span> <span class="nav-text">What is the decision tree?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-entropy-and-information-gain"><span class="nav-number">6.2.</span> <span class="nav-text">What are entropy and information gain?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-pruning-in-decision-tree"><span class="nav-number">6.3.</span> <span class="nav-text">What is pruning in Decision Tree?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logistic-regression"><span class="nav-number">7.</span> <span class="nav-text">logistic regression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-logistic-regression"><span class="nav-number">7.1.</span> <span class="nav-text">What is logistic regression?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-linear-regression"><span class="nav-number">7.2.</span> <span class="nav-text">What is Linear Regression?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-the-drawbacks-of-the-linear-model"><span class="nav-number">7.3.</span> <span class="nav-text">What are the drawbacks of the linear model?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-choose-the-number-of-clusters-in-k-means"><span class="nav-number">7.4.</span> <span class="nav-text">How to choose the number of clusters in k-means?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-ensemble-learning"><span class="nav-number">7.5.</span> <span class="nav-text">What is Ensemble Learning?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-are-weights-initialized-in-a-network"><span class="nav-number">7.6.</span> <span class="nav-text">How Are Weights Initialized in a Network?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-cost-function"><span class="nav-number">7.7.</span> <span class="nav-text">What Is the Cost Function?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-are-hyperparameters"><span class="nav-number">7.8.</span> <span class="nav-text">What Are Hyperparameters?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-will-happen-if-the-learning-rate-is-set-inaccurately"><span class="nav-number">7.9.</span> <span class="nav-text">What Will Happen If the Learning Rate Is Set inaccurately ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wwhat-are-the-different-layers-on-cnn"><span class="nav-number">7.10.</span> <span class="nav-text">WWhat Are the Different Layers on CNN?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-pooling-on-cnn-and-how-does-it-work"><span class="nav-number">7.11.</span> <span class="nav-text">What Is Pooling on CNN, and How Does It Work?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-gradient-descent"><span class="nav-number">7.12.</span> <span class="nav-text">What is Gradient Descent?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-exploding-gradients-what-is-exploding-gradients"><span class="nav-number">7.13.</span> <span class="nav-text">What is exploding gradients? What is exploding gradients?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#explain-back-propagation"><span class="nav-number">7.14.</span> <span class="nav-text">Explain Back Propagation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-the-role-of-the-activation-function"><span class="nav-number">7.15.</span> <span class="nav-text">What is the role of the Activation Function?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-an-auto-encoder"><span class="nav-number">7.16.</span> <span class="nav-text">What is an Auto-Encoder?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-dropout-and-batch-normalization"><span class="nav-number">7.17.</span> <span class="nav-text">What Is Dropout and Batch Normalization?</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2020/02/06/interview_question/';
+        this.page.identifier = '2020/02/06/interview_question/';
+        this.page.title = '';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
