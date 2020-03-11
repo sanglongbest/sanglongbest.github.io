@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="GAN作为一个机器学习界得过气网红，已经开始大面积应用于现实生活，所以写一篇关于GAN的从入门到放弃是必要的。我希望任何一个人能通过这篇文章，弄清楚所有关于GAN的知识，然后放弃。。。（逃。。）   1. 新手村  1.1. 应用 1.2. GAN的问题  1.2.1. Mode collapse（模式坍塌）：generator 生成的图像都特别像。 1.2.2. Diminished gradi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="桑龙的博客">
+<meta property="og:url" content="http://sanglongbest.github.io/2020/03/04/GAN in one post/index.html">
+<meta property="og:site_name" content="桑龙的博客">
+<meta property="og:description" content="GAN作为一个机器学习界得过气网红，已经开始大面积应用于现实生活，所以写一篇关于GAN的从入门到放弃是必要的。我希望任何一个人能通过这篇文章，弄清楚所有关于GAN的知识，然后放弃。。。（逃。。）   1. 新手村  1.1. 应用 1.2. GAN的问题  1.2.1. Mode collapse（模式坍塌）：generator 生成的图像都特别像。 1.2.2. Diminished gradi">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/UH4iK8o.png">
+<meta property="og:image" content="https://i.imgur.com/VU2CC80.png">
+<meta property="og:image" content="https://i.imgur.com/OV5Dn9l.png">
+<meta property="og:image" content="https://i.imgur.com/gkKHx2e.jpg">
+<meta property="og:image" content="https://i.imgur.com/VSgC1Ao.png">
+<meta property="og:image" content="https://i.imgur.com/oEdC5Vl.png">
+<meta property="og:image" content="https://i.imgur.com/alJdNwA.png">
+<meta property="og:image" content="https://i.imgur.com/GCvZyud.jpg">
+<meta property="og:image" content="https://i.imgur.com/ZkgVHDW.png">
+<meta property="og:image" content="https://i.imgur.com/CTZiqHK.png">
+<meta property="og:image" content="https://i.imgur.com/iKJMGWR.png">
+<meta property="og:image" content="https://i.imgur.com/VFsMnau.jpg">
+<meta property="og:image" content="https://i.imgur.com/EuHCspP.png">
+<meta property="og:image" content="https://i.imgur.com/FHd4L9H.png">
+<meta property="og:image" content="https://i.imgur.com/CgeLmup.png">
+<meta property="og:image" content="https://i.imgur.com/z5TaOpD.png">
+<meta property="og:image" content="https://i.imgur.com/jkOKCKT.png">
+<meta property="og:image" content="https://i.imgur.com/KRxYAsV.png">
+<meta property="og:image" content="https://i.imgur.com/tIZEEFe.png">
+<meta property="og:image" content="https://i.imgur.com/xL0Gx57.png">
+<meta property="og:image" content="https://i.imgur.com/koo0DP1.png">
+<meta property="og:image" content="https://i.imgur.com/nkatTkc.png">
+<meta property="og:image" content="https://i.imgur.com/NwQPZo8.png">
+<meta property="og:image" content="https://i.imgur.com/ufhXgtQ.png">
+<meta property="og:image" content="https://i.imgur.com/2W3Av4R.png">
+<meta property="og:image" content="https://i.imgur.com/G6yAs5Z.png">
+<meta property="og:image" content="https://i.imgur.com/a53kis4.png">
+<meta property="og:image" content="https://i.imgur.com/IewTGqR.png">
+<meta property="og:image" content="https://i.imgur.com/GUfOqZt.png">
+<meta property="og:image" content="https://i.imgur.com/JPJ6TJD.png">
+<meta property="og:image" content="https://i.imgur.com/UmF7qUV.png">
+<meta property="og:image" content="https://i.imgur.com/6zrSxf6.jpg">
+<meta property="og:updated_time" content="2020-03-04T16:55:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="桑龙的博客">
+<meta name="twitter:description" content="GAN作为一个机器学习界得过气网红，已经开始大面积应用于现实生活，所以写一篇关于GAN的从入门到放弃是必要的。我希望任何一个人能通过这篇文章，弄清楚所有关于GAN的知识，然后放弃。。。（逃。。）   1. 新手村  1.1. 应用 1.2. GAN的问题  1.2.1. Mode collapse（模式坍塌）：generator 生成的图像都特别像。 1.2.2. Diminished gradi">
+<meta name="twitter:image" content="https://i.imgur.com/UH4iK8o.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://sanglongbest.github.io/2020/03/04/GAN in one post/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | 桑龙的博客</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119078527-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119078527-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">桑龙的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sanglongbest.github.io/2020/03/04/GAN in one post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="桑龙(Yang Liu）">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桑龙的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-03-04 16:55:10" itemprop="dateCreated datePublished" datetime="2020-03-04T16:55:10+00:00">2020-03-04</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/04/GAN in one post/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/04/GAN in one post/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>GAN作为一个机器学习界得过气网红，已经开始大面积应用于现实生活，所以写一篇关于GAN的从入门到放弃是必要的。我希望任何一个人能通过这篇文章，弄清楚所有关于GAN的知识，然后放弃。。。（逃。。）</p>
+<!-- TOC -->
+<ul>
+<li><a href="#1-%e6%96%b0%e6%89%8b%e6%9d%91">1. 新手村</a>
+<ul>
+<li><a href="#11-%e5%ba%94%e7%94%a8">1.1. 应用</a></li>
+<li><a href="#12-gan%e7%9a%84%e9%97%ae%e9%a2%98">1.2. GAN的问题</a>
+<ul>
+<li><a href="#121-mode-collapse%e6%a8%a1%e5%bc%8f%e5%9d%8d%e5%a1%8cgenerator-%e7%94%9f%e6%88%90%e7%9a%84%e5%9b%be%e5%83%8f%e9%83%bd%e7%89%b9%e5%88%ab%e5%83%8f">1.2.1. Mode collapse（模式坍塌）：generator 生成的图像都特别像。</a></li>
+<li><a href="#122-diminished-gradient-%e6%a2%af%e5%ba%a6%e8%a1%b0%e9%80%80%e5%9b%a0%e4%b8%badiscriminator%e5%a4%aa%e6%88%90%e5%8a%9f%e4%ba%86%e4%bb%a5%e8%87%b3%e4%ba%8egradients-vanish%e6%a2%af%e5%ba%a6%e6%b6%88%e5%a4%b1%e8%ae%a9-generator-%e5%ad%a6%e4%b8%8d%e5%88%b0%e6%96%b0%e4%b8%9c%e8%a5%bf%e5%90%8e%e9%9d%a2%e6%88%91%e4%bb%ac%e4%bc%9a%e6%8f%90%e5%88%b0wgan%e5%b0%b1%e6%98%af%e4%b8%ba%e4%ba%86%e8%a7%a3%e5%86%b3%e8%bf%99%e4%ba%8b">1.2.2. Diminished gradient （梯度衰退）：因为discriminator太成功了，以至于gradients vanish（梯度消失）让 generator 学不到新东西。后面我们会提到WGAN，就是为了解决这事。</a></li>
+<li><a href="#123-non-convergence%e4%b8%8d%e6%94%b6%e6%95%9b%e6%a8%a1%e5%9e%8b%e5%8f%82%e6%95%b0%e6%8c%af%e8%8d%a1%e4%b8%8d%e7%a8%b3%e5%ae%9a%e4%b8%94%e6%b0%b8%e4%b8%8d%e6%94%b6%e6%95%9b">1.2.3. Non-convergence（不收敛）：模型参数振荡、不稳定且永不收敛。</a></li>
+<li><a href="#124-%e7%bb%8f%e5%b8%b8%e8%bf%87%e6%8b%9f%e5%90%88">1.2.4. 经常过拟合。</a></li>
+<li><a href="#125-%e5%af%b9hyperparameter%e8%b6%85%e6%95%8f%e6%84%9f">1.2.5. 对hyperparameter超敏感。</a></li>
+<li><a href="#126-%e6%b2%a1%e6%9c%89%e5%90%88%e7%90%86%e7%9a%84%e8%af%84%e4%bb%b7%e6%8c%87%e6%a0%87%e4%bb%a5%e8%87%b3%e4%ba%8e%e8%ae%ad%e7%bb%83%e6%88%90%e4%ba%86%e7%ba%af%e7%82%bc%e4%b8%b9">1.2.6. 没有合理的评价指标，以至于训练成了纯炼丹。</a></li>
+</ul></li>
+<li><a href="#13-%e8%af%84%e4%bb%b7%e6%8c%87%e6%a0%87is-%e5%92%8cfid">1.3. 评价指标（IS 和FID）</a></li>
+</ul></li>
+<li><a href="#2-%e5%88%b0%e5%8d%9a%e5%a3%ab%e9%82%a3%e7%bb%84%e8%a3%85%e4%b8%80%e4%b8%aa%e4%bd%a0%e5%96%9c%e6%ac%a2%e7%9a%84gan">2. 到博士那组装一个你喜欢的GAN</a>
+<ul>
+<li><a href="#21-%e7%bd%91%e7%bb%9c%e8%ae%be%e8%ae%a1">2.1. 网络设计</a>
+<ul>
+<li><a href="#211-dcgan">2.1.1. DCGAN</a></li>
+<li><a href="#212-cgan">2.1.2. CGAN</a></li>
+<li><a href="#213-stacked-or-progressive-gan">2.1.3. Stacked or progressive GAN</a></li>
+</ul></li>
+<li><a href="#22-cost-function">2.2. Cost function</a>
+<ul>
+<li><a href="#221-%e6%b7%bb%e5%8a%a0%e6%96%b0%e7%9a%84%e6%88%90%e5%95%8a%e6%83%b3penalty%e5%88%b0cost-function-%e6%9d%a5%e5%af%b9%e7%89%b9%e5%ae%9a%e4%bf%a1%e6%81%af%e8%bf%9b%e8%a1%8c%e6%83%a9%e7%bd%9a">2.2.1. 添加新的成啊想（penalty）到cost function 来对特定信息进行惩罚。</a></li>
+<li><a href="#222-%e4%bd%bf%e7%94%a8%e4%b8%80%e4%b8%aatips-%e6%9d%a5%e9%98%b2%e6%ad%a2%e8%bf%87%e6%8b%9f%e5%90%88">2.2.2. 使用一个tips 来防止过拟合。</a></li>
+<li><a href="#223-%e9%87%8d%e6%96%b0%e8%ae%be%e8%ae%a1cost-function-%e6%9d%a5%e4%bf%9d%e8%af%81%e6%a2%af%e5%ba%a6%e4%b8%8d%e6%b6%88%e5%a4%b1non-vanishing%e4%b8%8d%e7%88%86%e7%82%b8non-exploding">2.2.3. 重新设计cost function 来保证梯度不消失（non-vanishing）不爆炸（non-exploding）。</a>
+<ul>
+<li><a href="#2231-feature-matching">2.2.3.1. Feature matching</a></li>
+<li><a href="#2232-lsgan">2.2.3.2. LSGAN</a></li>
+<li><a href="#2233-wgan--wgan-gp">2.2.3.3. WGAN &amp; WGAN-GP</a></li>
+<li><a href="#2234-energy-based-gan-ebgan--boundary-equilibrium-gan-began">2.2.3.4. Energy based GAN (EBGAN) &amp; Boundary Equilibrium GAN (BEGAN)</a></li>
+<li><a href="#2235-%e5%b0%8f%e6%80%bb%e7%bb%93%e4%b8%80%e4%b8%8bloss-function">2.2.3.5. 小总结一下loss function</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#23-%e4%bc%98%e5%8c%96">2.3. 优化</a></li>
+<li><a href="#24-%e5%a4%9a%e5%94%a0%e5%8f%a8%e5%87%a0%e5%8f%a5">2.4. 多唠叨几句</a></li>
+</ul></li>
+</ul>
+<!-- /TOC -->
+<h1 id="新手村">1. 新手村</h1>
+<h2 id="应用">1.1. 应用</h2>
+<p>从2016年底，GAN已经能生成非常清晰的人脸图像，不仅如此他还能任意调节人脸的年龄，性别等特征。比我下面我们看到的styleGAN，它可以轻易的生成1024*1024的人脸高清图。</p>
+<figure>
+<img src="https://i.imgur.com/UH4iK8o.png" alt><figcaption>StyleGAN</figcaption>
+</figure>
+<p>是不是很NB，一定很难对不对，我们其实可以一步一步来，要不然怎么能带你入门，带你放弃（狗头。。）</p>
+<p>让我们从 generator（生成器）开始。 <img src="https://i.imgur.com/VU2CC80.png" alt="generator"> generator 是一个Generative model<span class="math inline">\(^1\)</span>。一个初始的generator（weight 为随机值）只能输出随机噪声。为了让这个模型收敛，我们需要一个loss function。如果选定了一个合适的loss function 而且 模型效果还不错，那恭喜你，你就不需要GAN了。为什么呢？这是因为通常来说，这个loss function 是很难选的。loss function 无论是 l1, l2 or others，都是认为设计的，这和现实生活中未知的loss有所不同，就好比，你能否设计一个loss来计算xbox和switch之间的相似度？我想这一定很难，且很复杂，于是我们在想能不能来让另一个模型来帮我们呢？于是我们引入了discriminator来自动学习loss function。</p>
+<figure>
+<img src="https://i.imgur.com/OV5Dn9l.png" alt><figcaption>discriminator</figcaption>
+</figure>
+<p>于是我们就有了GAN的最基本的形式：generator + discriminator</p>
+<p><sup> <sup> Generative model: a model of the conditional probability of the observable X, given a target y, symbolically (from wikipedia). 通俗来说，就是在已知目标Y的前提下，观测为X的概率，再通俗来说，就是获得一个由Y到X（Y-&gt;X）的映射方程G，使得X=G(Y)。此概念，面试常考 :)。</sup></sup></p>
+<p>早期的GAN研究侧重于图像生成，但它已经扩展到其他领域，如动画人物、音乐视频等等。另一个流行的扩展是跨域GAN，它将数据从一类信息(比如音频)转换为另一类(图像)。</p>
+<figure>
+<img src="https://i.imgur.com/gkKHx2e.jpg" alt><figcaption>speech2face</figcaption>
+</figure>
+<p>在上面的例子中，我们添加了一个 encoder 来提取音频的特征，然后是一个generator 来创建图像。真实和生成的图像被输入一个discriminator (又称编码器，后面跟着一个sigma函数)，以识别它是否是真实的。 <img src="https://i.imgur.com/VSgC1Ao.png" alt="untitled"></p>
+<p>GAN也可以用 meta-data（元数据：就是关键的属性信息）来生成图像，例如通过轮廓来生成图像。</p>
+<figure>
+<img src="https://i.imgur.com/oEdC5Vl.png" alt><figcaption>pix2pix</figcaption>
+</figure>
+<p>我们将meta-data输入到encoder以生成图像。我们还将原始图像（或有时是元数据）作为附加输入传递给 discriminator 以区分图像。 <img src="https://i.imgur.com/alJdNwA.png" alt="untitled"></p>
+<p>好吧，到现在为止，你应该知道了这些GAN的常见应用场景，你也对GAN有了一个大体的理解。是不是很神奇？那我们来看一些GAN的缺点吧。</p>
+<h2 id="gan的问题">1.2. GAN的问题</h2>
+<p>GAN就像它的发音，简单粗暴，但是现实不是你想gan， 想gan就能gan。 GAN网络因为很多的问题，所以没有大范围使用 （排列分先后，越前越长见）： ### 1.2.1. Mode collapse（模式坍塌）：generator 生成的图像都特别像。 <img src="https://i.imgur.com/GCvZyud.jpg" alt="Mode collapse"> 其实，完全坍塌不常见，但是有一半的图像很像还是会经常遇到的。 我们对这个问题的研究时期还是有限的，总体来说可以缓解，但是治标不治本。</p>
+<h3 id="diminished-gradient-梯度衰退因为discriminator太成功了以至于gradients-vanish梯度消失让-generator-学不到新东西后面我们会提到wgan就是为了解决这事">1.2.2. Diminished gradient （梯度衰退）：因为discriminator太成功了，以至于gradients vanish（梯度消失）让 generator 学不到新东西。后面我们会提到WGAN，就是为了解决这事。</h3>
+<p>大家都知道deep learning 或者说CNN结构都是由梯度的反向传播来更新每层的权重值。就像你站在悬崖边，圆润的滚下去你就会达到山底，但是如果中间你被树挡住了，你就不能达到渴望的谷底，于是你就很失望，模型也就训练失败了。</p>
+<h3 id="non-convergence不收敛模型参数振荡不稳定且永不收敛">1.2.3. Non-convergence（不收敛）：模型参数振荡、不稳定且永不收敛。</h3>
+<h3 id="经常过拟合">1.2.4. 经常过拟合。</h3>
+<h3 id="对hyperparameter超敏感">1.2.5. 对hyperparameter超敏感。</h3>
+<p>下图为学习率（x轴）和FID（一种评价指标，值越高越好）关系，我们可以看到，不同参数差别较大，主要他还没规律，你说急不急。 <img src="https://i.imgur.com/ZkgVHDW.png" alt="1_FNYqDHlsoYh7_J6ZvOsDwg"> ### 1.2.6. 没有合理的评价指标，以至于训练成了纯炼丹。</p>
+<h2 id="评价指标is-和fid">1.3. 评价指标（IS 和FID）</h2>
+<p>早期的评价指标比较原始，就是直接看图像生成的好坏，到后来这个指标就不再有用了，为什么？一是因为很多方法足够优秀，生成的图肉眼很难看出差别，另外一个原因就是这是炼丹，很多人的方法你复现不了，不是每次都成功，于是我急需一个指标。</p>
+<p>Inception Score (IS)： Inception network是一个常见的预训练好的分类模型，我们假设如果我们生成的图像骗过了这个分类器，让他给出了相应的分类，例如我们生成的人脸被分类模型也被分成了人脸，那么我们就认为我们生成的成功，这个人脸的信度正相关我们IS的分数。</p>
+<p>IS主要考虑两类信息：生成图片质量和图片多样性。 <img src="https://i.imgur.com/CTZiqHK.png" alt="1_UJ--WcXSxMKciCmHPqKlrw"> 其中P(y|x)体现的是图像质量，由Inception network的分类结果决定的，P(y|x)log(P(y|x))值越小越好，说明这个样本越清晰。P(y)体现的图片多样性，如果生成的图片多样，y的分布应是高熵的（例如均匀分布），P(y)log(P(y))值越大越好，说明生成的样本在各类上分布越平均。IS的主要问题是，没办法对小批次的样本进行准确的评判，除此以外，不能反应过拟合，对参数敏感，有时候数据很好，图片很差，所以，<em>IS指标很少用了</em>。</p>
+<p>Fréchet Inception Distance (FID): 也是通过Inception network 来测量真实图像和生成图像的特征差值，FID越小越好，为什么需要这个呢？因为IS不能包含所有的物体种类，可能真实图像通过Inception networks也不一定能得到较准确的分类。用差值更能体现GAN的性能。同时FID对小批次也有效。但是FID也有问题， 比如比较两个真实图片，理想的结果是为0，但是现实是非0的，这和理论相佐。</p>
+<h1 id="到博士那组装一个你喜欢的gan">2. 到博士那组装一个你喜欢的GAN</h1>
+<p>GAN的设计其实有很多很trick的事情，不过作为新手的我们，我们主要讨论一下三个方面。 ## 2.1. 网络设计 ### 2.1.1. DCGAN DCGAN是最有名的GAN网络： <img src="https://i.imgur.com/iKJMGWR.png" alt="1_KvMnRfb76DponICrHIbSdg"> 技术要点: 1. 将 max-pooling替换为卷积层，保住了spatial information，提升了image quality。 2. 用transposed convolution（逆卷积）来进行 upsampling 上采样。 3. 全面消除全连接层。 4. 全面采用batch normalization （BN）。 ### 2.1.2. CGAN 原本GAN网络的输入时一个N*1 维的高斯噪声，每一维经过映射能控制生成的什么信息，只有玉皇大帝才知道。于是，有人就像把其中一个维度不在输入噪声，而是训练数据的label信息，这样通过这个label值我们就能生成不同种类的图像了，这就是 Conditional GAN (CGAN)。</p>
+<h3 id="stacked-or-progressive-gan">2.1.3. Stacked or progressive GAN</h3>
+<p>如同传统boosting 检测器，你训练一个大而全的分类器很困难，但是你可以分别训练很多小的分类器，然后把他们组合在一起，就会得到一个更好的模型，训练难度也小很多。</p>
+<p>Stacked GAN就是这个思路，他把一个GAN分离成3个GAN</p>
+<figure>
+<img src="https://i.imgur.com/VFsMnau.jpg" alt><figcaption>1_MTvB1M6YnArAPN8zHj1Xkw</figcaption>
+</figure>
+<p>progressive GAN 是另一个思路，并在超分辨率领域有很好的效果。我们先生成一个2<em>2的图片，然后4</em>4，然后越来越大。 <img src="https://i.imgur.com/EuHCspP.png" alt="1_BZN4v-TBPUJUyArwW9zlCw"></p>
+<p>这个三个GAN非常适合起步，也能解决大多数问题，后边的GAN大多数实在这三个GAN上做修改。</p>
+<h2 id="cost-function">2.2. Cost function</h2>
+<p>cost function 是GAN主要的研究方向，也是魔改GAN的重灾区，可能有的工作性能有限，不过不乏好的GAN。总结起来，无非三个方向： ### 2.2.1. 添加新的成啊想（penalty）到cost function 来对特定信息进行惩罚。 在深度学习中，我们会增加一个额外的cost来满足我们希望某一特性收敛的需求。对于GAN来说，更多的研究者想用这个方法来解决mode collapse的问题。</p>
+<p>Minibatch discrimination：由这种思想指导出来最有用的方法就是 Minibatch discrimination。我们将生成的图像和真实的图像划入到一个一个的batch中。对于同一batch下的不同sample（图像），我们会计算它和其他图像的似然度，并将这类信息添加到 discriminator 的 cost function 中。当mode collapse 发生时，图片的相似度上升，于是cost 也就增加了，从而惩罚generator。</p>
+<h3 id="使用一个tips-来防止过拟合">2.2.2. 使用一个tips 来防止过拟合。</h3>
+<p>毕竟GAN也是深度学习的结构，我们也能用深度学习的方法来进行改良。比如，One-sided label smoothing，通俗来说，原始GAN的训练过程中中，我们希望对于真实图像，discriminator能输出1。对于生成图像，discriminator能输出0。但是！discriminator 训练的太好，就会mode collapse 和 梯度消失，同时你也不能保证自己的真实图像一定不含误差（训练数据把屁股标成了脸）。所以，我们退而求其次，希望真实数据的discriminator输出不再是1，而是0.9，生成图像不再为0而是0.1。做人留一线，‘日后’好相见。</p>
+<p>这样做可以很好的缓解mode collapse，但是治标不治本，它经常只是将坍塌的时间往后延，该塌的时间长了还是会塌。</p>
+<h3 id="重新设计cost-function-来保证梯度不消失non-vanishing不爆炸non-exploding">2.2.3. 重新设计cost function 来保证梯度不消失（non-vanishing）不爆炸（non-exploding）。</h3>
+<p>打南边来了一个generator，打北边来了一个discriminator。 generator 想骗过discriminator，但是discriminator不想被generator骗。于是，generator 没骗过，发生了gradient vanish。</p>
+<p>从新设计coss function 就是设计一个更好的cost，来协助generator 来骗过discriminator。那为什么在原始的GAN中，generator 这么劣势呢？我们来看一下原始cost。 <img src="https://i.imgur.com/FHd4L9H.png" alt="untitled"></p>
+<p>在原始的GAN中，我们有两个cost，一个是Distriminator的cost， 另一个generator的cost。我们的目的是尽可能把真实图片标记为真，生成图片标记为假。为了衡量这个loss，我们选用cross-entropy。其实GAN的训练过程就是一个minimax的游戏，G希望尽可能的减小V，D希望尽可能的增大V。在训练过程中，实在交叉梯度下降完成的，首先经generator 的参数固定住，然后训练一次discriminator（输入一个batch）。 然后固定discriminator，训练一次generator。交替往复。直到generator能骗过discriminator。他的流程图为：</p>
+<figure>
+<img src="https://i.imgur.com/CgeLmup.png" alt><figcaption>untitled</figcaption>
+</figure>
+<p>GAN的伪代码为： <img src="https://i.imgur.com/z5TaOpD.png" alt="untitled"></p>
+<p>原始的cost存在梯度消失的问题（注意所有的梯度消失问题都是指generator）。为什么会消失，我们后面会说。有一种简单解决办法： <img src="https://i.imgur.com/jkOKCKT.png" alt="untitled"></p>
+<p>我们这里主要先梳理一下历史。</p>
+<h4 id="feature-matching">2.2.3.1. Feature matching</h4>
+<p>这里主要改良generator的loss。希望生成的图像概率分布和真实图像重合（似乎是废话。。。）。例如，我们计算真实图像和生成图像在minibatch中的特征（feature）的均值。然后我们用l2 loss来计算这两个均值的差值。缩小这个差值，我们就能得到两个均值相同的分布（睁一眼闭一眼他就是一个两个一样的分布）。所以，cost就变成了 <img src="https://i.imgur.com/KRxYAsV.png" alt="untitled"></p>
+<h4 id="lsgan">2.2.3.2. LSGAN</h4>
+<p>原始的GAN采用的JS divergency，那我们就换成别的divergency，第一个就是f-divergency。 <img src="https://i.imgur.com/tIZEEFe.png" alt="untitled"> 于是loss就变成了 <img src="https://i.imgur.com/xL0Gx57.png" alt="untitled"> 一下把一个复杂的log问题拉成我们熟悉的<span class="math inline">\(（A-B）^2\)</span>。</p>
+<h4 id="wgan-wgan-gp">2.2.3.3. WGAN &amp; WGAN-GP</h4>
+<p>WGAN的思想就是应用Wasserstein distance 来代替JS divergency测量两个分布的区别（你可能想了，为什么测量两个分布区别的量度，这么多？没错就是这么多，别说两个分布，两个点的距离都不只有欧式距离这一个量度，所以有很多量度是很正常的，总有一款适合你）。 那wasserstein 距离又是代表什么呢？让我们来几个例子。 <img src="https://i.imgur.com/koo0DP1.png" alt="untitled"></p>
+<p>我们的目的是将左边的分布（盒子）变成右边的分布（盒子）。Wasserstein distance的核心思想就是尽量少的搬运盒子。但是如何才是最少的方法呢？我们拿一个网络来学习一下吧，于是就有了critic， 其实就是一个加强版的discriminator。为了方便起见，我们还是用D表示吧。</p>
+<p>下面我们来看一下，在cost function 的体现。我们希望建立一个平滑的，处处可导的cost function。在下图中，蓝色为真实分布，绿色为生成数据的分布。红色为discriminator的cost function，我们发现虽然discriminator有效的区分了两个分布，但是当蓝绿两个分布没有交集时，在大量的点上的cost function为常数值，于是就猴子的哥哥狒狒（废废）了，梯度为0，generator 不能更新了。这是我们看一下wasserstein 距离，它体现为那个草绿色的线，它平滑，可导这就是我们要寻找的cost function。</p>
+<figure>
+<img src="https://i.imgur.com/nkatTkc.png" alt><figcaption>untitled</figcaption>
+</figure>
+<p>它的数学定义式为： <img src="https://i.imgur.com/NwQPZo8.png" alt="untitled"></p>
+<p>我们来对比一下GAN 和 WGAN <img src="https://i.imgur.com/ufhXgtQ.png" alt="untitled"></p>
+<p>这里的D不再是输出0 和 1 了，而是输出一个评价指标，来评价生成的图片质量。虽然wgan看似完美，但是D必须是一个1-Lipschitz（如果不是的话，function就不再是凸函数了，你就不知道收敛到哪了） <img src="https://i.imgur.com/2W3Av4R.png" alt="untitled"> 因为这个概念，wgan引入了另一个改良，<em>权重修剪</em>。通入来说，有时候呀weight更新来快了，高于正常值。怎么解决呢？weight变化值设一个阈值，变化太多砍了！就像老板规定，你加班加工资，但是工资有个上线，你休想通过春节加班来实现switch 自由。数学表达式为： <img src="https://i.imgur.com/G6yAs5Z.png" alt="untitled"> c就是这个阈值，通常为0.01，但是新的问题又来了，c的值很玄学。。。太小了，梯度消失，太大了，梯度爆照。为了让我们的炼丹更稳定一点，我们再cost function 加一个penalty （惩罚项），这就是wgan-GP。 <img src="https://i.imgur.com/a53kis4.png" alt="untitled"> 好了，具体的数学推到，我们在后边再仔细说一下。</p>
+<h4 id="energy-based-gan-ebgan-boundary-equilibrium-gan-began">2.2.3.4. Energy based GAN (EBGAN) &amp; Boundary Equilibrium GAN (BEGAN)</h4>
+<p>许多GAN由 encoder 和decoder组成，并增加cost penalty 以让encoder捕获重要特性。</p>
+<p>EBGAN：就是将 discriminator 替换为一个autoencoder (encoder + decoder)。这个新的discriminator用 reconstruction cost (MSE) 来作为cost function。通俗来说我们不再区分真实图像和生成图像，我们只是单纯得认为如果生成图像能很好被decoder还原，那么我们就认为这个图像合格。</p>
+<p><img src="https://i.imgur.com/IewTGqR.png" alt="untitled"> 于是我们得到cost function： <img src="https://i.imgur.com/GUfOqZt.png" alt="untitled"></p>
+<p>BEGAN: 和EBGAN类似，也是结合了autoencoder，但是cost function不同。它采用一个近似法来测量Wasserstein distance。 <img src="https://i.imgur.com/JPJ6TJD.png" alt="untitled"> 其中L为 autoencoder 的输出。</p>
+<h4 id="小总结一下loss-function">2.2.3.5. 小总结一下loss function</h4>
+<p>loss function 千千万，哪个是最好的？Google Brain的有位大佬说过，loss function的贡献不如调参，虽然大家都跨wgan，说实在的在我的使用过程中经常遇见它的performance 还不如DCGAN。所以很多时候，都是仁者见仁智者见智的。不过，cost function 还是有一些明显的发展趋势。 1. discriminator 不再输出 0 和 1。而是，输出一个评价指标，这样我们就不用去考虑FID，省时省力。 2. discriminator 的输入应为生成图片+真实图片。这样的结果，让discriminator 着重于区分两幅图片这个根本的问题。于是，就有了RGAN 和 RaGAN。好了还是不挖坑了。。。 <img src="https://i.imgur.com/UmF7qUV.png" alt="1__sdL6_4IQcPLJNKolFiBXw"> 最后，我们把常见GAN的loss function 列出来，大家自己选吧，我不背锅。。。 <img src="https://i.imgur.com/6zrSxf6.jpg" alt="1_sE-ChIllxdrzIQBQhi33UQ"></p>
+<h2 id="优化">2.3. 优化</h2>
+<p>除了改模型框架，改loss function外，优化是提高GAN性能的第三种方法。 Experience replay： 通过每隔一段时间向鉴别器显示旧的假样本。让discriminator不在只依据单次结果进行优化。 Historical averaging： 历史均值，我们通过记录每个参数的历史数据，用他的均值来更新weight，这样有利于避免梯度消失和梯度爆炸。 Unrolled GAN: 也是类似，多词迭代后更新一个discriminator。</p>
+<h2 id="多唠叨几句">2.4. 多唠叨几句</h2>
+<p>其实，我们在GAN的论文中能发现很多矛盾的地方，A说XX方法好，B说XX方法不复现，这种事情很常见，有时候GAN让人崩溃的就是，你调了半天，不如重启一下电脑，有时候忘记关程序，你就有了意外收获。再比如adam和Batch normalization 能让系统快速优化，但是wgan认为这些东西只能阻止反向传播，不建议使用。我想有时候，你需要把每个GAN都跑一下，试一试才能又更好的结果。当然，如果啥也不知道吓试，那不就真成脸蛋了。</p>
+<p>Too be continue。。。。。还没完呢。。。。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/07/interview_question/" rel="next" title="Top Interview Question">
+                <i class="fa fa-chevron-left"></i> Top Interview Question
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://i1.rgstatic.net/ii/profile.image/623958063853569-1525774603825_Q128/Yang_Liu753.jpg" alt="桑龙(Yang Liu）">
+            
+              <p class="site-author-name" itemprop="name">桑龙(Yang Liu）</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sanglongbest/" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="yangliu@surrey.ac.uk" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.zhihu.com/people/liu-yang-60-72-90" target="_blank" title="Zhihu"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.researchgate.net" target="_blank" title="Resaerchgate"><i class="fa fa-fw fa-globe"></i>Resaerchgate</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#新手村"><span class="nav-number">1.</span> <span class="nav-text">1. 新手村</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gan的问题"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. GAN的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#diminished-gradient-梯度衰退因为discriminator太成功了以至于gradients-vanish梯度消失让-generator-学不到新东西后面我们会提到wgan就是为了解决这事"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.2. Diminished gradient （梯度衰退）：因为discriminator太成功了，以至于gradients vanish（梯度消失）让 generator 学不到新东西。后面我们会提到WGAN，就是为了解决这事。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#non-convergence不收敛模型参数振荡不稳定且永不收敛"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.3. Non-convergence（不收敛）：模型参数振荡、不稳定且永不收敛。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经常过拟合"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.4. 经常过拟合。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对hyperparameter超敏感"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.5. 对hyperparameter超敏感。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评价指标is-和fid"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. 评价指标（IS 和FID）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#到博士那组装一个你喜欢的gan"><span class="nav-number">2.</span> <span class="nav-text">2. 到博士那组装一个你喜欢的GAN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stacked-or-progressive-gan"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1.3. Stacked or progressive GAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cost-function"><span class="nav-number">2.1.</span> <span class="nav-text">2.2. Cost function</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用一个tips-来防止过拟合"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.2.2. 使用一个tips 来防止过拟合。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新设计cost-function-来保证梯度不消失non-vanishing不爆炸non-exploding"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.2.3. 重新设计cost function 来保证梯度不消失（non-vanishing）不爆炸（non-exploding）。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#feature-matching"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">2.2.3.1. Feature matching</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lsgan"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">2.2.3.2. LSGAN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wgan-wgan-gp"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">2.2.3.3. WGAN &amp; WGAN-GP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#energy-based-gan-ebgan-boundary-equilibrium-gan-began"><span class="nav-number">2.1.2.4.</span> <span class="nav-text">2.2.3.4. Energy based GAN (EBGAN) &amp; Boundary Equilibrium GAN (BEGAN)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小总结一下loss-function"><span class="nav-number">2.1.2.5.</span> <span class="nav-text">2.2.3.5. 小总结一下loss function</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">2.2.</span> <span class="nav-text">2.3. 优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多唠叨几句"><span class="nav-number">2.3.</span> <span class="nav-text">2.4. 多唠叨几句</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-Yang Liu"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">桑龙(Yang Liu）</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://http-sanglongbest-github-io.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://sanglongbest.github.io/2020/03/04/GAN in one post/';
+        this.page.identifier = '2020/03/04/GAN in one post/';
+        this.page.title = '';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://http-sanglongbest-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
