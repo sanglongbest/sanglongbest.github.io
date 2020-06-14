@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="强度模型下的伯努利粒子滤波： 输入： 存在概率 \(\varphi\), \(\{\omega^i_{k-1},\mathbf{m}^i_{k-1}\}^{N+N_B}_{i=1}\), \(\mathbf{z}_k\)  预测存在概率 \(q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}\)。 取样\(\mathbf{m}^i_{k|k-1} \sim \varrho">
+  <meta name="description" content="强度模型下的伯努利粒子滤波： 输入： 存在概率 $\varphi$, ${\omega^i{k-1},\mathbf{m}^i{k-1}}^{N+NB}{i=1}$, $\mathbf{z}_k$  预测存在概率 $q{k|k-1} = p_b(1-q{k-1})+psq{k-1}$。 取样$\mathbf{m}^i{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mat">
 <meta name="keywords" content="伯努利,滤波器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伯努利滤波器（七）——伯努利粒子滤波器">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/17/Bernoulli7/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="强度模型下的伯努利粒子滤波： 输入： 存在概率 \(\varphi\), \(\{\omega^i_{k-1},\mathbf{m}^i_{k-1}\}^{N+N_B}_{i=1}\), \(\mathbf{z}_k\)  预测存在概率 \(q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}\)。 取样\(\mathbf{m}^i_{k|k-1} \sim \varrho">
+<meta property="og:description" content="强度模型下的伯努利粒子滤波： 输入： 存在概率 $\varphi$, ${\omega^i{k-1},\mathbf{m}^i{k-1}}^{N+NB}{i=1}$, $\mathbf{z}_k$  预测存在概率 $q{k|k-1} = p_b(1-q{k-1})+psq{k-1}$。 取样$\mathbf{m}^i{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mat">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-24T17:59:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伯努利滤波器（七）——伯努利粒子滤波器">
-<meta name="twitter:description" content="强度模型下的伯努利粒子滤波： 输入： 存在概率 \(\varphi\), \(\{\omega^i_{k-1},\mathbf{m}^i_{k-1}\}^{N+N_B}_{i=1}\), \(\mathbf{z}_k\)  预测存在概率 \(q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}\)。 取样\(\mathbf{m}^i_{k|k-1} \sim \varrho">
+<meta name="twitter:description" content="强度模型下的伯努利粒子滤波： 输入： 存在概率 $\varphi$, ${\omega^i{k-1},\mathbf{m}^i{k-1}}^{N+NB}{i=1}$, $\mathbf{z}_k$  预测存在概率 $q{k|k-1} = p_b(1-q{k-1})+psq{k-1}$。 取样$\mathbf{m}^i{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mat">
 
 
 
@@ -410,51 +410,51 @@
 
       
         <p>强度模型下的伯努利粒子滤波：</p>
-<p>输入： 存在概率 <span class="math inline">\(\varphi\)</span>, <span class="math inline">\(\{\omega^i_{k-1},\mathbf{m}^i_{k-1}\}^{N+N_B}_{i=1}\)</span>, <span class="math inline">\(\mathbf{z}_k\)</span></p>
-<ol type="1">
-<li>预测存在概率 <span class="math inline">\(q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}\)</span>。</li>
-<li>取样<span class="math inline">\(\mathbf{m}^i_{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mathbf{m}^i_{k-1},\mathbf{z}_k)\)</span> for <span class="math inline">\(i = 1,...,N+ N_B\)</span></li>
-<li>预测概率 <span class="math inline">\(\omega^i_{k|k-1}\)</span>， <span class="math inline">\(\omega^i_{k|k-1} = \left \{ \begin{matrix} \frac{p_sq_{k-1}}{q_{k|k-1}}\frac{\pi_{k|k-1}(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1})}{\varrho_k(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1},\mathbf{Z}_k)}\omega^i_{k-1} &amp; i = 1,...,N \\ \frac{p_b(1-q_{k-1})}{q_{k|k-1}}\frac{\pi_{k|k-1}(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1})}{\varrho_k(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1},\mathbf{Z}_k)}\frac{1}{B} &amp; i = N+1,...,N+B \end{matrix} \right .\)</span></li>
-<li>计算likelihood <span class="math inline">\(h_k(\mathbf{z}_k|\emptyset) = \Pi^n_{s=1} g^r_0(z^r_k)\)</span></li>
-<li>for <span class="math inline">\(i = 1,...,N+N_B\)</span> do
-<ol type="1">
-<li>计算likelihood <span class="math inline">\(h_k(\mathbf{z}_k|\mathbf{m}^i_{k|k-1}) =\Pi^n_{s=1} g^r_1(z^r_k |\mathbf{m}^i_{k|k-1})\)</span>,</li>
-<li>计算likelihood 比率 <span class="math inline">\(l_k(\mathbf{z}_k|\mathbf{m})= \frac{h_k(\mathbf{z}_k|{\mathbf{m}{}})}{h_k(\mathbf{z}_k|\emptyset)}=\Pi^n_{r=1} \frac{g^r_1(\mathbf{z}^r_k|\mathbf{m})}{g^r_0(\mathbf{z}^r_k)}\)</span></li>
-</ol></li>
+<p>输入： 存在概率 $\varphi$, ${\omega^i<em>{k-1},\mathbf{m}^i</em>{k-1}}^{N+N<em>B}</em>{i=1}$, $\mathbf{z}_k$</p>
+<ol>
+<li>预测存在概率 $q<em>{k|k-1} = p_b(1-q</em>{k-1})+p<em>sq</em>{k-1}$。</li>
+<li>取样$\mathbf{m}^i<em>{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mathbf{m}^i</em>{k-1},\mathbf{z}_k)$ for $i = 1,…,N+ N_B$</li>
+<li>预测概率 $\omega^i<em>{k|k-1}$，<br>$\omega^i</em>{k|k-1} = \left { \begin{matrix} \frac{p<em>sq</em>{k-1}}{q<em>{k|k-1}}\frac{\pi</em>{k|k-1}(\mathbf{m}^i<em>{k|k-1}|\mathbf{m}^i</em>{k-1})}{\varrho<em>k(\mathbf{m}^i</em>{k|k-1}|\mathbf{m}^i<em>{k-1},\mathbf{Z}_k)}\omega^i</em>{k-1} &amp; i = 1,…,N \  \frac{p<em>b(1-q</em>{k-1})}{q<em>{k|k-1}}\frac{\pi</em>{k|k-1}(\mathbf{m}^i<em>{k|k-1}|\mathbf{m}^i</em>{k-1})}{\varrho<em>k(\mathbf{m}^i</em>{k|k-1}|\mathbf{m}^i_{k-1},\mathbf{Z}_k)}\frac{1}{B} &amp; i = N+1,…,N+B   \end{matrix} \right .$</li>
+<li>计算likelihood $h<em>k(\mathbf{z}_k|\emptyset) = \Pi^n</em>{s=1} g^r_0(z^r_k)$</li>
+<li>for $i = 1,…,N+N_B$ do<ol>
+<li>计算likelihood $h<em>k(\mathbf{z}_k|\mathbf{m}^i</em>{k|k-1}) =\Pi^n<em>{s=1} g^r_1(z^r_k |\mathbf{m}^i</em>{k|k-1})$, </li>
+<li>计算likelihood 比率 $l<em>k(\mathbf{z}_k|\mathbf{m})= \frac{h_k(\mathbf{z}_k|{\mathbf{m}{}})}{h_k(\mathbf{z}_k|\emptyset)}=\Pi^n</em>{r=1} \frac{g^r_1(\mathbf{z}^r_k|\mathbf{m})}{g^r_0(\mathbf{z}^r_k)}$</li>
+</ol>
+</li>
 <li>end for</li>
-<li>近似积分<span class="math inline">\(I_k \approx\sum^{N+N_{B}}_{i=1}l_k(\mathbf{z}|\mathbf{m}^i_{k|k-1})\omega^i_{k|k-1}\)</span></li>
-<li>更新存在概率 <span class="math inline">\(q_{k} = \frac{\mathbf{I}_kq_{k|k-1}}{1-q_{k|k-1}+q_{k|k-1}I_k}\)</span></li>
-<li>for <span class="math inline">\(i = 1,...,N+N_B\)</span> do
-<ol type="1">
-<li><span class="math inline">\(\hat {\omega}^i_k = l_k(\mathbf{z}_k|\mathbf{m}^i_{k|k-1})\omega^i_{k|k-1}\)</span></li>
-</ol></li>
+<li>近似积分$I<em>k \approx\sum^{N+N</em>{B}}<em>{i=1}l_k(\mathbf{z}|\mathbf{m}^i</em>{k|k-1})\omega^i_{k|k-1}$</li>
+<li>更新存在概率 $q<em>{k} =  \frac{\mathbf{I}_kq</em>{k|k-1}}{1-q<em>{k|k-1}+q</em>{k|k-1}I_k}$</li>
+<li>for $i = 1,…,N+N_B$ do <ol>
+<li>$\hat {\omega}^i<em>k = l_k(\mathbf{z}_k|\mathbf{m}^i</em>{k|k-1})\omega^i_{k|k-1}$ </li>
+</ol>
+</li>
 <li>end for</li>
-<li>归一化<span class="math inline">\(\hat {\omega}^i_k-&gt; {\omega}^i_k\)</span></li>
-<li>对 <span class="math inline">\(i = 1,.., N\)</span> Resample, <span class="math inline">\(\mathbf{m}^i_{k|k-1}-&gt;\mathbf{m}^i_{k}\)</span></li>
+<li>归一化$\hat {\omega}^i_k-&gt; {\omega}^i_k$</li>
+<li>对 $i = 1,.., N$ Resample, $\mathbf{m}^i<em>{k|k-1}-&gt;\mathbf{m}^i</em>{k}$</li>
 <li>粒子正规化(MCMC move)</li>
-<li>对 <span class="math inline">\(i = 1,.., N\)</span> <span class="math inline">\(\omega^i_k = 1/N\)</span></li>
-<li>产生birth particles, <span class="math inline">\(\mathbf{m}^i_k \sim b_k(\mathbf{m};\mathbf{z}_k), i =N+1,...,N+B\)</span></li>
-<li><span class="math inline">\(\mathbf{\omega}^i_k \sim 1/N_B, i =N+1,...,N+B\)</span></li>
-<li>输出：<span class="math inline">\(q_{k}\)</span>, <span class="math inline">\(\{\omega^i_{k},\mathbf{m}^i_{k}\}^{N+N_B}_{i=1}\)</span>.</li>
+<li>对 $i = 1,.., N$ $\omega^i_k = 1/N$</li>
+<li>产生birth particles, $\mathbf{m}^i_k \sim b_k(\mathbf{m};\mathbf{z}_k), i =N+1,…,N+B$</li>
+<li>$\mathbf{\omega}^i_k \sim 1/N_B, i =N+1,…,N+B$</li>
+<li>输出：$q<em>{k}$, ${\omega^i</em>{k},\mathbf{m}^i<em>{k}}^{N+N_B}</em>{i=1}$.</li>
 </ol>
 <p>检测模型下的伯努利粒子滤波：</p>
-<p>输入： 存在概率 <span class="math inline">\(\varphi\)</span>, <span class="math inline">\(\{\omega^i_{k-1},\mathbf{m}^i_{k-1}\}^{N+N_B}_{i=1}\)</span>, <span class="math inline">\(\mathbf{Z}_k\)</span></p>
-<ol type="1">
-<li>预测存在概率 <span class="math inline">\(q_{k|k-1} = p_b(1-q_{k-1})+p_sq_{k-1}\)</span>。</li>
-<li>取样<span class="math inline">\(\mathbf{m}^i_{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mathbf{m}^i_{k-1},\mathbf{z}_k)\)</span> for <span class="math inline">\(i = 1,...,N+ N_B\)</span></li>
-<li>预测概率 <span class="math inline">\(\omega^i_{k|k-1}\)</span>， <span class="math inline">\(\omega^i_{k|k-1} = \left \{ \begin{matrix} \frac{p_sq_{k-1}}{q_{k|k-1}}\frac{\pi_{k|k-1}(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1})}{\varrho_k(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1},\mathbf{Z}_k)}\omega^i_{k-1} &amp; i = 1,...,N \\ \frac{p_b(1-q_{k-1})}{q_{k|k-1}}\frac{\pi_{k|k-1}(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1})}{\varrho_k(\mathbf{m}^i_{k|k-1}|\mathbf{m}^i_{k-1},\mathbf{Z}_k)}\frac{1}{B} &amp; i = N+1,...,N+B \end{matrix} \right .\)</span></li>
-<li><strong>近似积分<span class="math inline">\(I_1 \approx \sum^{N+N_b}_{i=1}p_d(\mathbf{m}^i_{k})\omega^i_{k|k-1}\)</span></strong></li>
-<li><strong>对于<span class="math inline">\(\mathbf{z}\in\mathbf{Z}_k\)</span>计算近似积分<span class="math inline">\(I_{2}(\mathbf{z})\approx\sum^{N+N_B}_{i=1}p_d(\mathbf{m}^i_{k|k-1})h_k(\mathbf{z}|\mathbf{m}^i_{k|k-1})\omega^i_{k|k-1}\)</span></strong></li>
-<li><strong><span class="math inline">\(\triangle_k \approx I_1-\sum_{\mathbf{z}\in\mathbf{Z}_k}\frac{I_2(\mathbf{z})}{\lambda c(\mathbf{z})}\)</span></strong></li>
-<li>更新存在概率<span class="math inline">\(q_k = \frac{1- \triangle_k}{1-\triangle_k q_{k|k-1}q_{k|k-1}}\)</span></li>
-<li><strong>更新权重<span class="math inline">\(\hat{\omega}^i_k = [1-p_d(\mathbf{m}^i_{k|k-1})+p_d(\mathbf{m}^i_{k|k-1})\sum_{\mathbf{z}\in\mathbf{Z}_k}\frac{h_k(\mathbf{z}|\mathbf{m}^i_{k|k-1})}{\lambda c(\mathbf{z})}]\omega^i_{k|k-1}\)</span></strong></li>
-<li>归一化<span class="math inline">\(\hat {\omega}^i_k-&gt; {\omega}^i_k\)</span></li>
-<li>对 <span class="math inline">\(i = 1,.., N\)</span> Resample, <span class="math inline">\(\mathbf{m}^i_{k|k-1}-&gt;\mathbf{m}^i_{k}\)</span></li>
+<p>输入： 存在概率 $\varphi$, ${\omega^i<em>{k-1},\mathbf{m}^i</em>{k-1}}^{N+N<em>B}</em>{i=1}$, $\mathbf{Z}_k$</p>
+<ol>
+<li>预测存在概率 $q<em>{k|k-1} = p_b(1-q</em>{k-1})+p<em>sq</em>{k-1}$。</li>
+<li>取样$\mathbf{m}^i<em>{k|k-1} \sim \varrho _k(\mathbf{m}_k|\mathbf{m}^i</em>{k-1},\mathbf{z}_k)$ for $i = 1,…,N+ N_B$</li>
+<li>预测概率 $\omega^i<em>{k|k-1}$，<br>$\omega^i</em>{k|k-1} = \left { \begin{matrix} \frac{p<em>sq</em>{k-1}}{q<em>{k|k-1}}\frac{\pi</em>{k|k-1}(\mathbf{m}^i<em>{k|k-1}|\mathbf{m}^i</em>{k-1})}{\varrho<em>k(\mathbf{m}^i</em>{k|k-1}|\mathbf{m}^i<em>{k-1},\mathbf{Z}_k)}\omega^i</em>{k-1} &amp; i = 1,…,N \  \frac{p<em>b(1-q</em>{k-1})}{q<em>{k|k-1}}\frac{\pi</em>{k|k-1}(\mathbf{m}^i<em>{k|k-1}|\mathbf{m}^i</em>{k-1})}{\varrho<em>k(\mathbf{m}^i</em>{k|k-1}|\mathbf{m}^i_{k-1},\mathbf{Z}_k)}\frac{1}{B} &amp; i = N+1,…,N+B   \end{matrix} \right .$</li>
+<li><strong>近似积分$I<em>1 \approx \sum^{N+N_b}</em>{i=1}p<em>d(\mathbf{m}^i</em>{k})\omega^i_{k|k-1}$</strong></li>
+<li><strong>对于$\mathbf{z}\in\mathbf{Z}<em>k$计算近似积分$I</em>{2}(\mathbf{z})\approx\sum^{N+N<em>B}</em>{i=1}p<em>d(\mathbf{m}^i</em>{k|k-1})h<em>k(\mathbf{z}|\mathbf{m}^i</em>{k|k-1})\omega^i_{k|k-1}$</strong></li>
+<li><strong>$\triangle<em>k \approx I_1-\sum</em>{\mathbf{z}\in\mathbf{Z}_k}\frac{I_2(\mathbf{z})}{\lambda c(\mathbf{z})}$</strong></li>
+<li>更新存在概率$q<em>k = \frac{1- \triangle_k}{1-\triangle_k q</em>{k|k-1}q_{k|k-1}}$</li>
+<li><strong>更新权重$\hat{\omega}^i<em>k = [1-p_d(\mathbf{m}^i</em>{k|k-1})+p<em>d(\mathbf{m}^i</em>{k|k-1})\sum<em>{\mathbf{z}\in\mathbf{Z}_k}\frac{h_k(\mathbf{z}|\mathbf{m}^i</em>{k|k-1})}{\lambda c(\mathbf{z})}]\omega^i_{k|k-1}$</strong></li>
+<li>归一化$\hat {\omega}^i_k-&gt; {\omega}^i_k$</li>
+<li>对 $i = 1,.., N$ Resample, $\mathbf{m}^i<em>{k|k-1}-&gt;\mathbf{m}^i</em>{k}$</li>
 <li>粒子正规化(MCMC move)</li>
-<li>对 <span class="math inline">\(i = 1,.., N\)</span> <span class="math inline">\(\omega^i_k = 1/N\)</span></li>
-<li>产生birth particles, <span class="math inline">\(\mathbf{m}^i_k \sim b_k(\mathbf{m};\mathbf{z}_k), i =N+1,...,N+B\)</span></li>
-<li><span class="math inline">\(\mathbf{\omega}^i_k \sim 1/N_B, i =N+1,...,N+B\)</span></li>
-<li>输出：<span class="math inline">\(q_{k}\)</span>, <span class="math inline">\(\{\omega^i_{k},\mathbf{m}^i_{k}\}^{N+N_B}_{i=1}\)</span>.</li>
+<li>对 $i = 1,.., N$ $\omega^i_k = 1/N$</li>
+<li>产生birth particles, $\mathbf{m}^i_k \sim b_k(\mathbf{m};\mathbf{z}_k), i =N+1,…,N+B$</li>
+<li>$\mathbf{\omega}^i_k \sim 1/N_B, i =N+1,…,N+B$</li>
+<li>输出：$q<em>{k}$, ${\omega^i</em>{k},\mathbf{m}^i<em>{k}}^{N+N_B}</em>{i=1}$.</li>
 </ol>
 
       

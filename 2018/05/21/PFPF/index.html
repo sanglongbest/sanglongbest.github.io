@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="简介  particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍  Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（o">
+  <meta name="description" content="简介 particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍 Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（opt">
 <meta name="keywords" content="particle flow,particle filter,PFPF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Particle Filtering with Invertible Particle Flow">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/21/PFPF/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="简介  particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍  Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（o">
+<meta property="og:description" content="简介 particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍 Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（opt">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png">
 <meta property="og:image" content="https://i.imgur.com/ziNftnS.png">
@@ -122,7 +122,7 @@
 <meta property="og:updated_time" content="2018-05-24T17:59:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Particle Filtering with Invertible Particle Flow">
-<meta name="twitter:description" content="简介  particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍  Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（o">
+<meta name="twitter:description" content="简介 particle flow 通过解偏微分方程解决 weight degeneracy。 particle flow 采用的近似，所以后验不正确。 通过可逆映射（invertible mapping）高效计算权重。  介绍 Bootstrap particle filter (BPF) 会遇到 weight degenercy 更多的 particle filter 通过最优的提议分步（opt">
 <meta name="twitter:image" content="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png">
 
 
@@ -413,21 +413,19 @@
       
 
       
-        <h1 id="简介">简介</h1>
-<ul>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
 <li>particle flow 通过解偏微分方程解决 weight degeneracy。</li>
 <li>particle flow 采用的近似，所以后验不正确。</li>
 <li>通过可逆映射（invertible mapping）高效计算权重。</li>
 </ul>
-<h1 id="介绍">介绍</h1>
-<ul>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><ul>
 <li>Bootstrap particle filter (BPF) 会遇到 weight degenercy</li>
 <li>更多的 particle filter 通过最优的提议分步（optimal proposal distribution）来构建有效的提议分步（efficient proposal distribution）</li>
 <li>auxiliary particle filter (APF) 通过辅助变量来进行 sampling，这个过程会包含新的 measurement 信息。</li>
 <li><strong>Rao-Blackwellised particle filter</strong> 通过数值分析使一些 particle 边缘化，从而移除了蒙特卡罗的分析。</li>
 <li>unscented particle filter 采用无迹传递来估算最优的提议分步。</li>
 <li>以上方法高维问题都性能塌陷</li>
-<li>equivalent weights particle filter 在高维上能得到较好的结果，通过牺牲统计统一性，来解决 particle degeneracy</li>
+<li>equivalent weights particle filter 在高维上能得到较好的结果，通过牺牲统计统一性，来解决 particle degeneracy </li>
 <li>另一种方法是通过因式分解或者划分来分割物体的状态空间。但是这种方法受限于条件后验分步的因式分解。</li>
 <li>另一种更一般的方法是在粒子滤波器中引入马尔可夫链蒙特卡罗方法。但是这种方法计算量大，实时有点困难。</li>
 <li>还有一种方法叫做“progressive Bayesian update”, “homotopy” 或者 “particle flow”。</li>
@@ -437,13 +435,12 @@
 <li>所有particle flow都是通过偏微分方程来进行更新的。 但是截断误差依然会导致不能收敛域真正的 posterior density</li>
 <li>本文提出了 PFPF:</li>
 </ul>
-<ol type="1">
+<ol>
 <li>通过invertible mappings提高 particle flow 的运算效率</li>
 <li>并且证明这个新的 particle flow 是 invertible mappings.</li>
 <li>并在高维非线性中测试</li>
 </ol>
-<h1 id="相关工作">相关工作</h1>
-<ul>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><ul>
 <li>传统的the extended Kalman filter (EKF), the unscented Kalman filter (UKF) [45] 或 the ensemble Kalman filter (EnKF) [46]不适合在非高斯的情况下工组。</li>
 <li>multiple particle filter通过分割状态空间来在低维子空间中运行，并在空间中交换信息</li>
 <li>block particle filte采用相同的思路，将滤波过程通过 block 分解，</li>
@@ -456,29 +453,37 @@
 <li>另一种思路，思路就是建立桥函数，比如退火算法。</li>
 <li>Gaussian particle flow importance sampling 的权重更新是近似的，但是成本也高。d sequential Monte Carlo method 和Gibbs flow 也有相同的问题。</li>
 </ul>
-<h1 id="partical-flow">partical flow</h1>
-<ul>
+<h1 id="partical-flow"><a href="#partical-flow" class="headerlink" title="partical flow"></a>partical flow</h1><ul>
 <li>localized exact Daum and Huang filter: localized, 对于每个particle单独求参数，exact 线性高斯。</li>
 <li>对于EDH 我们可以得到如下性质：</li>
 </ul>
-<ol type="1">
-<li><p>对于任意<span class="math inline">\(\lambda \in [0,1)\)</span>, 如果<span class="math inline">\(h(.,0)\)</span>是一个<span class="math inline">\(C^1\)</span>方程，<span class="math inline">\(\triangle m_\lambda\)</span> 是有界的。设，<span class="math inline">\(\rho (.)\)</span>是谱半径函数，<span class="math inline">\(\rho(\bm{A}(\lambda))\)</span> 是 <span class="math inline">\(\bm{A}(\lambda)\)</span> 的上边界。</p></li>
-<li><p>对于任意<span class="math inline">\(\lambda \in [0,1)\)</span>, 如果<span class="math inline">\(h(.,0)\)</span>是一个<span class="math inline">\(C^1\)</span>方程，<span class="math inline">\(\triangle m_\lambda\)</span> 是有界的。如果<span class="math inline">\(\triangle \lambda\)</span>足够小，<span class="math inline">\(\triangle \lambda&lt;\frac{2\underline {r}(\lambda) }{\overline{p}\overline{h}^2}\)</span>, <span class="math inline">\(f_\lambda\)</span>是可逆的</p></li>
-<li><p>EDH particle filter 是一个可逆映射，</p></li>
-<li><p>如果 <span class="math inline">\(\triangle \lambda &lt; \frac{2\underline{r}(\lambda)}{\overline{p}\overline{h}^2}\)</span>, 那么$0&lt;| ^i (m^i_o) | &lt;$</p></li>
+<ol>
+<li>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m_\lambda$ 是有界的。设，$\rho (.)$是谱半径函数，$\rho(\bm{A}(\lambda))$ 是 $\bm{A}(\lambda)$ 的上边界。</li>
+<li><p>对于任意$\lambda \in [0,1)$, 如果$h(.,0)$是一个$C^1$方程，$\triangle m<em>\lambda$ 是有界的。如果$\triangle \lambda$足够小，$\triangle \lambda&lt;\frac{2\underline {r}(\lambda) }{\overline{p}\overline{h}^2}$, $f</em>\lambda$是可逆的</p>
+</li>
+<li><p>EDH particle filter 是一个可逆映射，</p>
+</li>
+<li>如果 $\triangle \lambda &lt; \frac{2\underline{r}(\lambda)}{\overline{p}\overline{h}^2}$, 那么$0&lt;\left| \dot { T }^i (m^i_o) \right| &lt;\infty $</li>
 </ol>
-<h1 id="ledh-pfpf-和edh-pfpf的区别">LEDH PFPF 和EDH PFPF的区别</h1>
-<p>在 EDH中，<span class="math inline">\(A\)</span> 和 <span class="math inline">\(\left| \dot { T }^i (m^i_o) \right|\)</span>不与particle state 和 index 相关，所以计算weight 时可以不考虑<span class="math inline">\(\left| \dot { T }^i (m^i_o) \right|\)</span>，因为归一化时会消掉。在 LEDH中，<span class="math inline">\(A\)</span> 和 <span class="math inline">\(\left| \dot { T }^i (m^i_o) \right|\)</span>与particle state 和 index 相关。</p>
-<p>这就导致了： 1. LEDH的参数需要每个 particle 单独计算而EDH 不用 2. weight 的计算方法不同</p>
-<h1 id="潜在疑问">潜在疑问</h1>
-<ol type="1">
-<li><p>下面这个公式怎么得到的？为什么用q 这个是随机变量（transformation of random variables）的问题， <img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png" alt="Screen Shot 2018-05-24 at 10.44.45"> 可以参看我的另一篇博客，</p></li>
-<li><p><img src="https://i.imgur.com/ziNftnS.png" alt="Capture">为什么不能抵消</p></li>
-<li><p>为什么一点要可逆？ 如果不是这个映射会更加复杂。</p></li>
-<li><p>“As noted in [3], the state update during the particle flow process is not in general an invertible mapping, so (18) does not hold.” 为什么在 state 空间不成立</p></li>
-<li><p>为什么是小于？ <img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.47.05.png" alt="Screen Shot 2018-05-24 at 10.47.05"></p></li>
-<li><p>"One possible concern with the proposed implementation is that flow parameters are calculated using the auxiliary flow" 这里的‘auxiliary flow’指的是？</p></li>
-<li><p>如果保证步长是足够小的，满足可逆，因为参数都是未知的？</p></li>
+<h1 id="LEDH-PFPF-和EDH-PFPF的区别"><a href="#LEDH-PFPF-和EDH-PFPF的区别" class="headerlink" title="LEDH PFPF 和EDH PFPF的区别"></a>LEDH PFPF 和EDH PFPF的区别</h1><p>在 EDH中，$A$ 和 $\left| \dot { T }^i (m^i_o) \right|$不与particle state 和 index 相关，所以计算weight 时可以不考虑$\left| \dot { T }^i (m^i_o) \right|$，因为归一化时会消掉。在 LEDH中，$A$ 和 $\left| \dot { T }^i (m^i_o) \right|$与particle state 和 index 相关。</p>
+<p>这就导致了：</p>
+<ol>
+<li>LEDH的参数需要每个 particle 单独计算而EDH 不用</li>
+<li>weight 的计算方法不同</li>
+</ol>
+<h1 id="潜在疑问"><a href="#潜在疑问" class="headerlink" title="潜在疑问"></a>潜在疑问</h1><ol>
+<li><p>下面这个公式怎么得到的？为什么用q<br>这个是随机变量（transformation of random variables）的问题，<br><img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.44.45.png" alt="Screen Shot 2018-05-24 at 10.44.45"><br>可以参看我的另一篇博客，</p>
+</li>
+<li><p><img src="https://i.imgur.com/ziNftnS.png" alt="Capture">为什么不能抵消</p>
+</li>
+<li><p>为什么一点要可逆？<br>如果不是这个映射会更加复杂。</p>
+</li>
+<li><p>“As noted in [3], the state update during the particle flow process is not in general an invertible mapping, so (18) does not hold.” 为什么在 state 空间不成立</p>
+</li>
+<li><p>为什么是小于？<br><img src="http://p8x77a5rp.bkt.clouddn.com//Screen%20Shot%202018-05-24%20at%2010.47.05.png" alt="Screen Shot 2018-05-24 at 10.47.05"></p>
+</li>
+<li>“One possible concern with the proposed implementation is<br>that flow parameters are calculated using the auxiliary flow” 这里的‘auxiliary flow’指的是？</li>
+<li>如果保证步长是足够小的，满足可逆，因为参数都是未知的？</li>
 </ol>
 <p>感谢云鹏（作者）对论文不懂地方的解答。</p>
 
@@ -755,7 +760,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关工作"><span class="nav-number">3.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#partical-flow"><span class="nav-number">4.</span> <span class="nav-text">partical flow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ledh-pfpf-和edh-pfpf的区别"><span class="nav-number">5.</span> <span class="nav-text">LEDH PFPF 和EDH PFPF的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#潜在疑问"><span class="nav-number">6.</span> <span class="nav-text">潜在疑问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关工作"><span class="nav-number">3.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#partical-flow"><span class="nav-number">4.</span> <span class="nav-text">partical flow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LEDH-PFPF-和EDH-PFPF的区别"><span class="nav-number">5.</span> <span class="nav-text">LEDH PFPF 和EDH PFPF的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#潜在疑问"><span class="nav-number">6.</span> <span class="nav-text">潜在疑问</span></a></li></ol></div>
             
 
           </div>

@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="监测测量（点状目标） 测量模型 假设测量RFS为 \(\mathbf{Z}= \{\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r\}\), \(r = |\mathbf{Z}|\)。\(\mathbf{Z} = \mathbf{C}\cup \mathbf{W}\)，\(\mathbf{C}\) 是失败监测（clutter）的 RFS。\(\mathbf{W">
+  <meta name="description" content="监测测量（点状目标）测量模型假设测量RFS为 $\mathbf{Z}= {\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r}$, $r = |\mathbf{Z}|$。$\mathbf{Z} = \mathbf{C}\cup \mathbf{W}$，$\mathbf{C}$ 是失败监测（clutter）的 RFS。$\mathbf{W}$ 是目标的RFS。我们">
 <meta name="keywords" content="伯努利,滤波器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伯努利滤波器（四）—— 点状测量信息模型">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/11/Bernoulli4/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="监测测量（点状目标） 测量模型 假设测量RFS为 \(\mathbf{Z}= \{\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r\}\), \(r = |\mathbf{Z}|\)。\(\mathbf{Z} = \mathbf{C}\cup \mathbf{W}\)，\(\mathbf{C}\) 是失败监测（clutter）的 RFS。\(\mathbf{W">
+<meta property="og:description" content="监测测量（点状目标）测量模型假设测量RFS为 $\mathbf{Z}= {\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r}$, $r = |\mathbf{Z}|$。$\mathbf{Z} = \mathbf{C}\cup \mathbf{W}$，$\mathbf{C}$ 是失败监测（clutter）的 RFS。$\mathbf{W}$ 是目标的RFS。我们">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-13T23:05:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伯努利滤波器（四）—— 点状测量信息模型">
-<meta name="twitter:description" content="监测测量（点状目标） 测量模型 假设测量RFS为 \(\mathbf{Z}= \{\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r\}\), \(r = |\mathbf{Z}|\)。\(\mathbf{Z} = \mathbf{C}\cup \mathbf{W}\)，\(\mathbf{C}\) 是失败监测（clutter）的 RFS。\(\mathbf{W">
+<meta name="twitter:description" content="监测测量（点状目标）测量模型假设测量RFS为 $\mathbf{Z}= {\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r}$, $r = |\mathbf{Z}|$。$\mathbf{Z} = \mathbf{C}\cup \mathbf{W}$，$\mathbf{C}$ 是失败监测（clutter）的 RFS。$\mathbf{W}$ 是目标的RFS。我们">
 
 
 
@@ -409,49 +409,38 @@
       
 
       
-        <h2 id="监测测量点状目标">监测测量（点状目标）</h2>
-<h3 id="测量模型">测量模型</h3>
-<p>假设测量RFS为 <span class="math inline">\(\mathbf{Z}= \{\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r\}\)</span>, <span class="math inline">\(r = |\mathbf{Z}|\)</span>。<span class="math inline">\(\mathbf{Z} = \mathbf{C}\cup \mathbf{W}\)</span>，<span class="math inline">\(\mathbf{C}\)</span> 是失败监测（clutter）的 RFS。<span class="math inline">\(\mathbf{W}\)</span> 是目标的RFS。我们假设观测的 RFS 为<span class="math inline">\(\mathbf{Z}=\{\mathbf{z}_1,\mathbf{z}_2,..,\mathbf{z}_r\}\)</span>。同时，这些观测是无序的。</p>
-<p><span class="math inline">\(\mathbf{Z}\)</span>可以看成由两部分 RFS 组成： <span class="math display">\[
-\mathbf{Z} = \mathbf{C} \cup \mathbf{W}
-\]</span></p>
-<p><span class="math inline">\(C\)</span>是检测失败的 RFS (比如 clutter)，<span class="math inline">\(W\)</span> 是监测目标的 RFS。我们假设这些都是点目标，设监测失败的目标数目<span class="math inline">\(\lambda\)</span>服从泊松分步： <span class="math display">\[
-P\{|C|=s\}=\frac{e^{-\lambda} \lambda^r}{r!}, r=0,1,2,...
-\]</span> clutter 的 FISST PDF 是： <span class="math display">\[
-h(\mathbf{Z}|\emptyset)=\kappa (\mathbf{Z})= e^{-\lambda}\prod_{\mathbf{z}\in\mathbf{Z}\lambda}\lambda c(\mathbf{z})
-\]</span></p>
-<p>为了计算<span class="math inline">\(h(\mathbf{Z}|\{\mathbf{m}\})\)</span>，我们需要先去计算<span class="math inline">\(\mathbf{W}|\{\mathbf{m}\}\)</span>的 FISST PDF <span class="math inline">\(\eta (\mathbf{W}|\{\mathbf{m}\})\)</span>, <span class="math display">\[
-\eta (\mathbf{W}|\{\mathbf{m}\})= \left \{  \begin{matrix} p_d(\mathbf{m})h(\mathbf{z}|\mathbf{m}) &amp; if \quad \mathbf{W} = \{\mathbf{z}\} \\ 1- p_d(\mathbf{m}) &amp; if \quad \mathbf{W}= \emptyset  \end{matrix}\right .
-\]</span> 基于卷积定理，我们可以知道 <span class="math display">\[
-h(\mathbf{Z}|\{\mathbf{m}\})= \sum_{\mathbf{W}\subseteq \mathbf{Z}}\eta(\mathbf{W}|\{\mathbf{m}\})\kappa(\mathbf{Z}\backslash \mathbf{W})
-\]</span> 。因为 RFS <span class="math inline">\(W\)</span> 或者是空，或者是一个目标，简化上式，我们可以得到。</p>
-<p><span class="math display">\[
-h(\mathbf{Z}|\{\mathbf{m}\})= \eta (\emptyset|\{\mathbf{m}\})\kappa(\mathbf{Z})+\sum_{\mathbf{z}\subseteq \mathbf{Z}}\eta(\{\mathbf{z}\}|\{\mathbf{m}\})\kappa(\mathbf{Z}/ \{\mathbf{z}\}) = \kappa(\mathbf{Z})[1-p_d(\mathbf{m})+ p_d(\mathbf{m}) \sum_{\mathbf{z}\in\mathbf{Z}}h(\mathbf{z}|\mathbf{m})\frac{\kappa(\mathbf{Z}/ \{\mathbf{z}\})}{\kappa(\mathbf{Z})}]
-\]</span></p>
-<h1 id="更新方程">更新方程</h1>
-<p>这里 更新的FISST PDF变成了： <span class="math inline">\(f_{k|k} = \frac{h_k(\mathbf{Z}_k|\mathbf{M}_k)f_{k|k-1}(\mathbf{M}_k|\mathbf{M}_{1:k-1})}{f_k(\mathbf{Z}_k|\mathbf{Z}_{1:k-1})}\)</span> 其中 <span class="math display">\[f_{k}(\mathbf{Z}_k|\mathbf{Z}_{1:k-1})= (1-q_{k|k-1})h_k(\mathbf{Z}_k|\emptyset)+q_{k|k-1}\int h_k(\mathbf{Z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}}\]</span></p>
-<p><span class="math display">\[f_{k}(\mathbf{Z}_k|\mathbf{Z}_{1:k-1})= \kappa \{1-q_{k|k-1}\int p_d(\mathbf{\mathbf{m}})s_{k|k-1(\mathbf{m})d_{\mathbf{m}}}+ q_{k|k-1}\sum_{\mathbf{z}\in\mathbf{Z}_k}\frac{\kappa(\mathbf{Z}_k\backslash \{\mathbf{z}\})}{\kappa{(\mathbf{Z}_k)}}\int p_d(\mathbf{m})h_k(\mathbf{Z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}} \}
-\]</span></p>
-<p>所以我们得到 <span class="math display">\[
-\int f_{k}(\mathbf{M}|\mathbf{Z}_{1:k})\delta{\mathbf{M}} = 1
-\]</span></p>
-<p>我们考虑<span class="math inline">\(\mathbf{M}_k = \emptyset\)</span>情况下的<span class="math inline">\(f_k(\mathbf{M}_k|\mathbf{Z}_{1:k})\)</span>，我们能得到： <span class="math display">\[
-\frac{\kappa(\mathbf{Z}_k\backslash \{\mathbf{z}\})}{\kappa{(\mathbf{Z}_k)}} = \frac{1}{\lambda c(\mathbf{z})}
-\]</span> 同时还能得到 <span class="math display">\[
-f_k(\mathbf{M}_k|\mathbf{Z}_{1:k}) = 1 - q_k
-\]</span> 于是通过上面的式子，我们可知 <span class="math display">\[
-q_k = \frac{1 - \Delta_k}{1 - q_{k|k-1}\Delta_k}q_{k|k-1}
-\]</span> 其中 <span class="math display">\[
-\Delta _k = \int p_d(\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}-\sum_{\mathbf{z}\in \mathbf{Z}_k }\frac{\int p_d(\mathbf{m})h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\lambda c(\mathbf{z})}
-\]</span> 如果<span class="math inline">\(p_d\)</span>是个常数，于是我们可以得到 <span class="math display">\[
-\Delta _k = p_d(1-\sum_{\mathbf{z}\in \mathbf{Z}_k}\frac{\int h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m}d\mathbf{m})}{\lambda c(\mathbf{m})})
-\]</span> 因为<span class="math inline">\(s_{k|k-1}\)</span>是常规 PDF，趋近于1.</p>
-<p>然后我们考虑<span class="math inline">\(\mathbf{M}_k = \{\mathbf{m}\}\)</span>情况下的<span class="math inline">\(f_k(\mathbf{M}_k|\mathbf{Z}_{1:k})\)</span>，同时我们知道<span class="math inline">\(f_k(\mathbf{M}_k|\mathbf{Z}_{1:k}) = q_k s_k(\mathbf{m})\)</span> 我们能得到 <span class="math display">\[
-s_k(\mathbf{m}) =\frac{1-p_d(\mathbf{m}+p_d(\mathbf{m})\sum_{\mathbf{z}\in\mathbf{Z}_k})\frac{g_k(\mathbf{z}|\mathbf{x})}{\lambda c (\mathbf{z})}}{1- \Delta _k} s_{k|k-1}(\mathbf{m})
-\]</span> 如果<span class="math inline">\(q_{k|k-1} =1\)</span>, <span class="math inline">\(p_d =1\)</span> 和 <span class="math inline">\(q_k = 1\)</span>, 并没有失败的监测，一个物体一个监测， <span class="math display">\[
-s_{k}(\mathbf{m}) = \frac{h_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})}{\int h_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m}) d \mathbf{m}}
-\]</span></p>
-
+        <h2 id="监测测量（点状目标）"><a href="#监测测量（点状目标）" class="headerlink" title="监测测量（点状目标）"></a>监测测量（点状目标）</h2><h3 id="测量模型"><a href="#测量模型" class="headerlink" title="测量模型"></a>测量模型</h3><p>假设测量RFS为 $\mathbf{Z}= {\mathbf{z}_1, \mathbf{z}_2,..,\mathbf{z}_r}$, $r = |\mathbf{Z}|$。$\mathbf{Z} = \mathbf{C}\cup \mathbf{W}$，$\mathbf{C}$ 是失败监测（clutter）的 RFS。$\mathbf{W}$ 是目标的RFS。我们假设观测的 RFS 为$\mathbf{Z}={\mathbf{z}_1,\mathbf{z}_2,..,\mathbf{z}_r}$。同时，这些观测是无序的。</p>
+<p>$\mathbf{Z}$可以看成由两部分 RFS 组成：</p>
+<script type="math/tex; mode=display">
+\mathbf{Z} = \mathbf{C} \cup \mathbf{W}</script><p>$C$是检测失败的 RFS (比如 clutter)，$W$ 是监测目标的 RFS。我们假设这些都是点目标，设监测失败的目标数目$\lambda$服从泊松分步：</p>
+<script type="math/tex; mode=display">
+P\{|C|=s\}=\frac{e^{-\lambda} \lambda^r}{r!}, r=0,1,2,...</script><p>clutter 的 FISST PDF 是：</p>
+<script type="math/tex; mode=display">
+h(\mathbf{Z}|\emptyset)=\kappa (\mathbf{Z})= e^{-\lambda}\prod_{\mathbf{z}\in\mathbf{Z}\lambda}\lambda c(\mathbf{z})</script><p>为了计算$h(\mathbf{Z}|{\mathbf{m}})$，我们需要先去计算$\mathbf{W}|{\mathbf{m}}$的 FISST PDF $\eta (\mathbf{W}|{\mathbf{m}})$,</p>
+<script type="math/tex; mode=display">
+\eta (\mathbf{W}|\{\mathbf{m}\})= \left \{  \begin{matrix} p_d(\mathbf{m})h(\mathbf{z}|\mathbf{m}) & if \quad \mathbf{W} = \{\mathbf{z}\} \\ 1- p_d(\mathbf{m}) & if \quad \mathbf{W}= \emptyset  \end{matrix}\right .</script><p>基于卷积定理，我们可以知道</p>
+<script type="math/tex; mode=display">
+h(\mathbf{Z}|\{\mathbf{m}\})= \sum_{\mathbf{W}\subseteq \mathbf{Z}}\eta(\mathbf{W}|\{\mathbf{m}\})\kappa(\mathbf{Z}\backslash \mathbf{W})</script><p>\是自差分。因为 RFS $W$ 或者是空，或者是一个目标，简化上式，我们可以得到。</p>
+<script type="math/tex; mode=display">
+h(\mathbf{Z}|\{\mathbf{m}\})= \eta (\emptyset|\{\mathbf{m}\})\kappa(\mathbf{Z})+\sum_{\mathbf{z}\subseteq \mathbf{Z}}\eta(\{\mathbf{z}\}|\{\mathbf{m}\})\kappa(\mathbf{Z}/ \{\mathbf{z}\}) = \kappa(\mathbf{Z})[1-p_d(\mathbf{m})+ p_d(\mathbf{m}) \sum_{\mathbf{z}\in\mathbf{Z}}h(\mathbf{z}|\mathbf{m})\frac{\kappa(\mathbf{Z}/ \{\mathbf{z}\})}{\kappa(\mathbf{Z})}]</script><h1 id="更新方程"><a href="#更新方程" class="headerlink" title="更新方程"></a>更新方程</h1><p>这里 更新的FISST PDF变成了：<br>$f<em>{k|k} = \frac{h_k(\mathbf{Z}_k|\mathbf{M}_k)f</em>{k|k-1}(\mathbf{M}<em>k|\mathbf{M}</em>{1:k-1})}{f<em>k(\mathbf{Z}_k|\mathbf{Z}</em>{1:k-1})}$<br>其中</p>
+<script type="math/tex; mode=display">f_{k}(\mathbf{Z}_k|\mathbf{Z}_{1:k-1})= (1-q_{k|k-1})h_k(\mathbf{Z}_k|\emptyset)+q_{k|k-1}\int h_k(\mathbf{Z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}}</script><script type="math/tex; mode=display">f_{k}(\mathbf{Z}_k|\mathbf{Z}_{1:k-1})= \kappa \{1-q_{k|k-1}\int p_d(\mathbf{\mathbf{m}})s_{k|k-1(\mathbf{m})d_{\mathbf{m}}}+ q_{k|k-1}\sum_{\mathbf{z}\in\mathbf{Z}_k}\frac{\kappa(\mathbf{Z}_k\backslash \{\mathbf{z}\})}{\kappa{(\mathbf{Z}_k)}}\int p_d(\mathbf{m})h_k(\mathbf{Z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}} \}</script><p>所以我们得到</p>
+<script type="math/tex; mode=display">
+\int f_{k}(\mathbf{M}|\mathbf{Z}_{1:k})\delta{\mathbf{M}} = 1</script><p>我们考虑$\mathbf{M}<em>k = \emptyset$情况下的$f_k(\mathbf{M}_k|\mathbf{Z}</em>{1:k})$，我们能得到：</p>
+<script type="math/tex; mode=display">
+\frac{\kappa(\mathbf{Z}_k\backslash \{\mathbf{z}\})}{\kappa{(\mathbf{Z}_k)}} = \frac{1}{\lambda c(\mathbf{z})}</script><p>同时还能得到</p>
+<script type="math/tex; mode=display">
+f_k(\mathbf{M}_k|\mathbf{Z}_{1:k}) = 1 - q_k</script><p>于是通过上面的式子，我们可知</p>
+<script type="math/tex; mode=display">
+q_k = \frac{1 - \Delta_k}{1 - q_{k|k-1}\Delta_k}q_{k|k-1}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\Delta _k = \int p_d(\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}-\sum_{\mathbf{z}\in \mathbf{Z}_k }\frac{\int p_d(\mathbf{m})h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\lambda c(\mathbf{z})}</script><p>如果$p_d$是个常数，于是我们可以得到</p>
+<script type="math/tex; mode=display">
+\Delta _k = p_d(1-\sum_{\mathbf{z}\in \mathbf{Z}_k}\frac{\int h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m}d\mathbf{m})}{\lambda c(\mathbf{m})})</script><p>因为$s_{k|k-1}$是常规 PDF，趋近于1.</p>
+<p>然后我们考虑$\mathbf{M}<em>k = {\mathbf{m}}$情况下的$f_k(\mathbf{M}_k|\mathbf{Z}</em>{1:k})$，同时我们知道$f<em>k(\mathbf{M}_k|\mathbf{Z}</em>{1:k}) = q_k s_k(\mathbf{m})$<br>我们能得到</p>
+<script type="math/tex; mode=display">
+s_k(\mathbf{m}) =\frac{1-p_d(\mathbf{m}+p_d(\mathbf{m})\sum_{\mathbf{z}\in\mathbf{Z}_k})\frac{g_k(\mathbf{z}|\mathbf{x})}{\lambda c (\mathbf{z})}}{1- \Delta _k} s_{k|k-1}(\mathbf{m})</script><p>如果$q_{k|k-1} =1$, $p_d =1$ 和 $q_k = 1$, 并没有失败的监测，一个物体一个监测，</p>
+<script type="math/tex; mode=display">
+s_{k}(\mathbf{m}) = \frac{h_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})}{\int h_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m}) d \mathbf{m}}</script>
       
     </div>
 
@@ -723,7 +712,7 @@ s_{k}(\mathbf{m}) = \frac{h_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})}{\in
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#监测测量点状目标"><span class="nav-number">1.</span> <span class="nav-text">监测测量（点状目标）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测量模型"><span class="nav-number">1.1.</span> <span class="nav-text">测量模型</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#更新方程"><span class="nav-number"></span> <span class="nav-text">更新方程</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#监测测量（点状目标）"><span class="nav-number">1.</span> <span class="nav-text">监测测量（点状目标）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测量模型"><span class="nav-number">1.1.</span> <span class="nav-text">测量模型</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#更新方程"><span class="nav-number"></span> <span class="nav-text">更新方程</span></a></li></div>
             
 
           </div>

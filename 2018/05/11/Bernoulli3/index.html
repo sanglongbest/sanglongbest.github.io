@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="强度观测模型 这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将\(n\)个测量值存储在一个测量向量中，\(\mathbf{z}_k = [z^1_k,z^2_k,...,z^n_k]^T\), \[ z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp;amp; if \quad">
+  <meta name="description" content="强度观测模型这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将$n$个测量值存储在一个测量向量中，$\mathbf{z}_k = [z^1_k,z^2_k,…,z^n_k]^T$,  z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp; if \quad\mathbf{M}_k=">
 <meta name="keywords" content="伯努利,滤波器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伯努利滤波器（三）—— 强度测量信模型息">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/11/Bernoulli3/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="强度观测模型 这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将\(n\)个测量值存储在一个测量向量中，\(\mathbf{z}_k = [z^1_k,z^2_k,...,z^n_k]^T\), \[ z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp;amp; if \quad">
+<meta property="og:description" content="强度观测模型这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将$n$个测量值存储在一个测量向量中，$\mathbf{z}_k = [z^1_k,z^2_k,…,z^n_k]^T$,  z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp; if \quad\mathbf{M}_k=">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-11T15:36:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伯努利滤波器（三）—— 强度测量信模型息">
-<meta name="twitter:description" content="强度观测模型 这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将\(n\)个测量值存储在一个测量向量中，\(\mathbf{z}_k = [z^1_k,z^2_k,...,z^n_k]^T\), \[ z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp;amp; if \quad">
+<meta name="twitter:description" content="强度观测模型这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将$n$个测量值存储在一个测量向量中，$\mathbf{z}_k = [z^1_k,z^2_k,…,z^n_k]^T$,  z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp; if \quad\mathbf{M}_k=">
 
 
 
@@ -397,40 +397,33 @@
       
 
       
-        <h1 id="强度观测模型">强度观测模型</h1>
-<p>这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将<span class="math inline">\(n\)</span>个测量值存储在一个测量向量中，<span class="math inline">\(\mathbf{z}_k = [z^1_k,z^2_k,...,z^n_k]^T\)</span>,</p>
-<p><span class="math display">\[
-z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k &amp; if \quad\mathbf{M}_k= {\mathbf{m}_k} \\ w^r_k &amp; if \quad \mathbf{M}_k = \emptyset  \end{matrix}\right .
-\]</span></p>
-<p><span class="math inline">\(c^r_k(\mathbf{m}_k)\)</span> 是 <span class="math inline">\(\mathbf{m}_k\)</span> 的体现，<span class="math inline">\(w^r_k\)</span> 是 r-th 观测的噪声，噪声的同分布是根据 PDF <span class="math inline">\(g^{(r)}_0\)</span>。 <span class="math inline">\(h^r_k\)</span> 可以采用模型有：Gaussian point spread function, the inverse distance squared law, 和 an ambiguity function。<span class="math inline">\(\mathbf{g}^r_1\)</span> 是<span class="math inline">\(\mathbf{m}_k\)</span> 的观测为 <span class="math inline">\(r-th\)</span> 观测。所以我们能定义似然函数为：</p>
-<p><span class="math display">\[
-h_k(\mathbf{z}|\mathbf{X}_k) = \left \{  \begin{matrix} \Pi^n_{s=1} g^r_1(z^r_k | \mathbf{m}) &amp; if \quad\mathbf{M}_k= \{\mathbf{m}_k\} \\ \Pi^n_{s=1} g^r_0(z^r_k)  &amp; if \quad \mathbf{M}_k = \emptyset  \end{matrix}\right .
-\]</span></p>
-<h1 id="更新方程update-equations">更新方程（update equations）</h1>
-<p>因为非 FISST 的数学模型及其复杂，对于强度观测模型的更新方程是基于 FISST。更新的 FISST PDF 遵循 Bayes 定律: <span class="math display">\[
-f_{k}(\mathbf{M}_k|\mathbf{z}_{1:k}) = \frac{h_k(z_k|\mathbf{M}_k)f_{k|k-1}(\mathbf{M}_k|\mathbf{z}_{1:k-1})}{p_k(z_k|z_{1:k-1})}
-\]</span> 其中 <span class="math display">\[
-p_k(z_k|z_{1:k-1}) = \int{h_k(\mathbf{z}_k|\mathbf{M})f_{k|k-1}(\mathbf{M}|z_{1:k-1})}\delta\mathbf{M}=(1-q_{k|k-1})h_k(\mathbf{z}_k|\emptyset) + q_{k|k-1}\int h_k(\mathbf{z}_k|{\mathbf{M}})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}}
-\]</span> 同时因为 <span class="math display">\[
-f_{k}(\mathbf{M}|\mathbf{z}_{1:k})=0 \quad if \quad |\mathbf{M}|\ge2
-\]</span> 所以我们可以得到 <span class="math display">\[
-\int f_{k}(\mathbf{M}|\mathbf{z}_{1:k})\delta \mathbf{M} = 1
-\]</span> <span class="math inline">\(f_{k}(\mathbf{M}_k|\mathbf{z}_{1:k})\)</span>是伯努利 RFS 的 FISST 概率密度。</p>
-<p>当<span class="math inline">\(\mathbf{M}_k = \emptyset\)</span>时 <span class="math display">\[
-f_k(\emptyset|\mathbf{z}_{1:k}) = \frac{h_k(\mathbf{z}_k|\emptyset)f_{k|k-1}(\emptyset|\mathbf{z}_{1:k-1})}{(1-q_{k|k-1})h_k(\mathbf{z}_k|\emptyset)+q_{k|k-1}\int h_k(\mathbf{z}_k|{\mathbf{m}})s_{k|k-1}(\mathbf{m})d\mathbf{m}}
-\]</span> 于是有 <span class="math display">\[
-1-q_k=\frac{1-q_{k|k-1}}{1-q_{k|k-1}+q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}}}
-\]</span> 这里 <span class="math display">\[
-l_k(\mathbf{z}_k|\mathbf{m})= \frac{h_k(\mathbf{z}_k|{\mathbf{m}{}})}{h_k(\mathbf{z}_k|\emptyset)}=\Pi^n_{r=1} \frac{g^r_1(\mathbf{z}^r_k|\mathbf{m})}{g^r_0(\mathbf{z}^r_k)}
-\]</span> 这是量测似然度比（measurement likelihhod ratio）。 <span class="math display">\[
-q_{k}=\frac{q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{1-q_{k|k-1}+q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}
-\]</span> 这一个有效的先验存在概率的贝叶斯更新。</p>
-<p><em>因为</em> <span class="math inline">\(f_k(\{\mathbf{m}\}|\mathbf{z}_{1:k}) = q_{k}s_{k}(\mathbf{m})\)</span> 首先，我们可以得到 <span class="math display">\[
-q_k s_k(\mathbf{m}) = \frac{q_{k|k-1}l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})}{1-q_{k|k-1}+q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}
-\]</span> 于是我们可知 <span class="math display">\[
-s_k(\mathbf{m}) = \frac{h_k(\mathbf{z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})}{\int{h_k(\mathbf{z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})}d\mathbf{m}}
-\]</span></p>
-
+        <h1 id="强度观测模型"><a href="#强度观测模型" class="headerlink" title="强度观测模型"></a>强度观测模型</h1><p>这个模型的应用在：图像的像素点，在距离-多普勒-方位地图上的一个点，传感器网络上的一个节点。我们能将$n$个测量值存储在一个测量向量中，$\mathbf{z}_k = [z^1_k,z^2_k,…,z^n_k]^T$,</p>
+<script type="math/tex; mode=display">
+z^r_k = \left \{  \begin{matrix} c^r_k(\mathbf{m}_k)+ w^r_k & if \quad\mathbf{M}_k= {\mathbf{m}_k} \\ w^r_k & if \quad \mathbf{M}_k = \emptyset  \end{matrix}\right .</script><p>$c^r_k(\mathbf{m}_k)$ 是 $\mathbf{m}_k$ 的体现，$w^r_k$ 是 r-th 观测的噪声，噪声的同分布是根据 PDF $g^{(r)}_0$。 $h^r_k$ 可以采用模型有：Gaussian point spread function, the inverse distance squared law, 和 an ambiguity function。$\mathbf{g}^r_1$ 是$\mathbf{m}_k$ 的观测为 $r-th$ 观测。所以我们能定义似然函数为：</p>
+<script type="math/tex; mode=display">
+h_k(\mathbf{z}|\mathbf{X}_k) = \left \{  \begin{matrix} \Pi^n_{s=1} g^r_1(z^r_k | \mathbf{m}) & if \quad\mathbf{M}_k= \{\mathbf{m}_k\} \\ \Pi^n_{s=1} g^r_0(z^r_k)  & if \quad \mathbf{M}_k = \emptyset  \end{matrix}\right .</script><h1 id="更新方程（update-equations）"><a href="#更新方程（update-equations）" class="headerlink" title="更新方程（update equations）"></a>更新方程（update equations）</h1><p>因为非 FISST 的数学模型及其复杂，对于强度观测模型的更新方程是基于 FISST。更新的 FISST PDF 遵循 Bayes 定律:</p>
+<script type="math/tex; mode=display">
+f_{k}(\mathbf{M}_k|\mathbf{z}_{1:k}) = \frac{h_k(z_k|\mathbf{M}_k)f_{k|k-1}(\mathbf{M}_k|\mathbf{z}_{1:k-1})}{p_k(z_k|z_{1:k-1})}</script><p>其中</p>
+<script type="math/tex; mode=display">
+p_k(z_k|z_{1:k-1}) = \int{h_k(\mathbf{z}_k|\mathbf{M})f_{k|k-1}(\mathbf{M}|z_{1:k-1})}\delta\mathbf{M}=(1-q_{k|k-1})h_k(\mathbf{z}_k|\emptyset) + q_{k|k-1}\int h_k(\mathbf{z}_k|{\mathbf{M}})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}}</script><p>同时因为</p>
+<script type="math/tex; mode=display">
+f_{k}(\mathbf{M}|\mathbf{z}_{1:k})=0 \quad if \quad |\mathbf{M}|\ge2</script><p>所以我们可以得到</p>
+<script type="math/tex; mode=display">
+\int f_{k}(\mathbf{M}|\mathbf{z}_{1:k})\delta \mathbf{M} = 1</script><p>$f<em>{k}(\mathbf{M}_k|\mathbf{z}</em>{1:k})$是伯努利 RFS 的 FISST 概率密度。</p>
+<p>当$\mathbf{M}_k = \emptyset$时</p>
+<script type="math/tex; mode=display">
+f_k(\emptyset|\mathbf{z}_{1:k}) = \frac{h_k(\mathbf{z}_k|\emptyset)f_{k|k-1}(\emptyset|\mathbf{z}_{1:k-1})}{(1-q_{k|k-1})h_k(\mathbf{z}_k|\emptyset)+q_{k|k-1}\int h_k(\mathbf{z}_k|{\mathbf{m}})s_{k|k-1}(\mathbf{m})d\mathbf{m}}</script><p>于是有</p>
+<script type="math/tex; mode=display">
+1-q_k=\frac{1-q_{k|k-1}}{1-q_{k|k-1}+q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d_{\mathbf{m}}}</script><p>这里</p>
+<script type="math/tex; mode=display">
+l_k(\mathbf{z}_k|\mathbf{m})= \frac{h_k(\mathbf{z}_k|{\mathbf{m}{}})}{h_k(\mathbf{z}_k|\emptyset)}=\Pi^n_{r=1} \frac{g^r_1(\mathbf{z}^r_k|\mathbf{m})}{g^r_0(\mathbf{z}^r_k)}</script><p>这是量测似然度比（measurement likelihhod ratio）。</p>
+<script type="math/tex; mode=display">
+q_{k}=\frac{q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{1-q_{k|k-1}+q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}</script><p>这一个有效的先验存在概率的贝叶斯更新。</p>
+<p><em>因为</em> $f<em>k({\mathbf{m}}|\mathbf{z}</em>{1:k}) = q<em>{k}s</em>{k}(\mathbf{m})$<br>首先，我们可以得到</p>
+<script type="math/tex; mode=display">
+q_k s_k(\mathbf{m}) = \frac{q_{k|k-1}l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})}{1-q_{k|k-1}+q_{k|k-1}\int l_k(\mathbf{z}_k|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}</script><p>于是我们可知</p>
+<script type="math/tex; mode=display">
+s_k(\mathbf{m}) = \frac{h_k(\mathbf{z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})}{\int{h_k(\mathbf{z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})}d\mathbf{m}}</script>
       
     </div>
 
@@ -702,7 +695,7 @@ s_k(\mathbf{m}) = \frac{h_k(\mathbf{z}_k|\{\mathbf{m}\})s_{k|k-1}(\mathbf{m})}{\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#强度观测模型"><span class="nav-number">1.</span> <span class="nav-text">强度观测模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新方程update-equations"><span class="nav-number">2.</span> <span class="nav-text">更新方程（update equations）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#强度观测模型"><span class="nav-number">1.</span> <span class="nav-text">强度观测模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新方程（update-equations）"><span class="nav-number">2.</span> <span class="nav-text">更新方程（update equations）</span></a></li></ol></div>
             
 
           </div>

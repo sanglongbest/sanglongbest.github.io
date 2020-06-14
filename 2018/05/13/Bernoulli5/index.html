@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型 基于点状测量模型，我们得到\(\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r\)，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS \(\mathbf{W}\) 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/">
+  <meta name="description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以">
 <meta name="keywords" content="伯努利,滤波器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="伯努利滤波器（五）——拓展目标的测量模型">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/05/13/Bernoulli5/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型 基于点状测量模型，我们得到\(\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r\)，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS \(\mathbf{W}\) 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/">
+<meta property="og:description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-05-15T08:47:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="伯努利滤波器（五）——拓展目标的测量模型">
-<meta name="twitter:description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型 基于点状测量模型，我们得到\(\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r\)，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS \(\mathbf{W}\) 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/">
+<meta name="twitter:description" content="这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。 测量模型基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以">
 
 
 
@@ -410,37 +410,23 @@
 
       
         <p>这里拓展目标的含义是指目标在传感器中的大小大于分辨率，它占多个像素点。</p>
-<h1 id="测量模型">测量模型</h1>
-<p>基于点状测量模型，我们得到<span class="math inline">\(\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r\)</span>，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS <span class="math inline">\(\mathbf{W}\)</span> 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以我们得到RFS的FISST PDF是：</p>
-<p><span class="math display">\[
-\eta(\mathbf{W}|\{\mathbf{m}\}) = \frac{L!}{(L-|\mathbf{W}|)!} p_d^{|\mathbf{W}|}[1-p_d]^{L -|\mathbf{W}|} \prod_{\mathbf{w}\in\mathbf{W}} h(\mathbf{w}|\mathbf{m}) =   \left \{ \begin{matrix}  (1-p_d)^L &amp; if \mathbf{W}=\emptyset   \\ Lp_d(1-p_d)^{L-1}h(\mathbf{w}|\mathbf{m}) &amp; if\mathbf{W}=\{\mathbf{w}\} \\  ... &amp;  \\ L!p_d^Lh(\mathbf{w}_1|\mathbf{m})...h(\mathbf{w}_R|\mathbf{m})  &amp;  \end{matrix} \right .
-\]</span></p>
-<p>通常来说<span class="math inline">\(p_d\)</span>是依据<span class="math inline">\(\mathbf{m}\)</span>而不变，这里我们忽略了，简化为常数。在现实中，我们不仅仅考虑物体的坐标，还会考虑物体速度和形状，我们假设存在一个映射<span class="math inline">\(l(\mathbf{m})\)</span>，它从状态空间映射到测量空间。因为<span class="math inline">\(\mathbf{m}\)</span>是RCS（random closed set），那么<span class="math inline">\(h(\mathbf{m})\)</span>也是RCS。我们定义广义似然函数（generalized likelihood function,GLF） <span class="math inline">\(\tilde{ g }(\mathbf{w}|\mathbf{m})= P\{\mathbf{w}\in l(\mathbf{m})\}\)</span>。</p>
-<p>下一步我们就是计算检测拓展目标的观测模型，同样先考虑<span class="math inline">\(\mathbf{M} = \emptyset\)</span>, 我们<span class="math inline">\(h_k(\mathbf{Z}|\emptyset) = \kappa(\mathbf{Z})\)</span>， 这导致了</p>
-<p><span class="math display">\[
-h(\mathbf{Z}|\{\mathbf{m}\}) = \eta(\emptyset|\{\mathbf{m}\})\kappa(\mathbf{Z})+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\eta(\Omega|\{\mathbf{m}\})\kappa(\mathbf{Z \backslash\Omega })
-\]</span> 其中<span class="math inline">\(P_{1:L}(\mathbf{Z})\)</span> 是 <span class="math inline">\(\mathbf{Z}\)</span>全子集。如果<span class="math inline">\(L \ge |\mathbf{Z}|\)</span> 是 <span class="math inline">\(\mathbf{Z}\)</span> 的幂集减去空集。所以我们可以简化得到：</p>
-<p><span class="math display">\[
-h(\mathbf{Z}|\{\mathbf{m}\}) =\kappa(\mathbf{Z})\{(1-p_d)^L+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\frac{L!}{(L-|\mathbf{\Omega}|)!}p_d^{|\Omega|}(1-p_d)^{L-|\Omega|}\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } } \}
-\]</span></p>
-<h1 id="更新方程">更新方程</h1>
-<p>我们得到</p>
-<p><span class="math display">\[
-f(\mathbf{Z}_k|\mathbf{Z}_{1:k-1}) = \kappa(\mathbf{Z})\{1-q_{k|k-1}+q_{k|k-1}(1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})} \}
-\]</span> 其中</p>
-<p><span class="math display">\[
-\phi = \frac{L_k!}{(L_k - |\Omega|)!}\frac{p_d^{|\Omega|}}{(1-p_d)^{|\mathbf{\Omega}|-L_k}} 
-\]</span></p>
-<p>当我们考虑<span class="math inline">\(\mathbf{M} = \emptyset\)</span>，我们能得到</p>
-<p><span class="math display">\[
-q_k = \frac{1-\triangle _k }{1-q_{k|k-1}\triangle _k}q_{k|k-1}
-\]</span></p>
-<p><span class="math display">\[
-\triangle _k =1-(1-p_d)^{L_k}-\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})}  
-\]</span> 当<span class="math inline">\(\mathbf{M}= \{\mathbf{m}\}\)</span></p>
-<p><span class="math display">\[
-s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } }}{1-\triangle_k}s_{k|k-1}(\mathbf{m})
-\]</span> 当<span class="math inline">\(L_k = 1\)</span>时，方程就和标准的检测模型一样。</p>
+<h1 id="测量模型"><a href="#测量模型" class="headerlink" title="测量模型"></a>测量模型</h1><p>基于点状测量模型，我们得到$\mathbf{W} = \cup^R_{r=1} \mathbf{W}_r$，这被称为 multi-Bernoulli RFS。但是这个模型过于复杂。所以我们简化RFS $\mathbf{W}$ 为二项式 RFS。这样，我们就不再跟踪单个的离散点，而是跟踪物体质心及其形状/大小。所以我们得到RFS的FISST PDF是：</p>
+<script type="math/tex; mode=display">
+\eta(\mathbf{W}|\{\mathbf{m}\}) = \frac{L!}{(L-|\mathbf{W}|)!} p_d^{|\mathbf{W}|}[1-p_d]^{L -|\mathbf{W}|} \prod_{\mathbf{w}\in\mathbf{W}} h(\mathbf{w}|\mathbf{m}) =     \left \{ \begin{matrix}  (1-p_d)^L & if \mathbf{W}=\emptyset   \\ Lp_d(1-p_d)^{L-1}h(\mathbf{w}|\mathbf{m}) & if\mathbf{W}=\{\mathbf{w}\} \\  ... &  \\ L!p_d^Lh(\mathbf{w}_1|\mathbf{m})...h(\mathbf{w}_R|\mathbf{m})  &  \end{matrix} \right .</script><p>通常来说$p_d$是依据$\mathbf{m}$而不变，这里我们忽略了，简化为常数。在现实中，我们不仅仅考虑物体的坐标，还会考虑物体速度和形状，我们假设存在一个映射$l(\mathbf{m})$，它从状态空间映射到测量空间。因为$\mathbf{m}$是RCS（random closed set），那么$h(\mathbf{m})$也是RCS。我们定义广义似然函数（generalized likelihood function,GLF） $\tilde{ g }(\mathbf{w}|\mathbf{m})= P{\mathbf{w}\in l(\mathbf{m})}$。</p>
+<p>下一步我们就是计算检测拓展目标的观测模型，同样先考虑$\mathbf{M} = \emptyset$, 我们$h_k(\mathbf{Z}|\emptyset) = \kappa(\mathbf{Z})$， 这导致了</p>
+<script type="math/tex; mode=display">
+h(\mathbf{Z}|\{\mathbf{m}\}) = \eta(\emptyset|\{\mathbf{m}\})\kappa(\mathbf{Z})+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\eta(\Omega|\{\mathbf{m}\})\kappa(\mathbf{Z \backslash\Omega })</script><p>其中$P_{1:L}(\mathbf{Z})$ 是 $\mathbf{Z}$全子集。如果$L \ge |\mathbf{Z}|$ 是 $\mathbf{Z}$ 的幂集减去空集。所以我们可以简化得到：</p>
+<script type="math/tex; mode=display">
+h(\mathbf{Z}|\{\mathbf{m}\}) =\kappa(\mathbf{Z})\{(1-p_d)^L+\sum_{\Omega \in P_{1:L}(\mathbf{Z})}\frac{L!}{(L-|\mathbf{\Omega}|)!}p_d^{|\Omega|}(1-p_d)^{L-|\Omega|}\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } } \}</script><h1 id="更新方程"><a href="#更新方程" class="headerlink" title="更新方程"></a>更新方程</h1><p>我们得到</p>
+<script type="math/tex; mode=display">
+f(\mathbf{Z}_k|\mathbf{Z}_{1:k-1}) = \kappa(\mathbf{Z})\{1-q_{k|k-1}+q_{k|k-1}(1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})} \}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\phi = \frac{L_k!}{(L_k - |\Omega|)!}\frac{p_d^{|\Omega|}}{(1-p_d)^{|\mathbf{\Omega}|-L_k}}</script><p>当我们考虑$\mathbf{M} = \emptyset$，我们能得到</p>
+<script type="math/tex; mode=display">
+q_k = \frac{1-\triangle _k }{1-q_{k|k-1}\triangle _k}q_{k|k-1}</script><script type="math/tex; mode=display">
+\triangle _k =1-(1-p_d)^{L_k}-\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\frac{\int \prod_{\mathbf{z}\in \mathbf{\Omega}}h_k(\mathbf{z}|\mathbf{m})s_{k|k-1}(\mathbf{m})d\mathbf{m}}{\prod_{\mathbf{z}\in \mathbf{\Omega}}\lambda c(\mathbf{z})}</script><p>当$\mathbf{M}= {\mathbf{m}}$</p>
+<script type="math/tex; mode=display">
+s_{k}(\mathbf{m}) = \frac{ (1-p_d)^{L_k}+\sum_{\Omega \in P_{1:L_k}(\mathbf{Z})}\phi_k\prod_{\mathbf{z}\in \mathbf{\Omega}} { \frac{h(\mathbf{z}|\mathbf{m})}{\lambda c(\mathbf{z}) } }}{1-\triangle_k}s_{k|k-1}(\mathbf{m})</script><p>当$L_k = 1$时，方程就和标准的检测模型一样。</p>
 
       
     </div>

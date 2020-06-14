@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="概率分布和似然函数 似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。 举个例子  我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。 例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。">
+  <meta name="description" content="概率分布和似然函数似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。 举个例子我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。 例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。如果你">
 <meta name="keywords" content="likelihood">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一枚硬币和一部电话解释常见的概率分布——似然函数总结">
 <meta property="og:url" content="http://sanglongbest.github.io/2018/06/06/ProbabilityDistribution/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="概率分布和似然函数 似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。 举个例子  我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。 例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。">
+<meta property="og:description" content="概率分布和似然函数似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。 举个例子我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。 例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。如果你">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://img3.tupian1.com/uploads/allimg/170122/1-1F122232127.jpg">
 <meta property="og:image" content="https://i.imgur.com/PajaGlK.jpg">
@@ -122,7 +122,7 @@
 <meta property="og:updated_time" content="2018-06-06T14:21:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一枚硬币和一部电话解释常见的概率分布——似然函数总结">
-<meta name="twitter:description" content="概率分布和似然函数 似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。 举个例子  我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。 例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。">
+<meta name="twitter:description" content="概率分布和似然函数似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。 举个例子我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。 例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。如果你">
 <meta name="twitter:image" content="http://img3.tupian1.com/uploads/allimg/170122/1-1F122232127.jpg">
 
 
@@ -401,35 +401,24 @@
       
 
       
-        <h1 id="概率分布和似然函数">概率分布和似然函数</h1>
-<p>似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。</p>
-<h1 id="举个例子">举个例子</h1>
-<p><img src="http://img3.tupian1.com/uploads/allimg/170122/1-1F122232127.jpg" alt="enter image description here"> 我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。</p>
-<p>例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。如果你明白这个，恭喜你已经掌握了伯努利分布。 <img src="https://i.imgur.com/PajaGlK.jpg" alt="639897654"></p>
-<h1 id="函数列表">函数列表</h1>
-<p>先列几个似然函数的列表： <a href="http://www.stat.tamu.edu/~twehrly/611/distab.pdf" target="_blank" rel="noopener">Table of Common Distributions</a> <a href="https://en.wikipedia.org/wiki/List_of_probability_distributions" target="_blank" rel="noopener">List of probability distributions - Wiki</a> <a href="http://www.statisticshowto.com/probability-distribution/" target="_blank" rel="noopener">List of Statistical Distributions</a> 但是这些这个分布种类繁多，很多比如Muth或Lomax，我们连听都没听说过。所以我们只讨论常见的分布。</p>
-<h1 id="常见的分布">常见的分布</h1>
-<p>先给你一个关系图 <img src="https://i.imgur.com/aUQ8izy.png" alt="distribution"></p>
-<h2 id="伯努利和统一分布">伯努利和统一分布</h2>
-<p>伯努利就是两个事件的选择，一个概率是p，另一个概率是1-p。 统一分布是每个事件的概率是一样的。</p>
-<h2 id="二项式分布和超几何分布">二项式分布和超几何分布。</h2>
-<p>二项分布可以被认为是多次遵循伯努利分布的结果的总和。比如：投掷一枚硬币20次; 它出现多少次正面？ 每次都是一个伯努利分布，这个计数是遵循二项分布的结果。或者，想象一个具有相同数量白色和黑色球的碗。 闭上眼睛，抓一个球，看它是否是黑色的，然后放回去。 重复。 最后抓了多少次黑球？ 这个计数也遵循二项分布。</p>
+        <h1 id="概率分布和似然函数"><a href="#概率分布和似然函数" class="headerlink" title="概率分布和似然函数"></a>概率分布和似然函数</h1><p>似然函数作为连接观测和概率分布的连接桥梁被广泛用于贝叶斯，机器学习甚至工程问题中。</p>
+<h1 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h1><p><img src="http://img3.tupian1.com/uploads/allimg/170122/1-1F122232127.jpg" alt="enter image description here"><br>我们生活中发生很多事，掷骰子，下雨，巴士到达时间。事后，具体的结果是肯定的：骰子来了3和4，今天下雨了，巴士还有3分钟才到达。但是事前，我只能讨论可能性，其中概率分布描述了我们认为的每个结果的概率。这些概率的和为1。</p>
+<p>例如，一枚公平硬币有两个结果：正面或反面。 每一面的概率为50%。如果你明白这个，恭喜你已经掌握了伯努利分布。<br><img src="https://i.imgur.com/PajaGlK.jpg" alt="639897654"></p>
+<h1 id="函数列表"><a href="#函数列表" class="headerlink" title="函数列表"></a>函数列表</h1><p>先列几个似然函数的列表：<br><a href="http://www.stat.tamu.edu/~twehrly/611/distab.pdf" target="_blank" rel="noopener">Table of Common Distributions</a><br><a href="https://en.wikipedia.org/wiki/List_of_probability_distributions" target="_blank" rel="noopener">List of probability distributions - Wiki</a><br><a href="http://www.statisticshowto.com/probability-distribution/" target="_blank" rel="noopener">List of Statistical Distributions</a><br>但是这些这个分布种类繁多，很多比如Muth或Lomax，我们连听都没听说过。所以我们只讨论常见的分布。</p>
+<h1 id="常见的分布"><a href="#常见的分布" class="headerlink" title="常见的分布"></a>常见的分布</h1><p>先给你一个关系图<br><img src="https://i.imgur.com/aUQ8izy.png" alt="distribution"></p>
+<h2 id="伯努利和统一分布"><a href="#伯努利和统一分布" class="headerlink" title="伯努利和统一分布"></a>伯努利和统一分布</h2><p>伯努利就是两个事件的选择，一个概率是p，另一个概率是1-p。<br>统一分布是每个事件的概率是一样的。</p>
+<h2 id="二项式分布和超几何分布。"><a href="#二项式分布和超几何分布。" class="headerlink" title="二项式分布和超几何分布。"></a>二项式分布和超几何分布。</h2><p>二项分布可以被认为是多次遵循伯努利分布的结果的总和。比如：投掷一枚硬币20次; 它出现多少次正面？ 每次都是一个伯努利分布，这个计数是遵循二项分布的结果。或者，想象一个具有相同数量白色和黑色球的碗。 闭上眼睛，抓一个球，看它是否是黑色的，然后放回去。 重复。 最后抓了多少次黑球？ 这个计数也遵循二项分布。</p>
 <p>但是如果我们移除抓到的黑球呢？就是超几何分布了。这样成功的概率会越来越少。</p>
-<h2 id="泊松">泊松</h2>
-<p>比如每分钟拨打支持热线的客户数量？对于每个客户都是一个伯努利分布，但是这个客户数量是无限的，对于整体事件是一个伯努利分布。</p>
+<h2 id="泊松"><a href="#泊松" class="headerlink" title="泊松"></a>泊松</h2><p>比如每分钟拨打支持热线的客户数量？对于每个客户都是一个伯努利分布，但是这个客户数量是无限的，对于整体事件是一个伯努利分布。</p>
 <p>我应该会开一个伯松分布在tracking方向的专题，详情关注一下我的微博。</p>
-<h2 id="几何和负二项式">几何和负二项式</h2>
-<p>再比如这个硬币 ，如果我们要验证，出现第一个正面之前，出现几次反面。这个反面的次数遵循是几何分布，所以你可以用它来计算你要创业多少次能成为马云。</p>
+<h2 id="几何和负二项式"><a href="#几何和负二项式" class="headerlink" title="几何和负二项式"></a>几何和负二项式</h2><p>再比如这个硬币 ，如果我们要验证，出现第一个正面之前，出现几次反面。这个反面的次数遵循是几何分布，所以你可以用它来计算你要创业多少次能成为马云。</p>
 <p>如果想计算出现第n次正面前，出现几次反面你就需要负二项式分布。</p>
-<h2 id="指数和韦伯分布">指数和韦伯分布</h2>
-<p>回到电话问题上，如果我们求，要等多久才能才能接到下一次客户电话。这个看似是几何分布，因为我们可以假设每秒钟没有人打电话就是失败。失败的次数就像没有人打过电话的秒数。但是这个只能是离散的，如果我们把他推算到极限情况呢，时间无穷小，那就是指数分布。 同时注意，因为泊松分布考虑的是每次有多少事件？指数分布考虑的是事件之前有多长时间。所以他们经常一起讨论。 如果我们考虑耗损情况呢，随时间变化，打近电话的概率会增加（节目时间长？）/减少（电话老坏？），这种情况我们就把它称为韦伯分布。</p>
-<h2 id="正态分布对数正态学生t-分布和卡方分布">正态分布，对数正态，学生t-分布和卡方分布</h2>
-<p>正态分布又名高斯分布，可以算是世界上最重要的分布，经常用在自然和社会科学来代表一个不明的随机变量。任何一个独立分布，你做多次实验，求和，他就是正态分布。这个证明过程叫做中心极限定理。 <a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">中心极限定理wiki</a></p>
+<h2 id="指数和韦伯分布"><a href="#指数和韦伯分布" class="headerlink" title="指数和韦伯分布"></a>指数和韦伯分布</h2><p>回到电话问题上，如果我们求，要等多久才能才能接到下一次客户电话。这个看似是几何分布，因为我们可以假设每秒钟没有人打电话就是失败。失败的次数就像没有人打过电话的秒数。但是这个只能是离散的，如果我们把他推算到极限情况呢，时间无穷小，那就是指数分布。<br>同时注意，因为泊松分布考虑的是每次有多少事件？指数分布考虑的是事件之前有多长时间。所以他们经常一起讨论。<br>如果我们考虑耗损情况呢，随时间变化，打近电话的概率会增加（节目时间长？）/减少（电话老坏？），这种情况我们就把它称为韦伯分布。</p>
+<h2 id="正态分布，对数正态，学生t-分布和卡方分布"><a href="#正态分布，对数正态，学生t-分布和卡方分布" class="headerlink" title="正态分布，对数正态，学生t-分布和卡方分布"></a>正态分布，对数正态，学生t-分布和卡方分布</h2><p>正态分布又名高斯分布，可以算是世界上最重要的分布，经常用在自然和社会科学来代表一个不明的随机变量。任何一个独立分布，你做多次实验，求和，他就是正态分布。这个证明过程叫做中心极限定理。<br><a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">中心极限定理wiki</a></p>
 <p>对数正态就是对正态取log，谁让他有个e呢。</p>
 <p>学生t-分布用来在小样本（没有统计特性的样本中）中，在不知道方差的情况下，估算均值。随样本增加，分布接近正态分布，不过他的‘尾巴‘更粗一点。</p>
 <p>卡方分布是基于卡方检验的分布，其实就是正态竖着的平方和分布。</p>
-<h2 id="伽马和β分布">伽马和β分布</h2>
-<p>基于卡方分布我们就有了伽马分布，她像是卡方和指数分布的结合，主要用于建模’直到接下来的n个事件发生的时间。很多共轭先验指的就是他。另一种常见的共轭分布就是β分布，它和这篇文章大多数分布都共轭。共轭函数对于数学分析是十分重要的，因为它是先验和后验的概率表达式统一了。</p>
+<h2 id="伽马和β分布"><a href="#伽马和β分布" class="headerlink" title="伽马和β分布"></a>伽马和β分布</h2><p>基于卡方分布我们就有了伽马分布，她像是卡方和指数分布的结合，主要用于建模’直到接下来的n个事件发生的时间。很多共轭先验指的就是他。另一种常见的共轭分布就是β分布，它和这篇文章大多数分布都共轭。共轭函数对于数学分析是十分重要的，因为它是先验和后验的概率表达式统一了。</p>
 
       
     </div>
@@ -700,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率分布和似然函数"><span class="nav-number">1.</span> <span class="nav-text">概率分布和似然函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#举个例子"><span class="nav-number">2.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数列表"><span class="nav-number">3.</span> <span class="nav-text">函数列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的分布"><span class="nav-number">4.</span> <span class="nav-text">常见的分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#伯努利和统一分布"><span class="nav-number">4.1.</span> <span class="nav-text">伯努利和统一分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项式分布和超几何分布"><span class="nav-number">4.2.</span> <span class="nav-text">二项式分布和超几何分布。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泊松"><span class="nav-number">4.3.</span> <span class="nav-text">泊松</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何和负二项式"><span class="nav-number">4.4.</span> <span class="nav-text">几何和负二项式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指数和韦伯分布"><span class="nav-number">4.5.</span> <span class="nav-text">指数和韦伯分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正态分布对数正态学生t-分布和卡方分布"><span class="nav-number">4.6.</span> <span class="nav-text">正态分布，对数正态，学生t-分布和卡方分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伽马和β分布"><span class="nav-number">4.7.</span> <span class="nav-text">伽马和β分布</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率分布和似然函数"><span class="nav-number">1.</span> <span class="nav-text">概率分布和似然函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#举个例子"><span class="nav-number">2.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数列表"><span class="nav-number">3.</span> <span class="nav-text">函数列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的分布"><span class="nav-number">4.</span> <span class="nav-text">常见的分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#伯努利和统一分布"><span class="nav-number">4.1.</span> <span class="nav-text">伯努利和统一分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二项式分布和超几何分布。"><span class="nav-number">4.2.</span> <span class="nav-text">二项式分布和超几何分布。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泊松"><span class="nav-number">4.3.</span> <span class="nav-text">泊松</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何和负二项式"><span class="nav-number">4.4.</span> <span class="nav-text">几何和负二项式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指数和韦伯分布"><span class="nav-number">4.5.</span> <span class="nav-text">指数和韦伯分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正态分布，对数正态，学生t-分布和卡方分布"><span class="nav-number">4.6.</span> <span class="nav-text">正态分布，对数正态，学生t-分布和卡方分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伽马和β分布"><span class="nav-number">4.7.</span> <span class="nav-text">伽马和β分布</span></a></li></ol></li></ol></div>
             
 
           </div>

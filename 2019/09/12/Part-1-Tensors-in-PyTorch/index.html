@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="基于Pytorch深度学习 在本文中，我将介绍一下PyTorch，PyTorch 是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于 Tensorflow 有更好的兼容性。 神经">
-<meta name="keywords" content="从入门到放弃,Pytorch">
+  <meta name="description" content="基于Pytorch深度学习在本文中，我将介绍一下PyTorch，PyTorch是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于Tensorflow 有更好的兼容性。 神经网络深">
+<meta name="keywords" content="Pytorch,从入门到放弃">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【从入门到放弃】PyTorch入门（1）">
 <meta property="og:url" content="http://sanglongbest.github.io/2019/09/12/Part-1-Tensors-in-PyTorch/index.html">
 <meta property="og:site_name" content="桑龙的博客">
-<meta property="og:description" content="基于Pytorch深度学习 在本文中，我将介绍一下PyTorch，PyTorch 是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于 Tensorflow 有更好的兼容性。 神经">
+<meta property="og:description" content="基于Pytorch深度学习在本文中，我将介绍一下PyTorch，PyTorch是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于Tensorflow 有更好的兼容性。 神经网络深">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.imgur.com/LSuYJhm.png">
 <meta property="og:image" content="https://i.imgur.com/pID8U5n.png">
@@ -123,7 +123,7 @@
 <meta property="og:updated_time" content="2019-09-12T22:40:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【从入门到放弃】PyTorch入门（1）">
-<meta name="twitter:description" content="基于Pytorch深度学习 在本文中，我将介绍一下PyTorch，PyTorch 是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于 Tensorflow 有更好的兼容性。 神经">
+<meta name="twitter:description" content="基于Pytorch深度学习在本文中，我将介绍一下PyTorch，PyTorch是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于Tensorflow 有更好的兼容性。 神经网络深">
 <meta name="twitter:image" content="https://i.imgur.com/LSuYJhm.png">
 
 
@@ -402,19 +402,15 @@
       
 
       
-        <h1 id="基于pytorch深度学习">基于Pytorch深度学习</h1>
-<p>在本文中，我将介绍一下<a href="http://pytorch.org/" target="_blank" rel="noopener">PyTorch</a>，PyTorch 是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于 Tensorflow 有更好的兼容性。</p>
-<h2 id="神经网络">神经网络</h2>
-<p>深度学习是一套基于人工神经网络的函数拟合方法。网络有多个“神经元”构成。每个神经元又有多个输入，每个输入又有自己的权重。这些输入将会权重加成后，输入激活函数得到输出值。 <img src="https://i.imgur.com/LSuYJhm.png" alt="simple_neuron"> 数学表达式为：</p>
-<p><span class="math display">\[
+        <h1 id="基于Pytorch深度学习"><a href="#基于Pytorch深度学习" class="headerlink" title="基于Pytorch深度学习"></a>基于Pytorch深度学习</h1><p>在本文中，我将介绍一下<a href="http://pytorch.org/" target="_blank" rel="noopener">PyTorch</a>，PyTorch<br>是一个训练神经网络的有利助手。同时，Pytorch基本可以无缝衔接Numpy，对于熟悉Numpy的你，应该很容易就能转型到PyTorch。同时PyTorch能够调用GPU的API实现硬件加速，并提供诸如自动计算梯度和模型定制化等诸多方便功能。另一方面，PyTorch相较于<br>Tensorflow 有更好的兼容性。</p>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><p>深度学习是一套基于人工神经网络的函数拟合方法。网络有多个“神经元”构成。每个神经元又有多个输入，每个输入又有自己的权重。这些输入将会权重加成后，输入激活函数得到输出值。<br><img src="https://i.imgur.com/LSuYJhm.png" alt="simple_neuron"><br>数学表达式为：</p>
+<script type="math/tex; mode=display">
 \begin{align}
-y &amp;= f(w_1 x_1 + w_2 x_2 + b) \\
-y &amp;=
+y &= f(w_1 x_1 + w_2 x_2 + b) \\
+y &=
 f\left(\sum_i w_i x_i +b \right)
-\end{align}
-\]</span></p>
-<p>这里的向量乘法为点乘。</p>
-<p><span class="math display">\[
+\end{align}</script><p>这里的向量乘法为点乘。</p>
+<script type="math/tex; mode=display">
 h =
 \begin{bmatrix}
 x_1 \, x_2 \cdots  x_n
@@ -425,41 +421,37 @@ w_1 \\
 w_2 \\
 \vdots \\
 w_n
-\end{bmatrix}
-\]</span></p>
-<h2 id="张量">张量</h2>
-<p>通过对张量的线性运算，我们就能够得出各种各样的神经网络。张量其实是一种，矩阵的扩展表达形式，一维张量是标量，二维张量是向量，三维张量是矩阵（如下图所示）。 <img src="https://i.imgur.com/pID8U5n.png" alt="tensor_examples"></p>
+\end{bmatrix}</script><h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><p>通过对张量的线性运算，我们就能够得出各种各样的神经网络。张量其实是一种，矩阵的扩展表达形式，一维张量是标量，二维张量是向量，三维张量是矩阵（如下图所示）。<br><img src="https://i.imgur.com/pID8U5n.png" alt="tensor_examples"></p>
 <p>下面我们看一下如何使用PyTorch来构建一个简单的神经网络。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先引入 PyTorch</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">activation</span><span class="params">(x)</span>:</span></span><br><span class="line"><span class="string">""" Sigmoid 激活函数</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">变量定义</span></span><br><span class="line"><span class="string">---------</span></span><br><span class="line"><span class="string">x: torch.Tensor</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+torch.exp(-x))</span><br></pre></td></tr></table></figure>
 <p>Sigmoid 函数：</p>
-<figure>
-<img src="https://i.imgur.com/cAdVBDH.png" alt><figcaption>sigmoid_function</figcaption>
-</figure>
+<p><img src="https://i.imgur.com/cAdVBDH.png" alt="sigmoid_function"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 生成数据</span></span><br><span class="line">torch.manual_seed(<span class="number">7</span>) <span class="comment"># 设置随机种子数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于标注正态分布，获得5个随机数, size 1*5，均值为0，方差为1。</span></span><br><span class="line">features = torch.randn((<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line">print(features)</span><br><span class="line"><span class="comment"># 设置Ground-Truth（GT）权重，size 同 features。 </span></span><br><span class="line">weights = torch.randn_like(features)</span><br><span class="line"><span class="comment"># 设置GT的偏移量。</span></span><br><span class="line">bias = torch.randn((<span class="number">1</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
 <p>以上我们就完成了，训练简单神经网络的准备数据。现在他们还都是基于正态随机分布的随机取值，但是随着训练过程的进行，他们将收敛于GT。</p>
-<p>Pytorch 的张量可以进行，相加，相乘，相减等操作，和你平常使用的Numpy的array用法一样。现在，我们将用生成的随机数据计算这个简单神经网络的输出值。</p>
-<blockquote>
-<p><strong>练习</strong>: 通过特征 <code>features</code>，权重 <code>weights</code>，和偏移量<code>bias</code>计算网络的输出值。类似与Numpy，在Pytorch中可以使用<a href="https://pytorch.org/docs/stable/torch.html#torch.sum" target="_blank" rel="noopener"><code>torch.sum()</code></a>函数进行求和，然后使用我们定义的激活函数来计算输出值。</p>
-</blockquote>
+<p>Pytorch<br>的张量可以进行，相加，相乘，相减等操作，和你平常使用的Numpy的array用法一样。现在，我们将用生成的随机数据计算这个简单神经网络的输出值。</p>
+<p>&gt;<br><strong>练习</strong>: 通过特征 <code>features</code>，权重<br><code>weights</code>，和偏移量<code>bias</code>计算网络的输出值。类似与Numpy，在Pytorch中可以使用<a href="https://pytorch.org/docs/stable/torch.html#torch.sum" target="_blank" rel="noopener"><code>torch.sum()</code></a>函数进行求和，然后使用我们定义的激活函数来计算输出值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 解</span></span><br><span class="line"></span><br><span class="line">y = activation(torch.sum(features * weights) + bias)</span><br><span class="line">y = activation((features * weights).sum() + bias)</span><br></pre></td></tr></table></figure>
-<p>你也可以用采用矩阵相乘的办法来一次完成相乘和求和的操作。通常来说，我更建议采用矩阵相乘的方式来进行计算，因为这样做更高效。PyTorch提供了大量的库函数和GPU接口，来加速矩阵运算。 如果我们想使用矩阵乘法，我们就需要调用函数<a href="https://pytorch.org/docs/stable/torch.html#torch.mm" target="_blank" rel="noopener"><code>torch.mm()</code></a> 或者 <a href="https://pytorch.org/docs/stable/torch.html#torch.matmul" target="_blank" rel="noopener"><code>torch.matmul()</code></a>。我个人更建议使用后者，因为它有更多的特性。</p>
+<p>你也可以用采用矩阵相乘的办法来一次完成相乘和求和的操作。通常来说，我更建议采用矩阵相乘的方式来进行计算，因为这样做更高效。PyTorch提供了大量的库函数和GPU接口，来加速矩阵运算。<br>如果我们想使用矩阵乘法，我们就需要调用函数<a href="https://pytorch.org/docs/stable/torch.html#torch.mm" target="_blank" rel="noopener"><code>torch.mm()</code></a><br>或者<br><a href="https://pytorch.org/docs/stable/torch.html#torch.matmul" target="_blank" rel="noopener"><code>torch.matmul()</code></a>。我个人更建议使用后者，因为它有更多的特性。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.matmul(features, weights)</span><br></pre></td></tr></table></figure>
-<p>但是当我们运行时，就会出现如下错误 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; torch.matmul(features, weights)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">RuntimeError                              Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input<span class="number">-13</span><span class="number">-15</span>d592eb5279&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; 1 torch.matmul(features,</span><br><span class="line">weights)</span><br><span class="line"></span><br><span class="line">RuntimeError: size mismatch, m1: [<span class="number">1</span> x <span class="number">5</span>], m2: [<span class="number">1</span> x <span class="number">5</span>] at</span><br><span class="line">/pytorch/aten/src/TH/generic/THTensorMath.cpp:<span class="number">961</span></span><br></pre></td></tr></table></figure></p>
-<p>这是因为张量的大小（shape）不正确，造成的矩阵不能相乘。这是一个非常常见的问题。 解决办法也很简单，就是直接调整<code>weights</code>的大小，来适应矩阵乘法运算。</p>
-<p><strong>注意:</strong> 张量的大小标示为<code>tensor.shape</code>。这是一个非常常见的运算函数，请记住它。</p>
-<p>Pytorch 也提供了诸多适合改变shape（大小）的函数，例如： <a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.reshape" target="_blank" rel="noopener"><code>weights.reshape()</code></a>, <a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.resize_" target="_blank" rel="noopener"><code>weights.resize_()</code></a>, 和 <a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.view" target="_blank" rel="noopener"><code>weights.view()</code></a>. * <code>weights.reshape(a, b)</code> 是讲<code>weights</code>的数据<strong><em>拷贝</em></strong>到一个新的内存中，并整形为a*b。</p>
+<p>但是当我们运行时，就会出现如下错误<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; torch.matmul(features, weights)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">RuntimeError                              Traceback (most recent call last)</span><br><span class="line">&lt;ipython-input<span class="number">-13</span><span class="number">-15</span>d592eb5279&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; 1 torch.matmul(features,</span><br><span class="line">weights)</span><br><span class="line"></span><br><span class="line">RuntimeError: size mismatch, m1: [<span class="number">1</span> x <span class="number">5</span>], m2: [<span class="number">1</span> x <span class="number">5</span>] at</span><br><span class="line">/pytorch/aten/src/TH/generic/THTensorMath.cpp:<span class="number">961</span></span><br></pre></td></tr></table></figure></p>
+<p>这是因为张量的大小（shape）不正确，造成的矩阵不能相乘。这是一个非常常见的问题。<br>解决办法也很简单，就是直接调整<code>weights</code>的大小，来适应矩阵乘法运算。</p>
+<p><strong>注意:</strong><br>张量的大小标示为<code>tensor.shape</code>。这是一个非常常见的运算函数，请记住它。</p>
+<p>Pytorch 也提供了诸多适合改变shape（大小）的函数，例如：<br><a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.reshape" target="_blank" rel="noopener"><code>weights.reshape()</code></a>,<br><a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.resize_" target="_blank" rel="noopener"><code>weights.resize_()</code></a>,<br>和<br><a href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor.view" target="_blank" rel="noopener"><code>weights.view()</code></a>.</p>
 <ul>
-<li><code>weights.resize_(a, b)</code> 也能得到相同的结果，唯一不同的是，他会检查shape。当新tensor比原tensor的元素少时，多余的元素将会在新tensor中剔除（但你依然可以通过原tensor获得这部分数据），如果新tesnor的元素多于原tensor，那么程序将阻止它初始化。同时要注意，不同于reshape，这里的操作都是原地操作，没有拷贝。如果你想对原地操作有更过的了解可以查看 <a href="https://discuss.pytorch.org/t/what-is-in-%20place-operation/16244" target="_blank" rel="noopener">read more about in-place operations</a> in PyTorch.</li>
-<li><code>weights.view(a, b)</code> 其实和reshape差不多，但是由于存在时间比较长，所以用的人也比较多。 我个人建议倾向于使用<code>reshape</code>，但是如果你使用另外两个一般也不会影响你的使用结果。</li>
+<li><code>weights.reshape(a, b)</code> 是讲<code>weights</code>的数据<strong><em>拷贝</em></strong>到一个新的内存中，并整形为a*b。</li>
+</ul>
+<p>*<br><code>weights.resize_(a, b)</code><br>也能得到相同的结果，唯一不同的是，他会检查shape。当新tensor比原tensor的元素少时，多余的元素将会在新tensor中剔除（但你依然可以通过原tensor获得这部分数据），如果新tesnor的元素多于原tensor，那么程序将阻止它初始化。同时要注意，不同于reshape，这里的操作都是原地操作，没有拷贝。如果你想对原地操作有更过的了解可以查看<br><a href="https://discuss.pytorch.org/t/what-is-in-
+place-operation/16244" target="_blank" rel="noopener">read more about in-place operations</a> in PyTorch.</p>
+<ul>
+<li><code>weights.view(a, b)</code><br>其实和reshape差不多，但是由于存在时间比较长，所以用的人也比较多。<br>我个人建议倾向于使用<code>reshape</code>，但是如果你使用另外两个一般也不会影响你的使用结果。</li>
 </ul>
 <blockquote>
 <p><strong>练习</strong>: 使用矩阵相乘来计算神经元输出。</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 解</span></span><br><span class="line"></span><br><span class="line">y = activation(torch.mm(features, weights.reshape(<span class="number">5</span>,<span class="number">1</span>)) + bias)</span><br></pre></td></tr></table></figure>
-<h3 id="实现第一个网络吧">实现第一个网络吧！</h3>
-<p>现在我们已经学会了如何计算一个神经元。现在我们来试着把这些神经元堆叠在一起，从而试想一个网络，第一层的神经元的输出可以作为第二层神经元的输入。因为每层都有多个神经元，所以我们用矩阵来表示权重。 <img src="https://i.imgur.com/DGOSC4R.png" alt="multilayer_diagram_weights"> 最底下的一层是神经网络的输入，我们称之为<strong>输入层</strong>。中间的称为<strong>隐藏层</strong>，最顶端的称为<strong>输出层</strong>。下面我们从数学的角度来分析一下网络的运算原理。例如，隐藏层（<span class="math inline">\(h_1\)</span> 和<span class="math inline">\(h_2\)</span>）可表示为：</p>
-<p><span class="math display">\[
+<h3 id="实现第一个网络吧！"><a href="#实现第一个网络吧！" class="headerlink" title="实现第一个网络吧！"></a>实现第一个网络吧！</h3><p>现在我们已经学会了如何计算一个神经元。现在我们来试着把这些神经元堆叠在一起，从而试想一个网络，第一层的神经元的输出可以作为第二层神经元的输入。因为每层都有多个神经元，所以我们用矩阵来表示权重。<br><img src="https://i.imgur.com/DGOSC4R.png" alt="multilayer_diagram_weights"><br>最底下的一层是神经网络的输入，我们称之为<strong>输入层</strong>。中间的称为<strong>隐藏层</strong>，最顶端的称为<strong>输出层</strong>。下面我们从数学的角度来分析一下网络的运算原理。例如，隐藏层（$h_1$<br>和$h_2$）可表示为：</p>
+<script type="math/tex; mode=display">
 \vec{h} = [h_1 \, h_2] = 
 \begin{bmatrix}
 x_1 \, x_2 \cdots \,
@@ -467,24 +459,20 @@ x_n
 \end{bmatrix}
 \cdot 
 \begin{bmatrix}
-w_{11} &amp; w_{12} \\
-w_{21} &amp;w_{22} \\
-\vdots &amp;\vdots \\
-w_{n1} &amp;w_{n2}
-\end{bmatrix}
-\]</span> 隐藏层的输出就是输出层的输入。那么整个网络的输出就可以表达为：</p>
-<p><span class="math display">\[
+w_{11} & w_{12} \\
+w_{21} &w_{22} \\
+\vdots &\vdots \\
+w_{n1} &w_{n2}
+\end{bmatrix}</script><p>隐藏层的输出就是输出层的输入。那么整个网络的输出就可以表达为：</p>
+<script type="math/tex; mode=display">
 y =  f_2 \! \left(\, f_1 \!
-\left(\vec{x} \, \mathbf{W_1}\right) \mathbf{W_2} \right)
-\]</span></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 生成数据</span></span><br><span class="line">torch.manual_seed(<span class="number">7</span>) <span class="comment"># 设置随机种子</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成3个正态分布随机数</span></span><br><span class="line">features = torch.randn((<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义网络每层的大小 </span></span><br><span class="line">n_input = features.shape[<span class="number">1</span>]     <span class="comment"># 输入的大小</span></span><br><span class="line">n_hidden = <span class="number">2</span>                    <span class="comment"># 隐藏层神经元数目</span></span><br><span class="line">n_output = <span class="number">1</span>                    <span class="comment"># 输出层神经元数目</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐藏层输入的权重</span></span><br><span class="line">W1 = torch.randn(n_input, n_hidden)</span><br><span class="line"><span class="comment"># 隐藏层输出的权重</span></span><br><span class="line">W2 = torch.randn(n_hidden, n_output)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐藏层和输出层的偏移量</span></span><br><span class="line">B1 = torch.randn((<span class="number">1</span>, n_hidden))</span><br><span class="line">B2 = torch.randn((<span class="number">1</span>, n_output))</span><br></pre></td></tr></table></figure>
+\left(\vec{x} \, \mathbf{W_1}\right) \mathbf{W_2} \right)</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 生成数据</span></span><br><span class="line">torch.manual_seed(<span class="number">7</span>) <span class="comment"># 设置随机种子</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成3个正态分布随机数</span></span><br><span class="line">features = torch.randn((<span class="number">1</span>, <span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义网络每层的大小 </span></span><br><span class="line">n_input = features.shape[<span class="number">1</span>]     <span class="comment"># 输入的大小</span></span><br><span class="line">n_hidden = <span class="number">2</span>                    <span class="comment"># 隐藏层神经元数目</span></span><br><span class="line">n_output = <span class="number">1</span>                    <span class="comment"># 输出层神经元数目</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐藏层输入的权重</span></span><br><span class="line">W1 = torch.randn(n_input, n_hidden)</span><br><span class="line"><span class="comment"># 隐藏层输出的权重</span></span><br><span class="line">W2 = torch.randn(n_hidden, n_output)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 隐藏层和输出层的偏移量</span></span><br><span class="line">B1 = torch.randn((<span class="number">1</span>, n_hidden))</span><br><span class="line">B2 = torch.randn((<span class="number">1</span>, n_output))</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>练习:</strong> 使用权重<code>W1</code>，<code>W2</code>和偏移量<code>B1</code>，<code>B2</code>计算神经网络的输出。</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 解</span></span><br><span class="line"></span><br><span class="line">h = activation(torch.mm(features, W1) + B1)</span><br><span class="line">output = activation(torch.mm(h, W2) + B2)</span><br><span class="line">print(output)</span><br></pre></td></tr></table></figure>
-<p>如果计算正确，你的输出为 <code>tensor([[ 0.3171]])</code>. 隐藏单元的数目称为<strong>hyperparameter（超参数）</strong>。每个权重和偏移量的超参数都不尽相同。同时，有更多层，更多单元的网络在相同数据中有更好的性能，因为他们学习到更多的特征，当然计算量也越大。</p>
-<h2 id="numpy-与-torch-相互转换">Numpy 与 Torch 相互转换</h2>
-<p>和Numpy的相互转化是PyTorch的主打特性之一。具体操作为： Numpy -&gt; PyTorch <code>torch.from_numpy()</code></p>
+<p>如果计算正确，你的输出为 <code>tensor([[ 0.3171]])</code>.<br>隐藏单元的数目称为<strong>hyperparameter（超参数）</strong>。每个权重和偏移量的超参数都不尽相同。同时，有更多层，更多单元的网络在相同数据中有更好的性能，因为他们学习到更多的特征，当然计算量也越大。</p>
+<h2 id="Numpy-与-Torch-相互转换"><a href="#Numpy-与-Torch-相互转换" class="headerlink" title="Numpy 与 Torch 相互转换"></a>Numpy 与 Torch 相互转换</h2><p>和Numpy的相互转化是PyTorch的主打特性之一。具体操作为：<br>Numpy -&gt; PyTorch<br><code>torch.from_numpy()</code></p>
 <p>PyTorch -&gt; Numpy</p>
 <p><code>.numpy()</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.random.rand(<span class="number">4</span>,<span class="number">3</span>) <span class="comment"># numpy的随机array</span></span><br><span class="line">a</span><br></pre></td></tr></table></figure>
@@ -513,9 +501,9 @@ y =  f_2 \! \left(\, f_1 \!
       
         <div class="post-tags">
           
-            <a href="/tags/从入门到放弃/" rel="tag"># 从入门到放弃</a>
-          
             <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+          
+            <a href="/tags/从入门到放弃/" rel="tag"># 从入门到放弃</a>
           
         </div>
       
@@ -765,7 +753,7 @@ y =  f_2 \! \left(\, f_1 \!
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于pytorch深度学习"><span class="nav-number">1.</span> <span class="nav-text">基于Pytorch深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络"><span class="nav-number">1.1.</span> <span class="nav-text">神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#张量"><span class="nav-number">1.2.</span> <span class="nav-text">张量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现第一个网络吧"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现第一个网络吧！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy-与-torch-相互转换"><span class="nav-number">1.3.</span> <span class="nav-text">Numpy 与 Torch 相互转换</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于Pytorch深度学习"><span class="nav-number">1.</span> <span class="nav-text">基于Pytorch深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络"><span class="nav-number">1.1.</span> <span class="nav-text">神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#张量"><span class="nav-number">1.2.</span> <span class="nav-text">张量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现第一个网络吧！"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现第一个网络吧！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Numpy-与-Torch-相互转换"><span class="nav-number">1.3.</span> <span class="nav-text">Numpy 与 Torch 相互转换</span></a></li></ol></li></ol></div>
             
 
           </div>

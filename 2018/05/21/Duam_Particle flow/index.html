@@ -398,64 +398,82 @@
 
       
         <p>Today, I wanna talk about the particle flow filter (or Daum Huang filter), which is proposed by Fred Daum and Jim Huang. A series of the particle flow filter has been published in two decades. As Daum etc. provide the main idea of the particle flow, their papers are the majority of the whole publications in this area. Sometimes, for beginners, it is hard to find where to start their study. I will present the Daum et al. <strong>main</strong> works by the year. The important works would be given a start before their title. As this list is based on my limited knowledge, there may be some mistakes and I may lose something. If you find any mistake, I hope you can tell me, please.</p>
-<h1 id="section">2003</h1>
-<ul>
-<li>Curse of Dimensionality and Particle Filters This paper shows that particle filter can mitigate the curse of dimensionality for certain filtering problems, but the PF does not avoid the curse of dimensionality in general.</li>
+<h1 id="2003"><a href="#2003" class="headerlink" title="2003"></a>2003</h1><ul>
+<li>Curse of Dimensionality and Particle Filters<br>This paper shows that particle filter can mitigate the curse of dimensionality for certain filtering problems, but the PF does not avoid the curse of dimensionality in general. </li>
 </ul>
-<h1 id="section-1">2007~2008</h1>
-<ul>
+<h1 id="2007-2008"><a href="#2007-2008" class="headerlink" title="2007~2008"></a>2007~2008</h1><ul>
 <li>* Nonlinear filters with log-homotopy</li>
 </ul>
-<p>The main idea of particle flow is first proposed in this paper. Since the peaks of likelihood and prior densities are different, the particles can not have the high likelihood and prior possibility at the same time. As the Bayes equation, the posterior density cannot be accurately represented by these particles. Daum et al. use the log-homotopy to estimate the processing from prior density to posterior density. This idea is modified in "Particle flow for nonlinear filters with log-homotopy".</p>
-<h1 id="section-2">2009</h1>
-<ul>
+<p>The main idea of particle flow is first proposed in this paper. Since the peaks of likelihood and prior densities are different, the particles can not have the high likelihood and prior possibility at the same time. As the Bayes equation, the posterior density cannot be accurately represented by these particles. Daum et al. use the log-homotopy to estimate the processing from prior density to posterior density. This idea is modified in “Particle flow for nonlinear filters with log-homotopy”.</p>
+<h1 id="2009"><a href="#2009" class="headerlink" title="2009"></a>2009</h1><ul>
 <li>* Nonlinear filters with particle flow</li>
 </ul>
 <p>Based on the prior density and the likelihood are Gaussian densities, an exact solution for the particle flow corresponding to Bayes’ rule is first given. Simulation is also provided. As the most of Gaussian particle flow works are based on this work, this work is very important.</p>
 <ul>
 <li>Seventeen dubious methods to approximate the gradient for nonlinear filters with particle flow</li>
 </ul>
-<p>This paper provides some new ideas for particle flows. # 2010 - * Exact particle flow for nonlinear filters</p>
-<p>In this paper, (1) the exact particle flow does not use any proposal density which is hard to get from the real world and must be provided in other particle filters; (2) They do not use resample for one target; (3) They compute Bayes’ rule by particle flow rather than as a pointwise multiplication of likelihood and prior density. Compared to the old theory, (1) the particle flow corresponds to the exact flow of the <em>conditional probability density</em> (2) the old theory was based on incompressible flow, whereas the new theory allows compressible flow. This means they assume the divergence of particle flow is non-zero, which is useful in the general situation. (3) the old theory suffers from obstruction of particle flow as well as singularities in the equations for flow, whereas the new theory has no obstructions and no singularities. - * Generalized particle flow for nonlinear filters.</p>
-<ul>
-<li>Exact particle flow for nonlinear filters: seventeen dubious solutions to a first order linear underdetermined PDE.</li>
+<p>This paper provides some new ideas for particle flows.</p>
+<h1 id="2010"><a href="#2010" class="headerlink" title="2010"></a>2010</h1><ul>
+<li>* Exact particle flow for nonlinear filters </li>
 </ul>
-<p>#2011 - * Particle flow for nonlinear filters</p>
-<p>I think this paper clearly summarise Daum et al. works until 2011 in four pages. If you are a beginner or you do not want to read the earlier paper, please do not miss this paper. A slideshow is provided online, which is helpful to understand the method. https://www.superlectures.com/icassp2011/lecture.php?lang=en&amp;id=351</p>
+<p>In this paper,  (1) the exact particle flow does not use any proposal density which is hard to get from the real world and must be provided in other particle filters; (2) They do not use resample for one target; (3) They compute Bayes’ rule by particle flow rather than as a pointwise multiplication of likelihood and prior density. Compared to the old theory, (1)  the particle flow corresponds to the exact flow of the <em>conditional probability density</em> (2) the old theory was based on incompressible flow, whereas the new theory allows compressible flow. This means they assume the divergence of particle flow is non-zero, which is useful in the general situation.  (3) the old theory suffers from obstruction of particle flow as well as singularities in the equations for flow, whereas the new theory has no obstructions and no singularities. </p>
+<ul>
+<li><p>* Generalized particle flow for nonlinear filters.</p>
+</li>
+<li><p>Exact particle flow for nonlinear filters: seventeen dubious solutions to a first order linear underdetermined PDE.</p>
+</li>
+</ul>
+<h1 id="2011"><a href="#2011" class="headerlink" title="2011"></a>2011</h1><ul>
+<li>* Particle flow for nonlinear filters</li>
+</ul>
+<p>I think this paper clearly summarise Daum et al. works until 2011 in four pages. If you are a beginner or you do not want to read the earlier paper, please do not miss this paper. A slideshow is provided online, which is helpful to understand the method.<br><a href="https://www.superlectures.com/icassp2011/lecture.php?lang=en&amp;id=351" target="_blank" rel="noopener">https://www.superlectures.com/icassp2011/lecture.php?lang=en&amp;id=351</a></p>
 <ul>
 <li>* Discussion and Application of the Homotopy Filter</li>
 </ul>
-<p>I think this paper provides another thinking to understand particle filter.</p>
+<p>I think this paper provides another thinking to understand particle filter. </p>
 <ul>
 <li>* Coulomb’s law particle flow for nonlinear filters</li>
 </ul>
-<p>Based on the Coulomb's law, they get two more benefits. (1) They do not use importance sampling or any other MCMC algorithm (2) The proposed methods run faster than standard particle filters for the same accuracy.</p>
+<p>Based on the Coulomb’s law, they get two more benefits. (1) They do not use importance sampling or any other MCMC algorithm (2) The proposed methods run faster than standard particle filters for the same accuracy.</p>
 <ul>
-<li>Hollywood log-homotopy: movies of particle flow for nonlinear filters Some simulated pictures are shown.</li>
+<li>Hollywood log-homotopy: movies of particle flow for nonlinear filters<br>Some simulated pictures are shown.</li>
 </ul>
-<h1 id="section-3">2013</h1>
-<ul>
-<li>* Particle flow with non-zero diffusion for nonlinear filters</li>
+<h1 id="2013"><a href="#2013" class="headerlink" title="2013"></a>2013</h1><ul>
+<li>* Particle flow with non-zero diffusion for nonlinear filters </li>
 </ul>
-<p>The non-zero diffusion is first proposed. This filter assumes the diffusion part is non-zero and it is more simple and faster than the zero diffusion particle flow. - How to avoid normalization of particle flow for nonlinear filters, Bayesian decisions and transport</p>
-<h1 id="section-4">2014</h1>
+<p>The non-zero diffusion is first proposed. This filter assumes the diffusion part is non-zero and it is more simple and faster than the zero diffusion particle flow.</p>
 <ul>
+<li>How to avoid normalization of particle flow for nonlinear filters, Bayesian decisions and transport</li>
+</ul>
+<h1 id="2014"><a href="#2014" class="headerlink" title="2014"></a>2014</h1><ul>
 <li>Particle flow for nonlinear filters, Bayesian decisions and transport</li>
 <li>Seven dubious methods to mitigate stiffness in particle flow with non-zero diffusion for nonlinear filters, Bayesian decisions and transport</li>
 </ul>
-<h1 id="section-5">2015</h1>
-<ul>
+<h1 id="2015"><a href="#2015" class="headerlink" title="2015"></a>2015</h1><ul>
 <li>* Stochastic Particle Flow for Nonlinear High-Dimensional Filtering Problems</li>
 </ul>
-<p>"Stochastic Particle Flow" is proposed. The equations are provided in the formula. The implementation and simulation are given. This paper provides another thinking to understand particle filter. - Renormalization group flow in k-space for nonlinear filters, Bayesian decisions and transport - Proof that particle flow corresponds to Bayes’ rule: necessary and sufficient conditions</p>
-<p>#2016 - A plethora of open problems in particle flow research for nonlinear filters, Bayesian decisions, Bayesian learning and transport - A friendly rebuttal to Mallick &amp; Sindhu on particle flow for Bayes’ rule - Adaptive Step Size Approach to Homotopy-Based Particle Filtering Bayesian Update - Seven dubious methods to compute optimal Q for Bayesian stochastic particle flow</p>
-<h1 id="section-6">2017</h1>
+<p>“Stochastic Particle Flow” is proposed. The equations are provided in the formula. The implementation and simulation are given. This paper provides another thinking to understand particle filter.</p>
 <ul>
+<li>Renormalization group flow in k-space for nonlinear filters, Bayesian decisions and transport</li>
+<li>Proof that particle flow corresponds to Bayes’ rule: necessary and sufficient conditions</li>
+</ul>
+<h1 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h1><ul>
+<li>A plethora of open problems in particle flow research for nonlinear filters, Bayesian decisions, Bayesian learning and transport</li>
+<li>A friendly rebuttal to Mallick &amp; Sindhu on particle flow for Bayes’ rule</li>
+<li>Adaptive Step Size Approach to Homotopy-Based Particle Filtering Bayesian Update</li>
+<li>Seven dubious methods to compute optimal Q for Bayesian stochastic particle flow</li>
+</ul>
+<h1 id="2017"><a href="#2017" class="headerlink" title="2017"></a>2017</h1><ul>
 <li>* New theory and numerical experiments for Gromov’s method with stochastic particle flow</li>
 </ul>
-<p>Gromov‘s method is used for non-Gaussian nonlinear problems and simply the covariance matrix of the diffusion. - * Numerical experiments for Gromov’s stochastic particle flow filters - Generalized Gromov method for stochastic particle flow filters - Gromov’s method for Bayesian stochastic particle flow: a simple exact formula for Q - New theory and numerical results for Gromov’s method for stochastic particle flow filters</p>
-<h1 id="resource">Resource</h1>
-<p><a href="https://www.pathlms.com/siam/courses/7376/sections/10637/video_presentations/102584" target="_blank" rel="noopener">Gromov’s Method for Stochastic Particle Flow Filters in 2018 SIAM Conference on Uncertainty Quantification</a> <a href="https://www.youtube.com/watch?v=vqJGB47XoeY&amp;t=7s" target="_blank" rel="noopener">Gromov's method for stochastic particle flow filters in AMS-ECE Seminar</a></p>
+<p>Gromov‘s method is used for non-Gaussian nonlinear problems and simply the covariance matrix of the diffusion.</p>
+<ul>
+<li>* Numerical experiments for Gromov’s stochastic particle flow filters</li>
+<li>Generalized Gromov method for stochastic particle flow filters</li>
+<li>Gromov’s method for Bayesian stochastic particle flow: a simple exact formula for Q</li>
+<li>New theory and numerical results for Gromov’s method for stochastic particle flow filters </li>
+</ul>
+<h1 id="Resource"><a href="#Resource" class="headerlink" title="Resource"></a>Resource</h1><p><a href="https://www.pathlms.com/siam/courses/7376/sections/10637/video_presentations/102584" target="_blank" rel="noopener">Gromov’s Method for Stochastic Particle Flow Filters in 2018 SIAM Conference on Uncertainty Quantification</a><br><a href="https://www.youtube.com/watch?v=vqJGB47XoeY&amp;t=7s" target="_blank" rel="noopener">Gromov’s method for stochastic particle flow filters in AMS-ECE Seminar</a></p>
 <p>Thank Fred Daum for his comments for this blog pages. He proves these two videos.</p>
 
       
@@ -731,7 +749,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text">2003</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section-1"><span class="nav-number">2.</span> <span class="nav-text">2007~2008</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section-2"><span class="nav-number">3.</span> <span class="nav-text">2009</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section-3"><span class="nav-number">4.</span> <span class="nav-text">2013</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section-4"><span class="nav-number">5.</span> <span class="nav-text">2014</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section-5"><span class="nav-number">6.</span> <span class="nav-text">2015</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section-6"><span class="nav-number">7.</span> <span class="nav-text">2017</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#resource"><span class="nav-number">8.</span> <span class="nav-text">Resource</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2003"><span class="nav-number">1.</span> <span class="nav-text">2003</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2007-2008"><span class="nav-number">2.</span> <span class="nav-text">2007~2008</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2009"><span class="nav-number">3.</span> <span class="nav-text">2009</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2010"><span class="nav-number">4.</span> <span class="nav-text">2010</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2011"><span class="nav-number">5.</span> <span class="nav-text">2011</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2013"><span class="nav-number">6.</span> <span class="nav-text">2013</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2014"><span class="nav-number">7.</span> <span class="nav-text">2014</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2015"><span class="nav-number">8.</span> <span class="nav-text">2015</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2016"><span class="nav-number">9.</span> <span class="nav-text">2016</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2017"><span class="nav-number">10.</span> <span class="nav-text">2017</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Resource"><span class="nav-number">11.</span> <span class="nav-text">Resource</span></a></li></ol></div>
             
 
           </div>
