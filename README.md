@@ -1,1 +1,1 @@
-# The site has been changed as yangliuav@github.io
+# The site has been changed as http://yangliuav.github.io
